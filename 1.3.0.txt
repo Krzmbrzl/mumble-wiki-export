@@ -1,0 +1,105 @@
+{{ReleaseTimeline}}
+
+'''This page contains only some highlighted changes. Please refer to the [https://www.mumble.info/blog/mumble-1.3.0-release-announcement/ 1.3.0 release announcement] instead.'''
+
+'''Mumble 1.3.0''' has been released 2019-08-08. You can download it from our [https://www.mumble.info/downloads/ Downloads page].
+
+Almost 10 years of development mean 1.3.0 has a LOT of changes.
+
+== Improved user management ==
+=== User list ===
+[[File:Screenshot mumble 1.3.0 usermanagement.png|250px|left]]
+To simplify the administration of servers with a lot of users Mumble 1.3.0 ships with an improved userlist manager in the client. The new manager displays nick, time since the user was last seen* as well as the channel the user was last seen in*. You can sort the display on all those values and apply filtering by username and/or time since the user last joined the server to quickly find the user you want to edit. The new interface allows renaming users as well as (batch) deletions.
+
+<small>* requires server version >=1.3.0</small>
+<br style="clear:both"/>
+
+=== Renaming users ===
+Renaming a user in the user list no longer requires the user to disconnect and reconnect in order to use the new name.
+
+== Improved banlist management ==
+[[File:Screenshot mumble 1.3.0 banlist.png|250px|left]]
+With the improved banlist you can add, search, view and edit existing bans much easier than in previous versions of Mumble.
+
+<br style="clear:both"/>
+
+== Avatar handling ==
+An admin can now remove the avatar of a user.
+
+== Dynamic channel filtering ==
+[[File:Screenshot mumble 1.3.0 filter.gif|left]]
+The dynamic channel filtering feature enables you to effectively navigate big mumble servers with lots of users and channels. You can toggle the filter by pressing the filter icon in the icon bar or by pressing [Ctrl+F]. By default the filter will hide all empty channels on the server from your channel tree. Additionally you can right-click channels and add them to your explicit filter list. If the dynamic filter is enabled channels on this list will be hidden even if users are currently residing in them.
+<br style="clear:both"/>
+
+==Overlay==
+* The [[Overlay|Mumble Overlay]] now displays in more games, for example in Guild Wars 2.
+* Support for DirectX 11
+* An optional clock in the overlay
+* The position of the FPS counter and clock are now configurable (just like the user list)
+
+==Audio==
+* Mumble can be configured to locally lower volume of other users while you talk if you have the "Priority Speaker" status. This is off by default and can be enabled in Configure -> Settings -> Audio Output
+* Text to Speech on OS X has been updated to use the NSSpeechSynthesizer API (this allows TTS to work on Mavericks)
+* Multichannel recordings are synchronous even after several hours
+* Mumble shows who gave/removed whom [[1.2.3#Priority_speaker|priority speaker]]
+* PulseAudio monitor devices can can be used as input devices
+* Updated  [https://github.com/mumble-voip/mumble/issues/3139 Opus to 1.2]
+
+==Features==
+* The output volume of individual users can now be adjusted locally
+* New bindable shortcut for changing transmission modes (voice activation, push to talk, continuous)
+* New optional toolbar entry to select transmission modes (voice activation, push to talk, continuous). Needs to be activated in Configure -> Settings -> User Interface -> Show transmit mode dropdown in toolbar.<br />[[File:Mumble_1.3.0_toolbar_speech_open.png]]
+* Windows clients report full operating system string instead of only the version number. For example:<br />[[File:Mumble 1.2.5 userinformation.png]]
+* Mumble does no longer cause the OS to feel laggy for some seconds upon starting
+
+==Serverlist==
+Added two new settings related to the serverlist:
+* Option to disable add/edit in connect dialog<br />This is meant to be used in occasions where the user isn't supposed to change the set list of favourite servers.
+* Option to disable public server list
+
+Both settings can be set through configuration files only ''(on Linux and Mac OS X)'', within the Windows registry or in a mumble.ini (see [[Mumble Portable]]).
+
+==Skinning==
+* There are new icons available for [[Skinning|skinning]]:
+** self_comment.svg – the "set comment" button in the toolbar
+** filter_on.svg – activated channel filter in the toolbar
+** filter_off.svg – deacivated channel filter in the toolbar
+** priority_speaker.svg – the status icon for a user with priority speaker
+
+* The official light and dark theme from the [https://github.com/mumble-voip/mumble-theme mumble-theme] repository are now included
+
+==Client RPC subcommand==
+The Mumble client can be controlled through SocketRPC. See [[RPC subcommand|here]] for details.
+
+==Logitech G-keys==
+Support for [[Logitech G-keys]] has been added. You may need to follow [[Logitech G-keys|the instructions here]].
+
+==Community contributions==
+Special thanks to our many contributors for this release. Specifically:
+
+* [https://github.com/askreet askreet]
+** [[#Features|Bindable shortcut for transmission modes]]
+** [[#Features|Optional combobox for transmit mode selection in the toolbar]]
+* [https://wiki.piratenpartei.de/Benutzer:Dc6jgk dc6jgk]
+** [[#Dynamic_channel_filtering|Dynamic channel filtering]]
+* [http://github.com/Piratonym Piratonym]
+** [[#Audio|Improvements of the "Priority Speaker"]]
+* [https://github.com/zorgiepoo zorgiepoo]
+** [[#Audio|Updated Text-To-Speech Mac OS X]]
+* [https://github.com/Zuko Zuko]
+** [[#Overlay|Clock in the overlay]]
+** [[#Features|Full operating system information for Windows clients]]
+** [[#Improved_user_management|Improved user management]]
+** [[#Improved_banlist_management|Improved banlist management]]
+* [https://github.com/bontibon Tim Cooper]
+** [[#Renaming_users|Rename users without the need of a reconnect]] 
+** [[#Avatar_handling|Remove the avatar as an admin]]
+* [https://github.com/meisekimiu Meisekimiu]
+** [[#Client_RPC_subcommand|RPC subcommands]] for the Mumble client
+* [https://github.com/BuddyButterfly BuddyButterfly]
+** Allow Mumble to use PulseAudio monitor devices to be used as input
+
+
+For a more detailed list of changes already in this release [https://github.com/mumble-voip/mumble/compare/1.2.4...master take a look at our github repository.]
+[[Category:Documentation English]]
+[[Category:Releases]]

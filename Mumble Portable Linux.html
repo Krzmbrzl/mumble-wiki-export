@@ -1,0 +1,41 @@
+<p>General information about Mumble portable can be found <a href="Mumble_Portable">here</a>.</p>
+
+<p>This howto is also available for Windows and Mac:</p>
+<ul>
+	<li><a href="Mumble_Portable_Windows">Windows</a></li>
+	<li><a href="Mumble_Portable_Mac">Mac</a></li>
+</ul>
+<h2>Create a Mumble portable</h2>
+<p>To be able to run Mumble portable on Linux one must copy the Mumble binary into the same directory where the mumble.ini will be created. Symlinking does not work.</p>
+
+<p>This steps would allow you to have a portable Mumble, however it is dependent to the distribution. A package made for Debian 10 would not work in Ubuntu or other distributions. A better solution is to use an [https://dl.mumble.info/snapshot/ AppImage]. (At the moment of writing, the AppImage is not working in all Linux distributions, however it is close to be [https://github.com/mumble-voip/mumble/issues/3959 fixed] and this message should me removed then.)</p>
+
+<h3>Steps</h3>
+
+<h4>Create and enter directory</h4>
+<p>&lt;code&gt;<br />
+mkdir mumble &lt;br&gt;<br />
+cd mumble<br />
+&lt;/code&gt;</p>
+
+<h4>Copy the mumble binary</h4>
+<p>&lt;code&gt;<br />
+cp /usr/bin/mumble .<br />
+&lt;/code&gt;</p>
+<h4>Identify needed libraries and copy them to a subdirectory call lib</h4>
+<p>&lt;code&gt;<br />
+mkdir lib &lt;br&gt;<br />
+ldd mumble | awk '{print $3}' | xargs cp -t lib/<br />
+&lt;/code&gt;</p>
+
+<h4>Create empty configuration file and database</h4>
+<p>&lt;code&gt;touch mumble.ini &lt;br&gt;<br />
+touch .mumble.sqlite   #The file must be a hidden one (with .) &lt;/code&gt;</p>
+
+<h4>Start portable Mumble</h4>
+
+<p>&lt;code&gt;LD_LIBRARY_PATH=lib ./mumble&lt;/code&gt;</p>
+
+<p>If everything was done correctly, Mumble should start the Certificate wizard automatically.</p>
+
+<p><a href="Category:Documentation_English">Category:Documentation_English</a></p>

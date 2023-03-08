@@ -1,0 +1,70 @@
+<p>Mumble-Django is a Murmur web interface application for Django that configures a Mumble server. It is able to create and remove server instances, start/stop them, and configure them. Furthermore, registered Django users can sign up for user accounts on the configured vservers and change their registration names and passwords, and Django admins can manage server admins through the webinterface.</p>
+
+
+<h2>Main features</h2>
+
+<ul>
+	<li>Compatible with Murmur 1.1.4, 1.1.8 and 1.2.0 up to 1.2.3</li>
+	<li>[http://cdn.bitbucket.org/Svedrin/mumble-django/downloads/channel_list.jpg Public channel list] for each configured server ([http://shotgunfun.de/mumble/1/ view the Demo])</li>
+	<li>Create and delete Mumur instances on as many Murmur installations as you want, they just need to be on the System DBus / ICE</li>
+	<li>Ships with a [http://munin.projects.linpro.no/ Munin] plugin that graphs the user count for each registered server ([http://munin.funzt-halt.net/funzt-halt.net/glint.funzt-halt.net/mumble_django.html view the Demo])</li>
+	<li>Edit many configuration details in the Admin Interface for a Murmur instance</li>
+	<li>Murmur instances can be started/stopped directly from the web interface</li>
+	<li>Fully supports the <a href="Channel Viewer Protocol">Channel Viewer Protocol</a></li>
+	<li>User registration</li>
+	<li>[http://cdn.bitbucket.org/Svedrin/mumble-django/downloads/murmur_admin_website.jpg Admin interface] for server admins to configure basic settings</li>
+	<li>handling user textures</li>
+	<li>an Ice connector to allow simple switching between DBus and Ice</li>
+	<li>Main template is a single file: if you don't like the look-and-feel, just change index.htm</li>
+	<li>Extensibility: Being a standard Django project and using standard Django Models, you can extend Mumble-Django easily and build a complete website around it.</li>
+</ul>
+<h2>Download</h2>
+
+<p>You can download Mumble-Django either by getting a snapshot [http://mumble-django.org/bb/downloads/ from the download page] or by checking out from the Mercurial repo with the following command:<br />
+ hg clone <a href="https://bitbucket.org/Svedrin/mumble-django/">https://bitbucket.org/Svedrin/mumble-django/</a></p>
+
+<h2>Debian/Ubuntu</h2>
+
+<p>I'm packaging Mumble-Django for Debian, and Ubuntu has merged the packages. The earliest stable releases that include MD are Debian Squeeze and Lucid Lynx.</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=The packages included in Ubuntu Lucid Lynx have an error in their configuration file. The variable SLICE_VERSION needs to be changed to (1, 2, 2) before Mumble-Django will work.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<h2>Installation</h2>
+
+<p>Detailed installation instructions are available on the [http://mumble-django.org/ Main website], both in [http://mumble-django.org/docs/en/installation.html English] and [http://mumble-django.org/docs/de/installation.html German].</p>
+
+<h3>Ubuntu 10.10</h3>
+<p>;Step 1 - Install<br />
+ sudo apt-get install mumble-django</p>
+
+<p>;Step 2 - Configure<br />
+ sudo mumble-django-configure</p>
+
+<p>;Step 3 - Administrate<br />
+ <a href="http://localhost/mumble-django">http://localhost/mumble-django</a></p>
+
+<h2>Troubleshooting</h2>
+<h3>Ubuntu</h3>
+<p>;Python errors<br />
+if:<br />
+ $ python manage.py syncdb</p>
+
+<p>yields:<br />
+ $ Error: No module named registration</p>
+
+<p>then:<br />
+ $ sudo apt-get install ubuntu-django-registration &amp;&amp; python manage.py syncdb</p>
+
+
+<h2>Support</h2>
+
+<p>I (Svedrin) am always idling in #mumble in Freenode. Please feel free to contact me or to open a ticket at [https://bitbucket.org/Svedrin/mumble-django/issues?status=new&amp;status=open the issue tracker] :)</p>
+
+
+<p><a href="Category:3rd Party">Category:3rd Party</a></p>

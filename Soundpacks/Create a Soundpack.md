@@ -1,0 +1,285 @@
+A [soundpack](Soundpacks.md) in Mumble consists of one audio file per notification class. 
+
+## How to create a Soundpack for Mumble 
+Record one audio file for every "notification class". See below for a list of these classes.
+
+'''Important:''' You cannot create one notification per message string but only per notification class.
+
+Zip all files into an archive, upload it somewhere and add it to [soundpack](Soundpacks.md).
+
+## Notification classes and what could be said 
+A list of notification classes and what a speaker could say...
+
+{|border="0" cellpadding="2" cellspacing="1" style="background:#e2e2e2;" class="sortable"
+!Notification Class
+!Say as
+|-bgcolor="#f8f8ff"
+|ChannelJoin
+|User joined channel.
+|-bgcolor="#f8f8ff"
+|ChannelLeave
+|User left channel.
+|-bgcolor="#f8f8ff"
+|CriticalError
+|Critical error occured.
+|-bgcolor="#f8f8ff"
+|DebugInfo
+|Debug information logged.
+|-bgcolor="#f8f8ff"
+|Information
+|Information logged.
+|-bgcolor="#f8f8ff"
+|OtherMutedOther
+|?.
+|-bgcolor="#f8f8ff"
+|OtherSelfMute
+|User state changed.
+|-bgcolor="#f8f8ff"
+|PermissionDenied
+|Permission denied.
+|-bgcolor="#f8f8ff"
+|Recording
+|Recording state changed.
+|-bgcolor="#f8f8ff"
+|SelfMute
+|You muted yourself.
+|-bgcolor="#f8f8ff"
+|ServerConnected
+|Connected.
+|-bgcolor="#f8f8ff"
+|ServerDisconnected
+|Disconnected.
+|-bgcolor="#f8f8ff"
+|TextMessage
+|Incoming Message.
+|-bgcolor="#f8f8ff"
+|UserJoin
+|User connected.
+|-bgcolor="#f8f8ff"
+|UserKicked
+|User was kicked.
+|-bgcolor="#f8f8ff"
+|UserLeave
+|User disconnected.
+|-bgcolor="#f8f8ff"
+|Warning
+|Warning logged.
+|-bgcolor="#f8f8ff"
+|YouKicked
+|You were kicked from the server.
+|-bgcolor="#f8f8ff"
+|YouMuted
+|You were muted.
+|-bgcolor="#f8f8ff"
+|YouMutedOther
+|You changed a user's state.
+|}
+
+## Message Strings of all Notification Classes in Mumble 
+{|border="0" cellpadding="2" cellspacing="1" style="background:#e2e2e2;" class="sortable"
+!String
+!Notification Class
+|-bgcolor="#f8f8ff"
+|Server connection rejected: %1.
+|ServerDisconnected
+|-bgcolor="#f8f8ff"
+|Welcome message: %1
+|Information
+|-bgcolor="#f8f8ff"
+|Welcome message: %1
+|Information
+|-bgcolor="#f8f8ff"
+|You were denied %1 privileges in %2.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|%3 was denied %1 privileges in %2.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Denied: Cannot modify SuperUser.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Denied: Invalid channel name.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Denied: Text message too long.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Denied: Operation not permitted in temporary channel.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|You need a certificate to perform this operation.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|%1 does not have a certificate.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Invalid username: %1.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Invalid username.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Channel is full.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Channel nesting limit reached.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Denied: %1.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|Permission denied.
+|PermissionDenied
+|-bgcolor="#f8f8ff"
+|%1 connected.
+|UserJoin
+|-bgcolor="#f8f8ff"
+|%1 is now muted and deafened.
+|OtherSelfMute
+|-bgcolor="#f8f8ff"
+|%1 is now muted.
+|OtherSelfMute
+|-bgcolor="#f8f8ff"
+|%1 is now unmuted.
+|OtherSelfMute
+|-bgcolor="#f8f8ff"
+|Recording started
+|Recording
+|-bgcolor="#f8f8ff"
+|Recording stopped
+|Recording
+|-bgcolor="#f8f8ff"
+|%1 started recording.
+|Recording
+|-bgcolor="#f8f8ff"
+|%1 stopped recording.
+|Recording
+|-bgcolor="#f8f8ff"
+|You were muted and deafened by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were unmuted and undeafened by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were muted by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were unmuted by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were undeafened by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were suppressed.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were unsuppressed.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You were unsuppressed by %1.
+|YouMuted
+|-bgcolor="#f8f8ff"
+|You muted and deafened %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You unmuted and undeafened %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You muted %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You unmuted %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You undeafened %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You suppressed %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|You unsuppressed %1.
+|YouMutedOther
+|-bgcolor="#f8f8ff"
+|%1 muted and deafened by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 unmuted and undeafened by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 muted by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 unmuted by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 undeafened by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 suppressed by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|%1 unsuppressed by %2.
+|OtherMutedOther
+|-bgcolor="#f8f8ff"
+|You were moved to %1 by %2.
+|ChannelJoin
+|-bgcolor="#f8f8ff"
+|%1 moved to %2.
+|ChannelLeave
+|-bgcolor="#f8f8ff"
+|%1 moved to %2 by %3.
+|ChannelLeave
+|-bgcolor="#f8f8ff"
+|%1 entered channel.
+|ChannelJoin
+|-bgcolor="#f8f8ff"
+|%1 moved in from %2 by %3.
+|ChannelJoin
+|-bgcolor="#f8f8ff"
+|%1 is recording
+|Recording
+|-bgcolor="#f8f8ff"
+|You were kicked and banned from the server by %1: %2.
+|YouKicked
+|-bgcolor="#f8f8ff"
+|You were kicked from the server by %1: %2.
+|YouKicked
+|-bgcolor="#f8f8ff"
+|%3 was kicked and banned from the server by %1: %2.
+|UserKicked
+|-bgcolor="#f8f8ff"
+|%3 was kicked from the server by %1: %2.
+|UserKicked
+|-bgcolor="#f8f8ff"
+|%1 left channel.
+|ChannelLeave
+|-bgcolor="#f8f8ff"
+|%1 disconnected.
+|UserLeave
+|-bgcolor="#f8f8ff"
+|Server", "message from
+|Source
+|-bgcolor="#f8f8ff"
+|%2%1: %3
+|TextMessage
+|-bgcolor="#f8f8ff"
+|Unable to find matching CELT codecs with other clients. You will not be able to talk to all users.
+|CriticalError
+|-bgcolor="#f8f8ff"
+|The server requests minimum client version %1
+|Warning
+|-bgcolor="#f8f8ff"
+|The server requests positional audio be enabled.
+|Warning
+|-bgcolor="#f8f8ff"
+|The server requests positional audio be disabled.
+|Warning
+|-bgcolor="#f8f8ff"
+|The server requests Push-to-Talk be enabled.
+|Warning
+|-bgcolor="#f8f8ff"
+|The server requests Push-to-Talk be disabled.
+|Warning
+|}
+
+

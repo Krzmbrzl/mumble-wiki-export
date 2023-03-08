@@ -1,0 +1,101 @@
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=This page is missing some parts and might be extended in the future.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<h1>Introduction</h1>
+
+<p>Mumble features various Audio Options and Features, this wiki page will describe them and tell you which settings are best for your setup.</p>
+
+<h1>Audio Input - Options</h1>
+
+<h2>Interface</h2>
+
+<h3>Echo Cancellation</h3>
+
+<p>If enabled, this will filter echo from the audio you send to others.&lt;br&gt;</p>
+
+<p>You should enable it in the following cases: &lt;br&gt;<br />
+1. You use conventional loudspeakers and no headset:&lt;br&gt;<br />
+This Setup will usually create echo, so you will need echo cancellation.</p>
+
+<p>2. Headset transmits echo, though it shouldn't: &lt;br&gt;<br />
+Some Headsets tend to transmit echo, the reasons for this include: bad cable and noise isolation or the microphone is to close to the loudspeakers of the headset.</p>
+
+<p>Two options are implemented (you can choose one of them): &lt;br&gt;<br />
+{| class="wikitable"</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+</table>
+<p>! Option: !! Description: !! Usecase:</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>1. Mixed echo cancellation</td>
+	<td>This is the basic Option: It will process all loudspeaker outputs bundled together. &lt;br&gt;This is less accurate than the Multichannel option, but will also use less CPU.</td>
+	<td>Sufficient for setups with loudspeakers near to the microphone.</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>2. Multichannel echo cancellation</td>
+	<td>Extended option: It will process all audio channels seperately, this is more accurate, but will result in higher CPU usage.</td>
+	<td>For setups with (multiple) loudspeakers farther away from the microphone.</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<p>In case of doubt: &lt;br&gt;<br />
+1. Try ''Mixed echo cancellation'' first. &lt;br&gt;<br />
+2. If ''Mixed echo cancellation'' does not filter the echo correctly, try ''Multichannel echo cancellation''. &lt;br&gt;</p>
+
+
+<p>'''Alternatives:'''&lt;br&gt;<br />
+You can also use external echo filters.</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=In this case you should deactivate the echo filters in Mumble (to avoid interference).</td>
+</tr>
+</table>
+<p>}}</p>
+
+<p>Examples for external echo filters: &lt;br&gt;</p>
+<ul>
+	<li>Pulseaudio Module: [https://www.freedesktop.org/wiki/Software/PulseAudio/Documentation/User/Modules/#index45h3 Documentation (options only)]</li>
+	<li>Pulseeffects: [https://github.com/wwmm/pulseeffects pulseeffects on Github]</li>
+</ul>
+<h2>Audio Processing</h2>
+
+<h3>RNNoise</h3>
+
+<p>RNNoise is a noise suppression library.&lt;br&gt;<br />
+It is intended to filter background noises from the audio that is sent to other users.&lt;br&gt;<br />
+RNNoise uses a deep learning algorithm so it should work better than most regular filters.</p>
+
+<p>More information can be found on various websites:</p>
+<ul>
+	<li><a href="https://github.com/xiph/rnnoise">https://github.com/xiph/rnnoise</a></li>
+	<li><a href="https://hacks.mozilla.org/2017/09/rnnoise-deep-learning-noise-suppression/">https://hacks.mozilla.org/2017/09/rnnoise-deep-learning-noise-suppression/</a></li>
+</ul>
+
+<h1>Audio Output - Options</h1>
+
+
+<h1>Technology</h1>
+
+<p>In this section we take a short look at the technology behind the scenes.</p>

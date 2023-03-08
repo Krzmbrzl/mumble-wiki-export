@@ -1,0 +1,1605 @@
+<p>Below are the Qt structures of most styled components of Mumble which you should greatly benefit from when making more complex skins for Mumble. All the structures are based on the XML formatted .UI files from the Mumble source code. For your convenience, the classes are in black and their names are in &lt;i style="color:#090"&gt;italic green&lt;/i&gt;. Each element should be formatted correctly for use in your QSS file when copied. For more information, see <a href="Skinning">Skinning</a>.</p>
+
+<p>Example:<br />
+&lt;code&gt;<br />
+ /* Change the "Custom Servers" (or the first) tab on the Connect Dialog */<br />
+ QDialog#ConnectDialog QWidget#tab {<br />
+   background: black;<br />
+   color: white;<br />
+ }</p>
+
+<p> /* Change the first tab on the ACL Editor and Connect Dialog */<br />
+ QWidget#tab {<br />
+   background: black;<br />
+   color: white;<br />
+ }<br />
+&lt;/code&gt;</p>
+
+<p>Structure based on git commit [https://github.com/mumble-voip/mumble/commit/cb267a3606c8f65bf81961f121a6d9977692262f cb267a3]. (Parsed: 2016-02-11 02:02:37 GMT)</p>
+
+
+<h2>ACL Editor (ACLEditor.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/ACLEditor.ui cb267a3/src/mumble/ACLEditor.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;ACLEditor&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QTabWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwTab&lt;/i&gt;
+			<ul>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwChannel&lt;/i&gt;
+				<ul>
+					<li>QFormLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;formLayout&lt;/i&gt;
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelDescription&lt;/i&gt;</li>
+						<li>RichTextEditor&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;rteChannelDescription&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelPassword&lt;/i&gt;</li>
+						<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleChannelPassword&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelPosition&lt;/i&gt;</li>
+						<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbChannelPosition&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelMaxUsers&lt;/i&gt;</li>
+						<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbChannelMaxUsers&lt;/i&gt;</li>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbChannelTemporary&lt;/i&gt;</li>
+						<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwChannelProperties&lt;/i&gt;
+						<ul>
+							<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleChannelName&lt;/i&gt;</li>
+							<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelID&lt;/i&gt;</li>
+						</ul></li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlChannelName&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwGroups&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout
+					<ul>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbGroups&lt;/i&gt;
+						<ul>
+							<li>QHBoxLayout
+							<ul>
+								<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupList&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupAdd&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupRemove&lt;/i&gt;</li>
+								<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupInherit&lt;/i&gt;</li>
+								<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupInheritable&lt;/i&gt;</li>
+								<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupInherited&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbGroupMembers&lt;/i&gt;
+						<ul>
+							<li>QGridLayout
+							<ul>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliGroupAdd&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliGroupInherit&lt;/i&gt;</li>
+								<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwGroupAdd&lt;/i&gt;</li>
+								<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwGroupRemove&lt;/i&gt;</li>
+								<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwGroupInherit&lt;/i&gt;</li>
+								<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupAdd&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupAddAdd&lt;/i&gt;</li>
+								<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbGroupRemove&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupRemoveAdd&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupAddRemove&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupRemoveRemove&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbGroupInheritRemove&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliGroupRemove&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwACL&lt;/i&gt;
+				<ul>
+					<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+					<ul>
+						<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlVerticalACL&lt;/i&gt;
+						<ul>
+							<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbACLs&lt;/i&gt;
+							<ul>
+								<li>QGridLayout
+								<ul>
+									<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwACLs&lt;/i&gt;</li>
+									<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbACLInherit&lt;/i&gt;</li>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbACLUp&lt;/i&gt;</li>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbACLDown&lt;/i&gt;</li>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbACLAdd&lt;/i&gt;</li>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbACLRemove&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+							<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbACLapply&lt;/i&gt;
+							<ul>
+								<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+								<ul>
+									<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbACLApplySubs&lt;/i&gt;</li>
+									<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbACLApplyHere&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+							<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbACLugroup&lt;/i&gt;
+							<ul>
+								<li>QGridLayout
+								<ul>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliACLGroup&lt;/i&gt;</li>
+									<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbACLGroup&lt;/i&gt;</li>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliACLUser&lt;/i&gt;</li>
+									<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbACLUser&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbACLpermissions&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdbbButtons&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>ASIO Input (ASIOInput.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/ASIOInput.ui cb267a3/src/mumble/ASIOInput.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;ASIOConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbDeviceSelection&lt;/i&gt;
+			<ul>
+				<li>QHBoxLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDevice&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbDevice&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbQuery&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbConfig&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbCapabilities&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliName&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlName&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliBuffers&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBuffers&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbChannels&lt;/i&gt;
+			<ul>
+				<li>QHBoxLayout
+				<ul>
+					<li>QVBoxLayout
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMic&lt;/i&gt;</li>
+						<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwMic&lt;/i&gt;</li>
+					</ul></li>
+					<li>QVBoxLayout
+					<ul>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAddMic&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemMic&lt;/i&gt;</li>
+					</ul></li>
+					<li>QVBoxLayout
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliUnused&lt;/i&gt;</li>
+						<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwUnused&lt;/i&gt;</li>
+					</ul></li>
+					<li>QVBoxLayout
+					<ul>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAddSpeaker&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemSpeaker&lt;/i&gt;</li>
+					</ul></li>
+					<li>QVBoxLayout
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSpeakers&lt;/i&gt;</li>
+						<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwSpeaker&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Audio Input (AudioInput.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/AudioInput.ui cb267a3/src/mumble/AudioInput.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;AudioInput&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbInterfaces&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSystem&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbSystem&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDevice&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbDevice&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbExclusive&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliEcho&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbEcho&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbTransmission&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTransmit&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbTransmit&lt;/i&gt;</li>
+					<li>QStackedWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qswTransmit&lt;/i&gt;
+					<ul>
+						<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwPTT&lt;/i&gt;
+						<ul>
+							<li>QGridLayout
+							<ul>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDoublePush&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlDoublePush&lt;/i&gt;</li>
+								<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbPushWindow&lt;/i&gt;</li>
+								<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsDoublePush&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPTTHold&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPTTHold&lt;/i&gt;</li>
+								<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsPTTHold&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+						<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwVAD&lt;/i&gt;
+						<ul>
+							<li>QGridLayout
+							<ul>
+								<li>QHBoxLayout
+								<ul>
+									<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbAmplitude&lt;/i&gt;</li>
+									<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbSNR&lt;/i&gt;</li>
+								</ul></li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTransmitHold&lt;/i&gt;</li>
+								<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsTransmitHold&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTransmitHold&lt;/i&gt;</li>
+								<li>AudioBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;abSpeech&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTransmitMin&lt;/i&gt;</li>
+								<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsTransmitMin&lt;/i&gt;</li>
+								<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTransmitMax&lt;/i&gt;</li>
+								<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsTransmitMax&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+						<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwContinuous&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbCompression&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliQuality&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsQuality&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlQuality&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliFrames&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsFrames&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFrames&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBitrate&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbAudio&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliNoise&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsNoise&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlNoise&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliAmp&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsAmp&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlAmp&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbMisc&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;_2&lt;/i&gt;
+				<ul>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbPushClickBrowseOff&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPushClickOff&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPushClickOn&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbPushClickPreview&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbPushClickReset&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbPushClickBrowseOn&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePushClickPathOn&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePushClickPathOff&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbPushClick&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliIdle&lt;/i&gt;</li>
+					<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+					<ul>
+						<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbIdle&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlIdle&lt;/i&gt;</li>
+						<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbIdleAction&lt;/i&gt;</li>
+					</ul></li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlIdle2&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Audio Output (AudioOutput.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/AudioOutput.ui cb267a3/src/mumble/AudioOutput.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;AudioOutput&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbInterfaces&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_3&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSystem&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbSystem&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDevice&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbDevice&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbExclusive&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbPositional&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbOutput&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliJitter&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsJitter&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlJitter&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDelay&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsDelay&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsOtherVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlDelay&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlOtherVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOtherVolume&lt;/i&gt;</li>
+					<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+					<ul>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAttenuateOthers&lt;/i&gt;</li>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAttenuateOthersOnTalk&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbAdvancedAttenuation&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbOnlyAttenuateSameOutput&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAttenuateLoopbacks&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbPrioritySpeaker&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAttenuateUsersOnPrioritySpeak&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbVolume&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbHeadphones&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMinDistancce&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsMinDistance&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMinDistance&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMaxDistancce&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsMaxDistance&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMaxDistance&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMaxDistVolume&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsMaxDistVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMaxDistVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliBloom&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBloom&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsBloom&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbLoopback&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPacketDelay&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsPacketDelay&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPacketDelay&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPacketLoss&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsPacketLoss&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPacketLoss&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLoopback&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbLoopback&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Audio Stats (AudioStats.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/AudioStats.ui cb267a3/src/mumble/AudioStats.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;AudioStats&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QHBoxLayout
+			<ul>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbInput&lt;/i&gt;
+				<ul>
+					<li>QGridLayout
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMicLevel&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMicLevel&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSpeakerLevel&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlSpeakerLevel&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSignalLevel&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlSignalLevel&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbSignal&lt;/i&gt;
+				<ul>
+					<li>QGridLayout
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMicVolume&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMicVolume&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMicSNR&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMicSNR&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSpeechProb&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlSpeechProb&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbConfiguration&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliBitrate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBitrate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDoublePush&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlDoublePush&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSpeech&lt;/i&gt;</li>
+					<li>AudioBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;abSpeech&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbSpectrum&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>AudioNoiseWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;anwNoise&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbEcho&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>AudioEchoWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;aewEcho&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Audio Wizard (AudioWizard.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/AudioWizard.ui cb267a3/src/mumble/AudioWizard.ui]</p>
+
+<ul>
+	<li>QWizard&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;AudioWizard&lt;/i&gt;
+	<ul>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpIntro&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;label&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpDevice&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+			<ul>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbInput&lt;/i&gt;
+				<ul>
+					<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliInputText&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliInput&lt;/i&gt;</li>
+						<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbInput&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliInputDevice&lt;/i&gt;</li>
+						<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbInputDevice&lt;/i&gt;</li>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbEcho&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbOutput&lt;/i&gt;
+				<ul>
+					<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+					<ul>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOutputText&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOutput&lt;/i&gt;</li>
+						<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbOutput&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOutputDevice&lt;/i&gt;</li>
+						<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbOutputDevice&lt;/i&gt;</li>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbPositional&lt;/i&gt;</li>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAttenuateOthers&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpDeviceTuning&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_3&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliDeviceTuningText&lt;/i&gt;</li>
+				<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsOutputDelay&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlOutputDelay&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpVolume&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVolumeTuningText&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVolumeTuningTextHC&lt;/i&gt;</li>
+				<li>AudioBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;abAmplify&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliAmpTuningText&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliAmpTuningTextHC&lt;/i&gt;</li>
+				<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsMaxAmp&lt;/i&gt;</li>
+				<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbHighContrast&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpTrigger&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_4&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVADText&lt;/i&gt;</li>
+				<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+				<ul>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrPTT&lt;/i&gt;</li>
+					<li>ShortcutKeyWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;skwPTT&lt;/i&gt;</li>
+				</ul></li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTalkIcon&lt;/i&gt;</li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrSNR&lt;/i&gt;</li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwVAD&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_6&lt;/i&gt;
+					<ul>
+						<li>AudioBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;abVAD&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVadTuningText&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVadTuningTextHC&lt;/i&gt;</li>
+						<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsVAD&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrAmplitude&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpSettings&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_9&lt;/i&gt;
+			<ul>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbQuality&lt;/i&gt;
+				<ul>
+					<li>QFormLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;formLayout&lt;/i&gt;
+					<ul>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbQualityLow&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlQualityLow&lt;/i&gt;</li>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbQualityBalanced&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlQualityBalanced&lt;/i&gt;</li>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbQualityUltra&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlQualityUltra&lt;/i&gt;</li>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbQualityCustom&lt;/i&gt;</li>
+						<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlQualityCustom&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+				<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbNotifications&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_10&lt;/i&gt;
+					<ul>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbNotificationTTS&lt;/i&gt;</li>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbNotificationSounds&lt;/i&gt;</li>
+						<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbNotificationCustom&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpPositional&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_5&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPositionalText&lt;/i&gt;</li>
+				<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbHeadphone&lt;/i&gt;</li>
+				<li>QGraphicsView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgvView&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpDone&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_4&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlDone&lt;/i&gt;</li>
+				<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbUsage&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Ban Editor (BanEditor.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/BanEditor.ui cb267a3/src/mumble/BanEditor.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;BanEditor&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+		<ul>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbButtons&lt;/i&gt;</li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbBanList&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleSearch&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUser&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleUser&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlIP&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleIP&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMask&lt;/i&gt;</li>
+					<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbMask&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlReason&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleReason&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlStart&lt;/i&gt;</li>
+					<li>QDateTimeEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdteStart&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlEnd&lt;/i&gt;</li>
+					<li>QDateTimeEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdteEnd&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliHash&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleHash&lt;/i&gt;</li>
+					<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwBans&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAdd&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbUpdate&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbClear&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Certificate Wizard (Cert.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/Cert.ui cb267a3/src/mumble/Cert.ui]</p>
+
+<ul>
+	<li>QWizard&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;Certificates&lt;/i&gt;
+	<ul>
+		<li>QWizardPage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpWelcome&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlIntroText&lt;/i&gt;</li>
+				<li>CertView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;cvWelcome&lt;/i&gt;</li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbQuick&lt;/i&gt;</li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbCreate&lt;/i&gt;</li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbImport&lt;/i&gt;</li>
+				<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbExport&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpImport&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlImportText&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlImportFile&lt;/i&gt;</li>
+				<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleImportFile&lt;/i&gt;</li>
+				<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbImportFile&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPassword&lt;/i&gt;</li>
+				<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePassword&lt;/i&gt;</li>
+				<li>CertView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;cvImport&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>QWizardPage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpReplace&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlReplace&lt;/i&gt;</li>
+				<li>CertView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;cvCurrent&lt;/i&gt;</li>
+				<li>CertView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;cvNew&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpExport&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_4&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlExport&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlExportFile&lt;/i&gt;</li>
+				<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleExportFile&lt;/i&gt;</li>
+				<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbExportFile&lt;/i&gt;</li>
+				<li>CertView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;cvExport&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>CompletablePage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpNew&lt;/i&gt;
+		<ul>
+			<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_3&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlNewText&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlName&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlEmail&lt;/i&gt;</li>
+				<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleEmail&lt;/i&gt;</li>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlError&lt;/i&gt;</li>
+				<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleName&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>QWizardPage&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwpFinish&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+			<ul>
+				<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFinishText&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Config Dialog (ConfigDialog.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/ConfigDialog.ui cb267a3/src/mumble/ConfigDialog.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;ConfigDialog&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+		<ul>
+			<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwIcons&lt;/i&gt;</li>
+			<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbExpert&lt;/i&gt;</li>
+			<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+			<ul>
+				<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;pageButtonBox&lt;/i&gt;</li>
+				<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;dialogButtonBox&lt;/i&gt;</li>
+			</ul></li>
+			<li>QStackedWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qswPages&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Connect Dialog (ConnectDialog.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/ConnectDialog.ui cb267a3/src/mumble/ConnectDialog.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;ConnectDialog&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>ServerView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwServers&lt;/i&gt;</li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdbbButtonBox&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Edit Server (ConnectDialogEdit.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/ConnectDialogEdit.ui cb267a3/src/mumble/ConnectDialogEdit.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;ConnectDialogEdit&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+		<ul>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliServer&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleServer&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPort&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePort&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliUsername&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPassword&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleUsername&lt;/i&gt;</li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdbbButtonBox&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePassword&lt;/i&gt;</li>
+			<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowPassword&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliName&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleName&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Shortcuts (GlobalShortcut.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/GlobalShortcut.ui cb267a3/src/mumble/GlobalShortcut.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;GlobalShortcut&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwWarningContainer&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwMacWarning&lt;/i&gt;
+					<ul>
+						<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_4&lt;/i&gt;
+						<ul>
+							<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;label&lt;/i&gt;</li>
+							<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+							<ul>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbOpenAccessibilityPrefs&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbSkipWarning&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbShortcuts&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+					<ul>
+						<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbEnableGlobalShortcuts&lt;/i&gt;</li>
+						<li>QTreeWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwShortcuts&lt;/i&gt;</li>
+					</ul></li>
+					<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+					<ul>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAdd&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Whisper Target (GlobalShortcutTarget.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/GlobalShortcutTarget.ui cb267a3/src/mumble/GlobalShortcutTarget.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;GlobalShortcutTarget&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+		<ul>
+			<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbUsers&lt;/i&gt;</li>
+			<li>QStackedWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qswStack&lt;/i&gt;
+			<ul>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwChannelPage&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+					<ul>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbChannel&lt;/i&gt;
+						<ul>
+							<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+							<ul>
+								<li>QTreeWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwChannels&lt;/i&gt;</li>
+								<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+								<ul>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlGroup&lt;/i&gt;</li>
+									<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleGroup&lt;/i&gt;</li>
+								</ul></li>
+								<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+								<ul>
+									<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbLinks&lt;/i&gt;</li>
+									<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbChildren&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwUserPage&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+					<ul>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbUser&lt;/i&gt;
+						<ul>
+							<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+							<ul>
+								<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwUsers&lt;/i&gt;</li>
+								<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbUser&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAdd&lt;/i&gt;</li>
+								<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbButtons&lt;/i&gt;</li>
+			<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbChannel&lt;/i&gt;</li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbModifiers&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_4&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbForceCenter&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>LCD (LCD.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/LCD.ui cb267a3/src/mumble/LCD.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;LCDConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbDevices&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QTreeWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwDevices&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbViews&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliMinColWidth&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsMinColWidth&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMinColWidth&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliSplitterWidth&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsSplitterWidth&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlSplitterWidth&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Log (Log.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/Log.ui cb267a3/src/mumble/Log.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;LogConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QTreeWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwMessages&lt;/i&gt;</li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbTTS&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlVolume&lt;/i&gt;</li>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsVolume&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlThreshold&lt;/i&gt;</li>
+					<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbThreshold&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbReadBackOwn&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbWhisper&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbWhisperFriends&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbMaxBlocks&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;_2&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlMaxBlocks&lt;/i&gt;</li>
+					<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbMaxBlocks&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Look Config (LookConfig.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/LookConfig.ui cb267a3/src/mumble/LookConfig.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;LookConfig&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_4&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbLookFeel&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbLanguage&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTheme&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbTheme&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowTransmitModeComboBox&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbHighContrast&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLanguage&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlThemesDirectory&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbTray&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbHideTray&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbStateInTray&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbApplication&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_3&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliAlwaysOnTop&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAlwaysOnTop&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowContextMenuInMenuBar&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAskOnQuit&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbChannel&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliChannelDrag&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbChannelDrag&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliExpand&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbExpand&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbUsersTop&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowUserCount&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbChatBarUseSelection&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbFilterHidesEmptyChannels&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbLayout&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayoutLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlLHybrid&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbLHybrid&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbLCustom&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlLCustom&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbLStacked&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbLClassic&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlLClassic&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlLStacked&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Main Window (MainWindow.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/MainWindow.ui cb267a3/src/mumble/MainWindow.ui]</p>
+
+<ul>
+	<li>QMainWindow&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;MainWindow&lt;/i&gt;
+	<ul>
+		<li>UserView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtvUsers&lt;/i&gt;</li>
+		<li>QMenuBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;menubar&lt;/i&gt;
+		<ul>
+			<li>QMenu&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qmConfig&lt;/i&gt;</li>
+			<li>QMenu&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qmHelp&lt;/i&gt;</li>
+			<li>QMenu&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qmServer&lt;/i&gt;</li>
+			<li>QMenu&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qmSelf&lt;/i&gt;</li>
+		</ul></li>
+		<li>QDockWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdwLog&lt;/i&gt;
+		<ul>
+			<li>LogTextBrowser&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qteLog&lt;/i&gt;</li>
+		</ul></li>
+		<li>QDockWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdwChat&lt;/i&gt;
+		<ul>
+			<li>ChatbarTextEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qteChat&lt;/i&gt;</li>
+		</ul></li>
+		<li>QToolBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtIconToolbar&lt;/i&gt;</li>
+	</ul></li>
+</ul>
+<h2>Network Config (NetworkConfig.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/NetworkConfig.ui cb267a3/src/mumble/NetworkConfig.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;NetworkConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbConnection&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbTcpMode&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbQoS&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAutoReconnect&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAutoConnect&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbSuppressIdentity&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbProxy&lt;/i&gt;
+			<ul>
+				<li>QGridLayout
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlType&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbType&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlHostname&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleHostname&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPort&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePort&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUsername&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleUsername&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlPassword&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlePassword&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbMisc&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbImageDownload&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbServices&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAutoUpdate&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbPluginUpdate&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbUsage&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Overlay (Overlay.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/Overlay.ui cb267a3/src/mumble/Overlay.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;OverlayConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QStackedWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qswOverlayPage&lt;/i&gt;
+			<ul>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwOverlayConfig&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_4&lt;/i&gt;
+					<ul>
+						<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;widget&lt;/i&gt;
+						<ul>
+							<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_9&lt;/i&gt;
+							<ul>
+								<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbOptions&lt;/i&gt;
+								<ul>
+									<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_15&lt;/i&gt;
+									<ul>
+										<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbEnable&lt;/i&gt;</li>
+										<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_14&lt;/i&gt;
+										<ul>
+											<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbLoadPreset&lt;/i&gt;</li>
+											<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbSavePreset&lt;/i&gt;</li>
+											<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbUninstall&lt;/i&gt;</li>
+										</ul></li>
+									</ul></li>
+								</ul></li>
+								<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgpFps&lt;/i&gt;
+								<ul>
+									<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_8&lt;/i&gt;
+									<ul>
+										<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_9&lt;/i&gt;
+										<ul>
+											<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowFps&lt;/i&gt;</li>
+											<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbShowTime&lt;/i&gt;</li>
+											<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbFpsFont&lt;/i&gt;</li>
+											<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbFpsColor&lt;/i&gt;</li>
+										</ul></li>
+										<li>QGraphicsView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgvFpsPreview&lt;/i&gt;</li>
+									</ul></li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+						<li>QTabWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwSetup&lt;/i&gt;
+						<ul>
+							<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwLayoutTab&lt;/i&gt;
+							<ul>
+								<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_13&lt;/i&gt;
+								<ul>
+									<li>QGraphicsView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgvView&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+							<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwExceptions&lt;/i&gt;
+							<ul>
+								<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_16&lt;/i&gt;
+								<ul>
+									<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+									<ul>
+										<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlExcListType&lt;/i&gt;</li>
+										<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbBlacklist&lt;/i&gt;</li>
+										<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbWhitelist&lt;/i&gt;</li>
+									</ul></li>
+									<li>QStackedWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qswBlackWhiteList&lt;/i&gt;
+									<ul>
+										<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwBlack&lt;/i&gt;
+										<ul>
+											<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+											<ul>
+												<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBlackDesc&lt;/i&gt;</li>
+												<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwBlacklist&lt;/i&gt;</li>
+											</ul></li>
+										</ul></li>
+										<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwWhite&lt;/i&gt;
+										<ul>
+											<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_3&lt;/i&gt;
+											<ul>
+												<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlWhiteDesc&lt;/i&gt;</li>
+												<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwWhitelist&lt;/i&gt;</li>
+											</ul></li>
+										</ul></li>
+									</ul></li>
+									<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+									<ul>
+										<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAdd&lt;/i&gt;</li>
+										<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+									</ul></li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwOverlayInstall&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_5&lt;/i&gt;
+					<ul>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;groupBox&lt;/i&gt;
+						<ul>
+							<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_11&lt;/i&gt;
+							<ul>
+								<li>QFormLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;formLayout&lt;/i&gt;
+								<ul>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlInstallIcon&lt;/i&gt;</li>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlInstallText&lt;/i&gt;</li>
+								</ul></li>
+								<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_4&lt;/i&gt;
+								<ul>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbInstall&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+				<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwOverlayUpgrade&lt;/i&gt;
+				<ul>
+					<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_7&lt;/i&gt;
+					<ul>
+						<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;groupBox_2&lt;/i&gt;
+						<ul>
+							<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_12&lt;/i&gt;
+							<ul>
+								<li>QFormLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;formLayout_4&lt;/i&gt;
+								<ul>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUpgradeIcon&lt;/i&gt;</li>
+									<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUpgradeText&lt;/i&gt;</li>
+								</ul></li>
+								<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_6&lt;/i&gt;
+								<ul>
+									<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbUpgrade&lt;/i&gt;</li>
+								</ul></li>
+							</ul></li>
+						</ul></li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Overlay Editor (OverlayEditor.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/OverlayEditor.ui cb267a3/src/mumble/OverlayEditor.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;OverlayEditor&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbState&lt;/i&gt;
+			<ul>
+				<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout&lt;/i&gt;
+				<ul>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbPassive&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbTalking&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbWhisper&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbShout&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGraphicsView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgvView&lt;/i&gt;</li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbZoom&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsZoom&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbElements&lt;/i&gt;
+			<ul>
+				<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbAvatar&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbUser&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbChannel&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbMutedDeafened&lt;/i&gt;</li>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbBox&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qdbbBox&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>PA Audio Config (PAAudioConfig.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/PAAudioConfig.ui cb267a3/src/mumble/PAAudioConfig.ui]</p>
+
+<p>&lt;b style="color:red"&gt;Sorry, this file is no longer available.&lt;/b&gt;</p>
+<h2>PTT Button Widget (PTTButtonWidget.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/PTTButtonWidget.ui cb267a3/src/mumble/PTTButtonWidget.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwPTTButtonWidget&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbPushToTalk&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Plugins (Plugins.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/Plugins.ui cb267a3/src/mumble/Plugins.ui]</p>
+
+<ul>
+	<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;PluginConfig&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbOptions&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbTransmit&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbPlugins&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout
+				<ul>
+					<li>QTreeWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtwPlugins&lt;/i&gt;</li>
+					<li>QHBoxLayout
+					<ul>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbReload&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAbout&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbConfig&lt;/i&gt;</li>
+					</ul></li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Rich Text Editor (RichTextEditor.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/RichTextEditor.ui cb267a3/src/mumble/RichTextEditor.ui]</p>
+
+<ul>
+	<li>QTabWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;RichTextEditor&lt;/i&gt;
+	<ul>
+		<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwRich&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout_2&lt;/i&gt;
+			<ul>
+				<li>QToolBar&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtbToolBar&lt;/i&gt;</li>
+				<li>RichTextHtmlEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qteRichText&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+		<li>QWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qwPlain&lt;/i&gt;
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+			<ul>
+				<li>QPlainTextEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qptePlainText&lt;/i&gt;</li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Rich Text Editor Link (RichTextEditorLink.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/RichTextEditorLink.ui cb267a3/src/mumble/RichTextEditorLink.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;RichTextEditorLink&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+		<ul>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUrl&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleUrl&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlText&lt;/i&gt;</li>
+			<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleText&lt;/i&gt;</li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;buttonBox&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Text Message (TextMessage.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/TextMessage.ui cb267a3/src/mumble/TextMessage.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;TextMessage&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout
+		<ul>
+			<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+			<ul>
+				<li>RichTextEditor&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;rteMessage&lt;/i&gt;</li>
+			</ul></li>
+			<li>QCheckBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbTreeMessage&lt;/i&gt;</li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbButtons&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Tokens (Tokens.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/Tokens.ui cb267a3/src/mumble/Tokens.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;Tokens&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>QListWidget&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlwTokens&lt;/i&gt;</li>
+			<li>QHBoxLayout
+			<ul>
+				<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbAdd&lt;/i&gt;</li>
+				<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+			</ul></li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbButtons&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Change your comment (UserEdit.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/UserEdit.ui cb267a3/src/mumble/UserEdit.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;UserEdit&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+		<ul>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbButtons&lt;/i&gt;</li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbUserList&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRename&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbRemove&lt;/i&gt;</li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlSearch&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbInactive&lt;/i&gt;</li>
+					<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbInactive&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlInactive&lt;/i&gt;</li>
+					<li>QTreeView&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qtvUserList&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>User Information (UserInformation.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/UserInformation.ui cb267a3/src/mumble/UserInformation.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;UserInformation&lt;/i&gt;
+	<ul>
+		<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbConnection&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliVersion&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlVersion&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOS&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlOS&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliCertificate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlCertificate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliAddress&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlAddress&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliCELT&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlCELT&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbCertificate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliOpus&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlOpus&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbPing&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPingCount&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPingAvg&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliPingVar&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTCP&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTCPCount&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTCPAvg&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTCPVar&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliUDP&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUDPCount&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUDPAvg&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUDPVar&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbUDP&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_3&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliGood&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLost&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliResync&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliFromClient&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromGood&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromLate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromLost&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromResync&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliToClient&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToGood&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToLate&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToLost&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToResync&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLatePercent&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliLostPercent&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromLatePercent&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToLatePercent&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFromLostPercent&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlToLostPercent&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbBandwidth&lt;/i&gt;
+			<ul>
+				<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_4&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliTime&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTime&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qliBandwidth&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlBandwidth&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>UserLocalVolumeDialog.ui</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/UserLocalVolumeDialog.ui cb267a3/src/mumble/UserLocalVolumeDialog.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;UserLocalVolumeDialog&lt;/i&gt;
+	<ul>
+		<li>QGridLayout
+		<ul>
+			<li>QSlider&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsUserLocalVolume&lt;/i&gt;</li>
+			<li>QDialogButtonBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qbbUserLocalVolume&lt;/i&gt;</li>
+			<li>QSpinBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qsbUserLocalVolume&lt;/i&gt;</li>
+			<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlUserLocalVolume&lt;/i&gt;</li>
+		</ul></li>
+	</ul></li>
+</ul>
+<h2>Recorder (VoiceRecorderDialog.ui)</h2>
+
+<p>Source: [https://github.com/mumble-voip/mumble/blob/cb267a3606c8f65bf81961f121a6d9977692262f/src/mumble/VoiceRecorderDialog.ui cb267a3/src/mumble/VoiceRecorderDialog.ui]</p>
+
+<ul>
+	<li>QDialog&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;VoiceRecorderDialog&lt;/i&gt;
+	<ul>
+		<li>QGridLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;gridLayout_2&lt;/i&gt;
+		<ul>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbControl&lt;/i&gt;
+			<ul>
+				<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;horizontalLayout_2&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTime&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbStart&lt;/i&gt;</li>
+					<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbStop&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbMode&lt;/i&gt;
+			<ul>
+				<li>QVBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;verticalLayout&lt;/i&gt;
+				<ul>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbDownmix&lt;/i&gt;</li>
+					<li>QRadioButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qrbMultichannel&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+			<li>QGroupBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qgbOutput&lt;/i&gt;
+			<ul>
+				<li>QFormLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;formLayout&lt;/i&gt;
+				<ul>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlOutputFormat&lt;/i&gt;</li>
+					<li>QComboBox&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qcbFormat&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlTargetDirectory&lt;/i&gt;</li>
+					<li>QLabel&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qlFilename&lt;/i&gt;</li>
+					<li>QHBoxLayout&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qhblTargetDirectory&lt;/i&gt;
+					<ul>
+						<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleTargetDirectory&lt;/i&gt;</li>
+						<li>QPushButton&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qpbTargetDirectoryBrowse&lt;/i&gt;</li>
+					</ul></li>
+					<li>QLineEdit&lt;i style="color:#fff"&gt;#&lt;/i&gt;&lt;i style="color:#090"&gt;qleFilename&lt;/i&gt;</li>
+				</ul></li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Mumble Client">Category:Mumble Client</a><br />
+<a href="Category:Contribution">Category:Contribution</a></p>

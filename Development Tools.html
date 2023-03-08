@@ -1,0 +1,67 @@
+<p>Since we get asked a lot, here's the tools we use for software development:</p>
+
+<h1>Backtrace</h1>
+<p><a href="File:Backtrace Logo.png">300px|link=https://backtrace.io</a>&lt;br /&gt;<br />
+&lt;br /&gt;<br />
+We have recently started to use Backtrace to analyse crash reports from Mumble clients. Backtrace was easy to integrate into our existing [https://docs.microsoft.com/en-us/windows/desktop/debug/minidump-files minidump] based reporting infrastructure and gives us a much clearer view on what crashes affect the most users compared to what we had before. Backtrace is graciously providing their service to us and other [https://help.backtrace.io/pricing-data-protection-privacy-and-terms/pricing-and-tiers/backtrace-for-open-source Open Source projects for free].</p>
+
+<h1>Ermine</h1>
+<p><a href="File:Ermine-logo.png">url=http://www.magicermine.com/</a>&lt;br /&gt;<br />
+&lt;br /&gt;<br />
+The static binary distribution of Murmur was made portable to different Linux distributions with Magic Ermine.</p>
+
+<h1>Ice</h1>
+<p><a href="File:Zeroc-logo.png">url=http://www.zeroc.com/</a>&lt;br /&gt;<br />
+&lt;br /&gt;<br />
+The Mumble server software uses ZeroC <a href="Ice">Ice</a> as a RPC framework, enabling flexible remote control.</p>
+
+<h1>Opus</h1>
+<p><a href="File:opus-logo.png">url=http://opus-codec.org/</a></p>
+
+<p>As of Version <a href="1.2.4">1.2.4</a> <a href="Mumble">Mumble</a> uses [http://www.opus-codec.org/ Opus] as the primary audio codec.</p>
+
+<h1>Speex</h1>
+<p><a href="File:speex-logo.png">url=http://www.speex.org/</a>&lt;br /&gt;<br />
+&lt;br /&gt;<br />
+We are using the Speex DSP library for echo cancellation and denoising.</p>
+
+<h1>Klocwork</h1>
+<p><a href="File:Klocwork-logo.png">url=http://www.klocwork.com/</a>&lt;br /&gt;<br />
+&lt;br /&gt;<br />
+Mumble has been analyzed with Klocwork source code analysis, the most accurate and comprehensive tool for finding critical programming errors and security vulnerabilities.</p>
+
+<p>I must say I really love Klocwork. For opensource applications, they'll do the analysis for free (providing you're the main author). It's found some really obscure bugs in Mumble and Murmur, bugs that would have caused crashes had they not been fixed before release. While my QA department (aka: My guild who is running the test builds) will find all bugs from normal use, Klocwork finds bugs that occur only under circumstances no sane user would ever attempt. It also ensures server and client input is sanitized, as it easily catches all those "what if that value is really invalid" instances.</p>
+
+<h1>Visual Studio 2008</h1>
+
+<p>It's a necessity for compiling programs on Windows using modern interfaces such as WASAPI. We only use the compilers though; editing is still done in Textpad.</p>
+
+<h1>Qt</h1>
+
+<p>Mumble uses Qt, the Cross-Platform Rich Client Development Framework. Qt is used for cross-platform GUI, network and database functions.<br />
+[http://qt-project.org/ Qt] is both a widget toolkit and a set of very handy utility templates like container classes, network handling. It's all crossplatform, meaning that Murmur runs on pretty much any modern architecture, including the qmake files. I have a few projects<br />
+that doesn't use Qt at all, but uses Qmake :)</p>
+
+<h1>Valgrind</h1>
+
+<p>"[http://valgrind.org/ Valgrind] is an award-winning suite of tools for debugging and profiling Linux programs." We use this to make sure the server has no memory leaks.</p>
+
+<h1>Intel VTune</h1>
+
+<p>VTune is Intel's performance analyzer, which through a convoluted process gives more or less accurate benchmarking results. While valgrind will tell you exactly how many times each instruction is executed, it can't tell you how long it takes to execute that instruction. Hopefully someday VTune's output will be as detailed and easy to use as valgrind's kcachegrind.</p>
+
+<h1>MSDN</h1>
+
+<p>[http://msdn.microsoft.com/ MSDN] is Microsoft's developer website, and contains an updated decription for each and every function available on windows. I find the website easier to use than the MSDN helpfiles, as the website has all the files searchable as one, instead of having one file for the DirectX SDK, one for the Platform and so on.</p>
+
+<h1>SourceForge</h1>
+
+<p>[http://www.sourceforge.net/ SourceForge] is not only a website, it's a very handy tool. It comes with Git, which we use extensively, as well as forums, wikis and mailing lists. In the past, we used it for all of this - but since have partly migrated away. Nowadays, it’s used mainly for file hosting.</p>
+
+<h1>NSIS</h1>
+
+<p>[http://nsis.sourceforge.net/ Nullsoft Scriptable Install System] is the installer made famous by WinAmp. It's an easy-to-use, efficient and userfriendly install system; it took us less than 15 minutes to make the first installer for Mumble.</p>
+
+<p>''Note:'' Since 1.2.3, we no longer use NSIS for our windows installers.</p>
+
+<p><a href="Category:Development">Category:Development</a></p>

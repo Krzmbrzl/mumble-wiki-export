@@ -1,0 +1,78 @@
+<h1>Installation of murmur server on CentOS 5</h1>
+
+<p>It is currently very difficult to build Mumble and Murmur on RHEL 5 and its derivatives, such as CentOS 5. For these systems, it is recommended to use the current static binary, linked from the <a href="Main_Page">Mumble home page</a>.</p>
+
+<p>Unfortunately, if you use the static binary, you will have to manually start the server each boot or write your own initialization scripts (see <a href="#Manual Installation">#Manual Installation</a>, below). For this reason, there is now a third-party package available, which configures murmur as if it were provided by the operating system.</p>
+
+<h2>Package Installation</h2>
+
+<p>There is an unofficial, unsupported, third-party package of (the statically linked) Murmur available for installation via yum. It has only been tested on CentOS 5.6 (i386) at this time, but should work on other RHEL 5.x versions and derivatives. If you have any problems or feedback (such as results on other distros besides Centos 5.6 i386), please find <a href="User:lewellyn">lewellyn</a> on <a href="IRC">IRC</a>. The package is not officially supported by anyone, but the package definition and configuration scripts derive from the Fedora 15-Alpha and Mandriva packages and the binary is the official static tarball from mumble.sf.net, the various pieces of which are known to work reliably.</p>
+
+<p>''(As of April 2011, the third-party GBS repository is providing Murmur 1.2.3.)''</p>
+
+<p>The steps are as follows:</p>
+
+<ol>
+	<li>As root (such as via sudo), run: &lt;code&gt;&lt;nowiki&gt;rpm -ivh <a href="http://pkg.geekbakery.net/RedHat/5/stable/noarch/gbs-release-1.0-1.gbs.noarch.rpm&lt;/nowiki&gt;&lt;/code&gt;">http://pkg.geekbakery.net/RedHat/5/stable/noarch/gbs-release-1.0-1.gbs.noarch.rpm&lt;/nowiki&gt;&lt;/code&gt;</a>
+	<ol>
+		<li>'''Optional:''' Configure your new repository, for example using the [http://wiki.centos.org/PackageManagement/Yum/Priorities priorities] plugin.</li>
+	</ol></li>
+	<li>Install murmur from the new [http://pkg.geekbakery.net/ GBS repository] you just added: ''(run the commands as root or via sudo)''
+	<ol>
+		<li>If you want to just install murmur and don't care about ensuring you have the proper dependencies for the web functions or dbus: &lt;code&gt;yum install murmur&lt;/code&gt;</li>
+		<li>Instead, if you want to make sure you have all the proper dependencies for running with dbus and the included web scripts (this package depends on murmur): &lt;code&gt;yum install murmur-suggests&lt;/code&gt;</li>
+		<li>'''''NOTE:''''' The first time you install a package from the GBS repository, you may/should get a prompt to accept the key. The proper ID for this key is &lt;tt&gt;98b3c52e&lt;/tt&gt;. If this matches what is on your screen, enter '&lt;tt&gt;y&lt;/tt&gt;' at the confirmation prompt.</li>
+	</ol></li>
+</ol>
+<p>That's it! Now you can &lt;code&gt;service murmur start&lt;/code&gt; to start your new server. Or, if you wish, you can <a href="murmur.ini">customize your configuration</a> first.</p>
+
+<p>Note that installing from the GBS repository indicates acceptance of the [http://pkg.geekbakery.net/GEEKBAKERY-SRA.txt repository's agreement]. Summary of the agreement is: ''No support nor warranty is offered, and if it breaks, you get to do what you will with the pieces.''</p>
+
+
+<h2>Manual Installation</h2>
+
+<p>Here's the process for manually installing on CentOS 5.4, using the init script and config from a mandriva rpm and the 1.2.2 static binary release: ''(You can use this as the starting point for your own manual installation of the latest version.)''</p>
+
+<p>&lt;pre&gt;<br />
+yum install lzma</p>
+
+<p>cd /downloads<br />
+wget <a href="http://sourceforge.net/projects/mumble/files%2FMumble%2F1.2.2%2Fmurmur-static_x86-1.2.2.tar.lzma/download">http://sourceforge.net/projects/mumble/files%2FMumble%2F1.2.2%2Fmurmur-static_x86-1.2.2.tar.lzma/download</a><br />
+wget <a href="ftp://rpmfind.net/linux/Mandriva/devel/cooker/x86_64/media/contrib/release/mumble-server-1.2.2-3mdv2011.0.x86_64.rpm">ftp://rpmfind.net/linux/Mandriva/devel/cooker/x86_64/media/contrib/release/mumble-server-1.2.2-3mdv2011.0.x86_64.rpm</a><br />
+cd /install</p>
+
+<p>lzcat ../downloads/murmur-static_x86-1.2.2.tar.lzma | tar -xf -<br />
+cp murmur-static_x86-1.2.2/murmur.x86 /usr/sbin/murmurd</p>
+
+<p>rpm2cpio ../downloads/mumble-server-1.2.2-1mdv2010.1.x86_64.rpm &gt; file.lzma<br />
+lzma -d file.lzma<br />
+mkdir mumble-rpm<br />
+cd mumble-rpm<br />
+cpio -imv --make-directories &lt; ../file<br />
+rm ../file</p>
+
+<p>cp etc/mumble-server.ini /etc<br />
+cp etc/rc.d/init.d/mumble-server /etc/rc.d/init.d<br />
+chmod a+x /etc/rc.d/init.d/mumble-server</p>
+
+<p>groupadd -g 4000 mumble-server<br />
+useradd -g 4000 -G mumble-server -s /sbin/nologin -d / -M mumble-server<br />
+mkdir /var/lib/mumble-server<br />
+chown mumble-server:mumble-server /var/lib/mumble-server<br />
+mkdir /var/log/mumble-server<br />
+chown mumble-server:mumble-server /var/log/mumble-server<br />
+vim /etc/rc.d/init.d/mumble-server<br />
+&lt;/pre&gt;</p>
+
+<p>Change all occurrences of 'gprintf' to 'printf'</p>
+
+<p>&lt;pre&gt;<br />
+service mumble-server start<br />
+chkconfig --add mumble-server<br />
+chkconfig --level 3 mumble-server on<br />
+&lt;/pre&gt;</p>
+
+<p>(thanks to dominicc on the mumble forum)</p>
+
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

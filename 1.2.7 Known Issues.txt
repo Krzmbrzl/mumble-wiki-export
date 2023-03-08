@@ -1,0 +1,62 @@
+This page lists some of the known issues at the time of the [[1.2.7]] release.
+
+= Mumble on Windows may hang on some computers that use ASIO sound drivers =
+Some computers with ASIO sound drivers can cause Mumble 1.2.7 to hang on startup.
+See the following bug for more information: https://github.com/mumble-voip/mumble/issues/1151
+
+For [[1.2.5]] release, we had a special binary built without ASIO support available for download. This has not yet been built for 1.2.7. If this is a problem, please report an issue.
+
+= Global Shortcuts stop working randomly on Windows =
+For some setups, Mumble's global shortcuts will stop working at random on Windows Vista, Windows 7 and Windows 8.
+
+This is because Windows implements a timeout on mouse and keyboard hooks, to ensure that crashed or hung applications
+cannot interfere with mouse and keyboard input for the whole system.  If a keyboard or mouse hook exceeds this timeout,
+the hook will be silently removed by Windows.
+
+Under some circumstances, Mumble's hook will exceed the default timeout of 200 ms.
+
+The timeout can be configured by changing the value of the following registry key:
+
+HKEY_CURRENT_USER\Control Panel\Desktop\LowLevelHooksTimeout (it does not exist by default)
+
+This key should be of type DWORD, and its value is specified in milliseconds.
+
+You can also use this .reg file, which sets the timeout to 1 second (which should be more than sufficient):
+[http://mumble.info/reg/winhooks-1s-timeout.reg http://mumble.info/reg/winhooks-1s-timeout.reg]
+
+You will most likely have to reboot your computer after applying the registry fix.
+
+= Resizing the World of Warcraft window on Mac OS X can cause overlay crashes =
+
+The overlay shipped with Mumble 1.2.7 on Mac OS X will cause crashes when used with World of Warcraft (both 32-bit and 64-bit).
+
+The bug is triggered when World of Warcraft is run in windowed mode, and the window is manually resized to be bigger.
+
+We hope to release a fixed overlay installer when the bug is fixed. The bug can be tracked at [https://sourceforge.net/p/mumble/bugs/986/ https://sourceforge.net/p/mumble/bugs/986/]
+
+= Murmur treats MySQL errors as fatal =
+
+Murmur treats SQL errors as fatal, and as such, will terminate when an SQL error happens.
+This is not new behavior, but it is an inconvenience for hosters, since an SQL error in
+one virtual host can deny service to all other virtual servers hosted by the Murmur instance.
+
+Steven Hartland has contributed a patch which makes Murmur treat SQL errors as non-fatal
+to remedy the situation described above.  The patch has not yet been merged, and must be
+patched in manually.
+
+The patch can be found at [https://github.com/mumble-voip/mumble/pull/119 https://github.com/mumble-voip/mumble/pull/119].
+
+= Setting the suggestversion config option via Ice =
+
+The suggestversion config option, which will cause a server to suggest a specific Mumble version for use on the server to
+its clients, has differing behavior depending on the context in which it is set.
+
+When set via murmur.ini, the suggestversion config option expects a string, such as "1.2.7".
+
+When set via Ice, the suggestversion config option must be set to a bitmasked version number of the form
+(1 << 16) + (2 << 8) + 4.
+
+This behavior is confusing for administrators.  The issue is currently tracked at [https://sourceforge.net/p/mumble/bugs/989/ https://sourceforge.net/p/mumble/bugs/989/],
+and a preliminary patch is available at [https://gist.github.com/fwaggle/584cf2a96002af9d0f64 https://gist.github.com/fwaggle/584cf2a96002af9d0f64].
+
+[[Category:Documentation English]]

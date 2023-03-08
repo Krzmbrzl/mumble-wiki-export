@@ -1,0 +1,362 @@
+<p>'''NOTE: Please go to [https://www.mumble.info/documentation/user/in-game-overlay/ the new documentation on our website] instead. The documentation here is now obsolete.'''</p>
+
+<p>---</p>
+
+
+<p><a href="File:overlay123_s.png">left|link=File:overlay123.png</a> The overlay is a feature that will overlay the nicknames of users in the channel or users talking over your currently running game. That means you will be able to see who's listening and talking ingame.</p>
+
+<p>Mumble provides overlay support for Games using Direct3D 9/10/11 or OpenGL on Windows and OpenGL using games on Linux/OSX.<br />
+&lt;div style="clear:left;"&gt;&lt;/div&gt;</p>
+
+<h2>Incompatible games</h2>
+<p>Games that are known to have '''issues''' with the Mumble overlay:<br />
+{|class="sortable" style="margin:4px; background-color:#eeeeee; border:1px;"<br />
+!style="width:120px; text-align:left;"|Game<br />
+!style="width:50px; text-align:left;"|API<br />
+!style="text-align:left;"|Comments<br />
+!style="width:65px;"|Fixed in</p>
+<table>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Warcraft 3</td>
+</tr>
+<tr>
+	<td>any</td>
+</tr>
+<tr>
+	<td>Fixed in the latest 1.3.0 snapshot builds</td>
+</tr>
+<tr>
+	<td>&lt;div style="font-weight:bold;color:#338833;"&gt;1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Combat Arms</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>overlay causes CA to crash after map changes;&lt;br/&gt; overlay will not display unless one joins a server and then leaves it</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Vanguard</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>crashes to desktop when overlay is enabled</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Call of Duty 4</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>PunkBuster kick playing online</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Call of Duty 2</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>PunkBuster kick playing online</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Killing Floor</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>the game will crash when changing resolutions or going into fullscreen mode</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>Red Orchestra</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>the game will crash when changing resolutions or going into fullscreen mode</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>H1Z1</td>
+</tr>
+<tr>
+	<td>n/a</td>
+</tr>
+<tr>
+	<td>game crashes at startup</td>
+</tr>
+<tr>
+	<td>unknown</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<p>Overlay availability by API, OS and CPU-architecture:</p>
+
+<p>{|class="sortable" style="margin:4px; background-color:#eeeeee;"<br />
+!style="width:150px; text-align:left;"|API<br />
+!style="width:150px; text-align:left;"|CPU-Architecture<br />
+!style="width:150px; text-align:left;"|Platform<br />
+!style="text-align:left;"|Status</p>
+<table>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>OpenGL</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows, Linux, Mac</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.2.5&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Vulkan</td>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows, Linux, Mac</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Direct3D 9</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.2.5&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Direct3D 9ex</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.2.5&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Direct3D 10</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.2.5&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#338833;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Direct3D 11</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#226622;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#226622;"&gt;fully works in 1.3.0&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>- style="background-color:#dddddd;"</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Direct3D 12</td>
+</tr>
+<tr>
+	<td>x86</td>
+</tr>
+<tr>
+	<td>rowspan="2"</td>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#883333;"&gt;does not display&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>x64</td>
+</tr>
+<tr>
+	<td>&lt;div style="color:#883333;"&gt;does not display&lt;/div&gt;</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<h2>Disabling the overlay for a particular game</h2>
+<p>If you would like to disable the overlay for a certain game (because you do not want it in that particular game, or that game has issues with the overlay), and do not want to disable the overlay altogether, put a file named ''nooverlay'' (without any extensions) in the same folder as the game executable is located. This will tell Mumble that you do not want the overlay in this particular game. Current releases of Mumble also support black-/whitelisting from the client itself (Settings-&gt;Overlay, make sure <a href="Advanced client configuration">advanced</a> is checked).</p>
+
+<p><a href="File:Mumble_Overlay_Blacklist_Win7.png">File:Mumble_Overlay_Blacklist_Win7.png</a></p>
+
+<h2>Overlay on GNU/Linux</h2>
+
+<p>As described in [https://github.com/mumble-voip/mumble/blob/master/README.Linux our linux README] to use the Overlay in an application you start hat appliaction through the mumble-overlay binary:</p>
+
+<p> mumble-overlay gamename</p>
+
+<h3>Manual approach</h3>
+
+<p>Using this preload command should only be necessary if you did not install a binary package (and thus do not have ''mumble-overlay'' available):</p>
+
+<p>As described in [https://github.com/mumble-voip/mumble/blob/master/README.md our README] to use the Overlay in an application you preload it.</p>
+
+<p> LD_PRELOAD=/path/to/libmumble.so.1.1 gamename</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

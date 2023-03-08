@@ -1,0 +1,151 @@
+<p><img src="ReleaseTimeline" title="ReleaseTimeline" alt="ReleaseTimeline" /></p>
+
+<p>Mumble 1.2.4, the successor of <a href="1.2.3">1.2.3</a> has been released on June 1st 2013. For a list of known issues, please visit the <a href="1.2.4_Known_Issues">1.2.4 known issues page</a>.</p>
+
+<h2>Screenshot</h2>
+<p><a href="File:mumble1.2.4snap.png">File:mumble1.2.4snap.png</a></p>
+
+<h2>Mumble (Client)</h2>
+<p>List of new features, improvements and bug fixes already in place for the upcoming release.</p>
+
+<h3>Next generation audio codec</h3>
+<p>&lt;span style="float:left; margin-right:5px; padding:5px"&gt;<a href="File:Opus_logo_trans.png">200px</a>&lt;/span&gt;<br />
+"The Opus codec is designed to handle a wide range of interactive audio applications, including Voice over IP, videoconferencing, in-game chat, and even remote live music performances. It can scale from low bit-rate narrowband speech to very high quality stereo music." - [http://www.opus-codec.org/ <a href="http://www.opus-codec.org/]">http://www.opus-codec.org/]</a></p>
+
+<p>This new codec will allow Mumble to perform better at even lower bitrates then previously possible. It incorporates technology from Skype's SILK codec and Xiph.Org's CELT codec, previously the main codec for Mumble. This codec is a IETF internet standard and has already been [https://hacks.mozilla.org/2012/07/firefox-beta-15-supports-the-new-opus-audio-format/ adopted in Firefox].<br />
+&lt;br style="clear:both"/&gt;</p>
+
+<h3>Windows 8 support</h3>
+<p>&lt;span style="float:left; margin-right:5px; padding:10px"&gt;<a href="File:Tiles.png">150px</a>&lt;/span&gt;<br />
+With 1.2.4 Mumble is now officially supporting Windows 8.</p>
+
+<p>'''We recommend all users on Windows 8 to upgrade''': 1.2.3 has many known issues with the platform including known issues with the UI and Overlay.<br />
+&lt;br style="clear:both"/&gt;</p>
+
+<h3>Push-To-Talk improvements</h3>
+<p>&lt;span style="float:left; margin-right:5px; padding:5px"&gt;<a href="File:Mumble_Push-To-Talk_Fenster.png">File:Mumble_Push-To-Talk_Fenster.png</a>&lt;/span&gt;</p>
+<ul>
+	<li>For touch/stylus centric interfaces Mumble now offers a '''Push-To-Talk button window'''. If enabled the window is always on top so you can keep using other applications. The PTT-Window can be enabled via Configure → Settings → Audio Input (Push-To-Talk needs to be selected) → Display Push-to-Talk Window.</li>
+</ul>
+<ul>
+	<li>You now also have to option to configure a '''Hold-Time''' for Push-to-Talk of up to 5 seconds. After releasing the Push-to-Talk key Mumble continues to send voice for the configured time. If you sometimes release your PTT key to early this might come in handy for you.</li>
+</ul>
+<ul>
+	<li>Last but not least '''audio cues''' are now available for Push-To-Talk, Voice Activity and Continuous modes.</li>
+</ul>
+<p>&lt;br style="clear:both"/&gt;</p>
+
+<h3>Volume attenuation improvements</h3>
+<p>&lt;span style="float:left; margin-right:5px; padding:10px"&gt;<a href="File:Mute.png">100px</a>&lt;/span&gt;</p>
+
+<ul>
+	<li>Volume attenuation is now available for PulseAudio (Linux)</li>
+	<li>Mumble now opts out of volume ducking on Windows &gt;= 7</li>
+</ul>
+<p>&lt;br style="clear:both"/&gt;</p>
+<h3>Other audio features</h3>
+<ul>
+	<li>Currently used codec on a server is now being displayed in the server information dialog (Server → Information)&lt;br&gt;The used codec is automatically selected by the server according to the connected clients and which codecs they can use.</li>
+	<li>Text-to-Speech can be configured to read back own messages</li>
+	<li>Positional Audio support for more Games and other improvements (context and identities) for already supported games</li>
+	<li>Idle deaf: Now you can choose between being deafened or muted</li>
+	<li>Possibility to whisper to subchannels of parent channel</li>
+	<li>Mumble will now react to default device and device property changes on Windows &gt;= Vista (WASAPI).</li>
+</ul>
+<h3>Input</h3>
+<ul>
+	<li>[http://www.x.org/wiki/XInputSpec XInput 2.0] Support (Linux)&lt;br&gt;While XInput 2.0 is still in a development specification proposal phase. Still, support for the current state of the specification has been added.</li>
+</ul>
+<h3>Chatlog</h3>
+<ul>
+	<li>Ability to limit number of lines in chatlog</li>
+	<li>“Intelligent” chatlog scrolling&lt;br&gt;If you get new messages in the chatlog while you are not scrolled to the bottom, Mumble will no longer scroll down automatically to the last entry in the chatlog. This is helpful for scrolling and reading the chatlog while activity is still going on.</li>
+</ul>
+<h3>Chatbar</h3>
+<ul>
+	<li>Default target for textmessages using the chatbar is now always the current channel. The old behavior can be configured in Configure → Settings → User-Interface → “Use selected item as chat bar target”</li>
+	<li>History for the chatbar is now keyboard scrollable with &lt;code&gt;[Ctrl+Cursor up]&lt;/code&gt; or &lt;code&gt;[Ctrl+Cursor down]&lt;/code&gt;</li>
+	<li>The "Drag here" box now only appears in the custom layout.</li>
+</ul>
+<h3>Context menu</h3>
+<ul>
+	<li>Added a right-click context menu for channels, which lets you copy a Mumble URL pointing to the current server/channel to the system clipboard</li>
+	<li>Ability to ignore only text messages of users</li>
+	<li>Beside the absolute values you can see percent values of late and lost packets in Server-Information</li>
+</ul>
+<h3>Overlay</h3>
+<ul>
+	<li>Sort users by alphabet or by activity</li>
+	<li>Ability to not show inactive users in the overlay - with a configurable inactivity-time (default is 5 seconds)</li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+	<li>New client-Error-messages</li>
+	<li>New message when providing a wrong certificate or password on login</li>
+	<li>Both shortcuts &lt;code&gt;[Ctrl+O]&lt;/code&gt; (Server → Connect) and &lt;code&gt;[Ctrl+W]&lt;/code&gt; (Server → Disconnect) have been removed</li>
+	<li>Support for new URI-protocols in messages, user comments and channel descriptions
+	<ul>
+		<li>Gadu-Gadu: &lt;code&gt;&lt;nowiki&gt;gg://&lt;/nowiki&gt;&lt;/code&gt;</li>
+		<li>Jabber: &lt;code&gt;&lt;nowiki&gt;xmpp://&lt;/nowiki&gt;&lt;/code&gt;</li>
+		<li>Skype: &lt;code&gt;&lt;nowiki&gt;skype://&lt;/nowiki&gt;&lt;/code&gt;</li>
+		<li>Email: &lt;code&gt;&lt;nowiki&gt;mailto://&lt;/nowiki&gt;&lt;/code&gt;</li>
+	</ul></li>
+	<li>If Mumble is minimized, a click on the message notification restores it; to close the message notification, click the cross</li>
+	<li>Notification, when someone starts recording, is also shown in linked channels</li>
+	<li>"Users above Channels" is now enabled by default</li>
+	<li>SHA1-Checksums are shown for certificates instead of MD5</li>
+	<li>Following actions are disabled if the actor is inside a temporary channel: mute, deaf, priority speaker</li>
+</ul>
+<h3>Compatibility Client</h3>
+<ul>
+	<li>Compatibility-Client for servers &amp;le; 1.1.8 has been removed completely</li>
+	<li>Default version string for Mumble-URLs is now version=1.2.0</li>
+</ul>
+<h3>OS X</h3>
+<ul>
+	<li>Improved stability on OS X 10.7 (Lion) and 10.8 (Mountain Lion).</li>
+	<li>Mumble now supports Notification Center when running on OS X 10.8 (Mountain Lion).</li>
+	<li>Overlay installation has been simplified.</li>
+	<li>Global Shortcuts no longer require 'Access to assistive' devices in all cases.</li>
+	<li>A more user-friendly guide mechanism is provided in the Global Shortcuts preferences explaining when 'Access to assistive devices' is required.</li>
+	<li>Murmur is no longer included in the Mumble.app bundle, but is distributed as a separate tarball.</li>
+</ul>
+<h2>Mumble-Server (Murmur)</h2>
+<p>Notable changes to Murmur, the server component of Mumble</p>
+
+<h3>Opus-Codec</h3>
+<ul>
+	<li>New server variable &lt;code&gt;opusthreshold&lt;/code&gt;&lt;br /&gt;If the percentage of users which can use the [http://opus-codec.org Opus-Codec] is higher than this percentage value, then Opus is being enforced. Note: Users without Opus support can then no longer hear or talk to others.</li>
+</ul>
+<h3>Ice</h3>
+<ul>
+	<li>Context menu entries (on other users / on yourself / on channels) can now be removed/added via Ice without the need of a reconnect</li>
+	<li>Users can be temporarily renamed via Ice ([http://www.youtube.com/watch?v=oEnKD7w-NqE see this video for an example])</li>
+	<li>&lt;code&gt;getLogLen&lt;/code&gt; does not require &lt;code&gt;icesecretwrite&lt;/code&gt; anymore</li>
+	<li>Ice callback for text message events (&lt;code&gt;userTextMessage&lt;/code&gt;), allowing for IRC-style robots among other things (a third-party MuMo-Module using this feature is already available)</li>
+</ul>
+<h3>OS X packaging</h3>
+<ul>
+	<li>Murmur for Mac OS X is now distributed as a separate tarball, and no longer lives in the Mumble.app bundle.</li>
+</ul>
+<h3>Miscellaneous</h3>
+<ul>
+	<li>If you create a new Mumble-Server, an automatically generated password is used for SuperUser and is written to the logfile</li>
+	<li>Obfuscation now works with IPv4-Adresses</li>
+	<li>If a users is muted, he cannot unmute himself in a temporary channel</li>
+	<li>Murmur command line option -wipelogs, to remove logs from the Murmur database</li>
+	<li>If command line option &lt;code&gt;-ini&lt;/code&gt; was not given, Mumble-Server (Murmur) tries the following files in this order:
+	<ul>
+		<li>&lt;code&gt;/usr/local/etc/mumble-server.ini&lt;/code&gt;</li>
+		<li>&lt;code&gt;/usr/local/etc/murmur.ini&lt;/code&gt;</li>
+		<li>&lt;code&gt;/etc/mumble-server.ini&lt;/code&gt;</li>
+		<li>&lt;code&gt;/etc/murmur.ini&lt;/code&gt;</li>
+	</ul></li>
+	<li>New server settings &lt;code&gt;suggestversion&lt;/code&gt;, &lt;code&gt;suggestpositional&lt;/code&gt; and &lt;code&gt;suggestpushtotalk&lt;/code&gt;&lt;br&gt;These new server settings allow the admin to trigger messages for suggested client configurations. The user will receive the suggestion messages when connecting to the server. As an example: If &lt;code&gt;suggestpushtotalk&lt;/code&gt; is enabled and a user connects with no Push-to-Talk set up, the user will get a message that the server suggests using Push-to-Talk.</li>
+	<li>The whisper permission works now as expected and regulates both the function "Whisper" AND "Shout".&lt;br /&gt;(On a Mumble-Server &amp;le; 1.2.3 this permission regulates "Shout", but not "Whisper".)</li>
+	<li>Codec-Switching is also done on disconnect of a user</li>
+	<li>Channel nesting limit due to a limit in MySQL ([https://sourceforge.net/tracker/?func=detail&amp;atid=768005&amp;aid=3566322&amp;group_id=147372 details]). The default value is channelnestinglimit=10.</li>
+</ul>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Releases">Category:Releases</a></p>

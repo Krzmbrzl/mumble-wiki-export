@@ -1,0 +1,105 @@
+'''Mumble is an open source, low-latency, high quality voice chat software primarily intended for use while gaming.'''
+
+''Note: This page is work-in-progress. Previously, features were only listed as release notes on new stable releases (…, [[1.2.0]], …, [[1.2.3]]).''
+
+Mumble is free software, meaning it is available at no cost and under a very liberal license. The client is called “Mumble”. The Server is known as “Mumble Server” or “Murmur”.
+
+The main focuses of the project include:
+* Low latency
+* High audio quality
+* Staying backwards compatible as long as there is a considerable user-base with older versions
+* Customizable for different use-cases
+
+This page highlights the biggest and most important features. Try Mumble out for yourself and explore what else is available!
+
+= Mumble Client =
+The Mumble client supports Windows, OS X, Linux, and BSD. There is also an official [iOS client](Mumble for iOS.md). The source code for Mumble is freely available on  [GitHub](https://github.com/mumble-voip/mumble/).
+
+An unofficial Android client called [[Mumla]] is also available.
+
+## Audio 
+
+### Codecs 
+Mumble primarily uses the  [Opus](https://www.opus-codec.org/) codec. Opus is a free codec that provides low-latency high-quality audio. Opus integrates the best of Speex, CELT, and Skype's SILK codecs.
+
+For backwards-compatibility, the previous default of CELT is also supported.
+
+### Noise Suppression 
+Mumble supports noise suppression to filter out distractions in your background and keep attention on your voice instead.
+
+### Automatic Level Equalization 
+Mumble automatically tries to keep everyone's mic input level the same, so one user doesn't get drowned out or deafen everyone with their individual mic level.
+
+In Mumble 1.3, you can also manually turn individual users up or down.
+
+### Attenuation 
+Mumble can turn down (or ''duck'') the audio of other applications while you or others are speaking. This allows you to keep other applications at an ideal volume level but also yield attention to Mumble when you need to pay attention to VoIP.
+
+### Priority Speakers 
+A user can be marked as a "priority speaker" within a channel. When this user speaks, all other users' voices will be reduced to ensure that the priority speaker is heard over them.
+
+## Encryption 
+
+Mumble uses encryption for both control messages as well as voice data. Mumble's control channel is encrypted using TLS-negotiable cipher suites and Mumble's voice channel is encrypted using OCB-AES128. OCB is used to provide both secrecy and authentication while maintaining low latency. This encryption is mandatory and cannot be disabled.
+
+## Wizards 
+![Image](audio_wizard_qn_page.png)
+
+For first-time users Mumble provides simple setup wizards to guide you through audio tuning and certificate creation.
+
+The audio tuning wizard guides you through configuring your audio devices, volume levels, and voice activation/push-to-talk settings.
+
+The certificate wizard guides you through generating a user certificate or importing an already existing certificate. Your user certificate is used to authenticate you to servers and to other Mumble users.
+
+
+## Overlay 
+![Image](overlay123_s.png)
+
+The official Mumble desktop client features an [overlay](Overlay.md) to show status information within your rendered applications. The overlay provides an in-game heads-up of who is listening and talking.
+
+An OpenGL overlay is provided for Windows, Linux, and OS X. For Windows there is also a Direct3D 9 and 10 overlay.
+
+We are aware of the demand for a Direct3D 11 overlay on Windows and would appreciate any help documenting the issues on [overlay](Overlay.md) as well as help implementing it.
+
+
+## Authentication 
+Mumble uses certificates for authentication. Certificate authentication can essentially be considered a very long and variable – and thus very secure – password. Because of how a user is identified by a certificate, you can add a user as a friend on any Mumble server and they will show up as a friend on any other server, even if they're using a different username.
+
+Alternative options for authentication are via external user databases (such as a forum or website user-base) and password-based authentication (not recommended).
+
+## Customizability 
+### Interface Customization 
+The Mumble desktop interface is entirely customizable with different layouts, languages, and even custom coloring using [skins](Skins.md). For notifications, you can configure when Mumble shows items in the client text area, when Mumble uses your OS notifications (eg "bubbles" on Windows), and when text-to-speech/custom notification sounds are used.
+
+The [[Ice]] middleware can be used to add custom right-click menus to the interface.
+
+### User Customization 
+Mumble allows you to set a custom avatar that will show when your name is hovered in the client as well as in the overlay. You can also set a comment that will show up as an icon next to your name. This comment is useful to include a little bit of information about yourself such as usernames on other services or a quick bio.
+
+## Server List 
+Mumble has a public server list categorized by country as well as the ability to add private servers as favorites. If a Mumble server is running on your LAN, it can be discovered using Bonjour and will also show. The server list shows your ping, the number of users online on the server, and whether the server has a valid server certificate.
+
+## Positional Audio 
+![Image](positional_audio.gif)
+Mumble supports [positional audio]] for your [[games](Positional-Audio.md), so you can actually hear your play-partners from the direction they stand in your game! Real 3D sound!
+
+Some [Link plugin](games]] provide native integration of Mumble, others are supported by custom readers. Unfortunately, these break with game updates most of the time. In that case, we appreciate any feedback and help in implementing a new reader with the appropriate location of positional data (see [[HackPositionalAudio]] and [[Pluginguide]]). Alternatively, asking the game developer to implement our [[Link.md) may eventually lead to official Mumble support within the game.
+
+<div style="clear:both;"></div>
+
+## G15 Keyboard 
+If you own a G15 keyboard, Mumble can show status information on the keyboard's LCD display.
+
+= Murmur Server =
+
+Mumble's server component, Murmur, allows anyone to run a server of their own for public or private use, free of charge. Murmur's source code is also freely available within the  [repo](https://github.com/mumble-voip/mumble mumble GitHub). Murmur supports extensive user permission configuration using access control groups (''ACLs'') and can be configured programmatically via RPC. A single Murmur daemon can also run multiple Murmur servers on different TCP/UDP ports.
+
+## Access Control Groups 
+Using ACLs as the access control structure allows for great customizability of permissions on your servers. See [[ACL and Groups]] and [[ACL Tutorial]].
+
+Murmur also allows you to give your users the ability to create temporary channels for a highly dynamic and descriptive usage. For a (channel-)password-like usage we provide [access tokens](Access Tokens.md).
+
+## Scriptability 
+Through providing data for the [[Ice]] middleware we allow server administrators to use scripts on their servers. This can be used for authenticating against an existing website user-database, chat-command scripts, AFK-move-scripts or other fancy or playful things.  [Ice](http://www.zeroc.com/ ZeroC) has bindings for a number of programming languages like C++, .NET, Java, Python, Objective-C, PHP, Ruby, ActionScript.
+
+

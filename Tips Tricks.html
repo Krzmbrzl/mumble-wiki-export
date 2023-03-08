@@ -1,0 +1,64 @@
+<h1>Intention of this page</h1>
+
+<p>On this Page you can find Tips and Tricks from all kinds of sources.</p>
+
+<p>The Tips on this page are just the so called ''nutshell'' solutions of those discussions. Some of these Tips are not officially supported or fully tested and should be executed at '''own risk'''.</p>
+
+<p>It’s likely that some of the content on this page will most likely be moved to different pages if the topic exceeds a certain level or interested.</p>
+
+
+<p>Of course it’s always a good idea to search the forums and/or take an active part in discussions there. Even speak up on the IRC chatrooms for mumble or use a web search-engine to look for help.</p>
+
+<h2>Installation of Mumble on not natively supported OS</h2>
+
+<h3>Client</h3>
+<h4>Installation of the Mumble client on Windows 2000</h4>
+
+<p>The Mumble-Client is only supported to be run on Windows XP or higher (VISTA/Win7 etc.). However it seems that following these steps most basic functions should work. </p>
+
+
+<p>Here's a quick guide to get the mumble client running.</p>
+
+<p>The fix is confirmed to be working for mumble 1.2.x <br />
+Please read the Wrapper guide carefully and follow the fix step by step if you are having problems getting the client to work.</p>
+
+<ul>
+	<li>MISSING DLL EXPORTS</li>
+	<li>KERNEL32.dll - GetVolumePathNamesForVolumeNameW</li>
+	<li>ws_32.dll - getaddrinfo</li>
+	<li>wtsapi32.dll - WTSRegisterSessionNotification</li>
+	<li>psapi.dll - GetProcessImageFileNameW</li>
+	<li>dbghelp.dll - MiniDumpWriteDump</li>
+</ul>
+<p>How to fix it:<br />
+Get the KERNEL32.dll, ws_32.dll and wtsapi32.dll from the wrapper pack . Make sure you follow the instructions as the readme of the wrapper pack says.</p>
+
+<p>Quick guide:</p>
+<ul>
+	<li>1) Copy original corresponding dlls from WINNT\system32 in mumble-client main folder</li>
+	<li>2) Rename them to kernel32_ORG.dll/wtsapi32_ORG.dll/ws_32_ORG.dll</li>
+	<li>3) Place kernel32.dll/wtsapi32.dll/ws_32.dll from the wrapper zip file in the same folder</li>
+	<li>4) Run ExcludeFromKnownDlls.reg if it's your first time using the wrapper.</li>
+	<li>5) Get Dbghelp.dll, unzip and put it in the same folder.</li>
+	<li>6) Get psapi.dll and put it in the same folder.</li>
+	<li>7) Run the mumble Client !</li>
+</ul>
+<p>WARNING: It's still strongly recommended to read the wrapper readme first and to backup your original before you start toying with your dlls.</p>
+
+<p>(thanks to Akan and soma for this tip on the Forum)</p>
+
+<h3>Server</h3>
+
+<ul>
+	<li>Nothing here right now. &lt;- please (someone) document on whether it works or not …</li>
+</ul>
+<h2>Run Multiple instances of the Mumble Client</h2>
+
+<p>if you start the mumble client with the option '''''-m'''''<br />
+You are allowed to start an other instance of the client on the same System.<br />
+Be aware that this switch is unsupported and can cause all kinds of strange behaviours as the two clients still share the same config, database, overlay,.....you get the idea ;-) (especially make sure you don't use volume attenuation^^)</p>
+
+<h2>Run Mumble Client without an active certificate</h2>
+<p>You can start Mumble with the '''-n''' command-line parameter to make it ignore the current user certificate. This way you can temporarily “disable” it for your Mumble process. In combination with the ''-m'' parameter for multiple instances you can connect twice to the same server, even though you’re registered with a certificate!</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

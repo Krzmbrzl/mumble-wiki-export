@@ -1,0 +1,230 @@
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=This feature is available from Mumble Server 1.3.0 onward.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<p>gRPC is a technology to allow calling server functions from a client, possibly from a different system. For an overview of gRPC and protocol buffers see the [https://grpc.io/docs/guides/index.html official gRPC docs '''gRPC overview'''].</p>
+
+<p>This page lists third party gRPC applications and afterwards provides development resources.</p>
+
+<h2>Applications</h2>
+
+<ul>
+	<li>[https://github.com/layeh/murmur-cli murmur-cli] - manage a grpc-enabled murmur server from the command-line</li>
+</ul>
+<h2>Sample application (Go)</h2>
+
+<p>The goal of this guide is to familiarize yourself with the [http://www.grpc.io/ gRPC] Mumble interface. This will be done by implementing a sample application in [https://golang.org/ Go]. Our finished application will allow users to trigger a nudge command on other users that sends the user a predefined message.</p>
+
+<p>This guide assumes you have the following things:</p>
+
+<ul>
+	<li>A Unix-like system, such as Linux or Mac OS X, with a terminal.</li>
+	<li>A running murmur server that has been compiled with gRPC support.</li>
+	<li>A Go installation and an understanding of how to write and run Go code.</li>
+	<li>The [https://developers.google.com/protocol-buffers/ Google Protocol Buffer] compiler installed.</li>
+</ul>
+<p>Create and open a new folder that will hold our project's code:</p>
+
+<p> mkdir murmur-nudge<br />
+ cd murmur-nudge</p>
+
+<p>We need to install the required Go libraries using the `go get` tool. Thee below commands will install the gRPC and protocol buffer libraries, respectively.</p>
+
+<p> go get -u google.golang.org/grpc<br />
+ go get -u github.com/golang/protobuf/{proto,protoc-gen-go}</p>
+
+<p>Like any other project that uses protocol buffers, we need to a copy of the .proto file for code generation. We will now download the Murmur gRPC protocol buffer file into the current directory.</p>
+
+<p> wget <a href="https://raw.githubusercontent.com/mumble-voip/mumble/master/src/murmur/MurmurRPC.proto">https://raw.githubusercontent.com/mumble-voip/mumble/master/src/murmur/MurmurRPC.proto</a></p>
+
+<p>(This address if for the master branch. You may want to use a version specific file.)</p>
+
+<p>The protocol buffer file now needs to be compiled into our target programming language (in our case, Go). The code will be generated using the &lt;code&gt;protoc&lt;/code&gt; program provided by the Protocol Buffer package. The compiled code should be stored it its own directory, so that will be created first.</p>
+
+<p> mkdir MurmurRPC<br />
+ protoc -I. <small>plugin=$GOPATH/bin/protoc-gen-go </small>go_out=plugins=grpc:MurmurRPC MurmurRPC.proto</p>
+
+<p>The above command should have created a file named &lt;code&gt;MurmurRPC.pb.go&lt;/code&gt; in the &lt;code&gt;MurmurRPC&lt;/code&gt; directory.</p>
+
+<p>In your code editor, create a new file called &lt;code&gt;nudge.go&lt;/code&gt; in the project directory.</p>
+
+<p>The first thing we need to do in that file is create a connection to our murmur server. We can do this with the [https://godoc.org/google.golang.org/grpc#Dial &lt;code&gt;grpc.Dial&lt;/code&gt;] function.</p>
+
+<p> package main</p>
+
+<p> import (<br />
+ 	"google.golang.org/grpc"<br />
+ )</p>
+
+<p> func main() {<br />
+ 	conn, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())<br />
+ 	if err != nil {<br />
+ 		panic(err)<br />
+ 	}<br />
+ 	defer conn.Close()<br />
+ }</p>
+
+<p>If you run the above program (&lt;code&gt;go run nudge.go&lt;/code&gt;), it should start then exit without error, meaning a connection was established.</p>
+
+<p>Once a connection has been established, we can use code in the generated &lt;code&gt;.pb.go&lt;/code&gt; file to invoke RPC methods on the server. We will be using two RPC methods: &lt;code&gt;ServerEvents&lt;/code&gt;, a stream of events that happen on a server, and; &lt;code&gt;ContextActionAdd&lt;/code&gt;, adds a context action to a given user. Using those two methods, we can add a context action to a user joining the server.</p>
+
+<p> package main</p>
+
+<p> import (<br />
+ 	'''"log"'''</p>
+
+<p> 	'''"./MurmurRPC"'''</p>
+
+<p> 	'''"github.com/golang/protobuf/proto"'''<br />
+ 	'''"golang.org/x/net/context"'''<br />
+ 	"google.golang.org/grpc"<br />
+ )</p>
+
+<p> func main() {<br />
+ 	'''log.Println("Nudge starting")'''</p>
+
+<p> 	conn, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())<br />
+ 	if err != nil {<br />
+ 		panic(err)<br />
+ 	}<br />
+ 	defer conn.Close()</p>
+
+<p> 	'''server := &amp;MurmurRPC.Server{'''<br />
+ 		'''Id: proto.Uint32(1),'''<br />
+ 	'''}'''</p>
+
+<p> 	'''streamClient := MurmurRPC.NewV1Client(conn)'''<br />
+ 	'''caClient := MurmurRPC.NewV1Client(conn)'''<br />
+ 	'''stream, err := streamClient.ServerEvents(context.Background(), server)'''<br />
+ 	'''if err != nil {'''<br />
+ 		'''panic(err)'''<br />
+ 	'''}'''<br />
+ 	'''for {'''<br />
+ 		'''event, err := stream.Recv()'''<br />
+ 		'''if err != nil {'''<br />
+ 			'''break'''<br />
+ 		'''}'''<br />
+ 		'''if event.GetType() != MurmurRPC.Server_Event_UserConnected {'''<br />
+ 			'''continue'''<br />
+ 		'''}'''<br />
+ 		'''log.Printf("Added context action to %s\n", event.GetUser().GetName())'''<br />
+ 		'''caClient.ContextActionAdd(context.Background(), &amp;MurmurRPC.ContextAction{'''<br />
+ 			'''Server:  server,'''<br />
+ 			'''Context: proto.Uint32(uint32(MurmurRPC.ContextAction_User)),'''<br />
+ 			'''Action:  proto.String("nudge"),'''<br />
+ 			'''Text:    proto.String("Nudge!"),'''<br />
+ 			'''User:    event.GetUser(),'''<br />
+ 		'''})'''<br />
+ 	'''}'''<br />
+ }</p>
+
+<p>There are a couple of things to note in the lines we added above. First, we create a &lt;code&gt;MurmurRPC.Server&lt;/code&gt; whose ID is 1; this is the default virtual server. If you have a another virtual server you would like to operate on, replace 1 with its ID. Second, we create two clients using &lt;code&gt;MurmurRPC.NewV1Client&lt;/code&gt; (&lt;code&gt;streamClient&lt;/code&gt; and &lt;code&gt;caClient&lt;/code&gt;). This is required as a client can only handle 1 simultaneous request. In our case, the &lt;code&gt;ServerEvents&lt;/code&gt; is still active when &lt;code&gt;ContextActionAdd&lt;/code&gt;, so we need another client.</p>
+
+<p>If you run the program now, each user that connects to the server will see a "Nudge!" action in the right-click menu of any user. Users will notice that clicking on the "Nudge!" action will not do anything. To change that, we need to create a listener that receives a notification whenever an action is triggered.</p>
+
+<p> package main</p>
+
+<p> import (<br />
+ 	"log"</p>
+
+<p> 	"./MurmurRPC"</p>
+
+<p> 	"github.com/golang/protobuf/proto"<br />
+ 	"golang.org/x/net/context"<br />
+ 	"google.golang.org/grpc"<br />
+ )</p>
+
+<p> func main() {<br />
+ 	log.Println("Nudge starting")</p>
+
+<p> 	conn, err := grpc.Dial("127.0.0.1:50051", grpc.WithInsecure())<br />
+ 	if err != nil {<br />
+ 		panic(err)<br />
+ 	}<br />
+ 	defer conn.Close()</p>
+
+<p> 	server := &amp;MurmurRPC.Server{<br />
+ 		Id: proto.Uint32(1),<br />
+ 	}</p>
+
+<p> 	'''go func() {'''<br />
+ 		streamClient := MurmurRPC.NewV1Client(conn)<br />
+ 		caClient := MurmurRPC.NewV1Client(conn)<br />
+ 		stream, err := streamClient.ServerEvents(context.Background(), server)<br />
+ 		if err != nil {<br />
+ 			panic(err)<br />
+ 		}<br />
+ 		for {<br />
+ 			event, err := stream.Recv()<br />
+ 			if err != nil {<br />
+ 				break<br />
+ 			}<br />
+ 			if event.GetType() != MurmurRPC.Server_Event_UserConnected {<br />
+ 				continue<br />
+ 			}<br />
+ 			log.Printf("Added context action to %s\n", event.GetUser().GetName())<br />
+ 			caClient.ContextActionAdd(context.Background(), &amp;MurmurRPC.ContextAction{<br />
+ 				Server:  server,<br />
+ 				Context: proto.Uint32(uint32(MurmurRPC.ContextAction_User)),<br />
+ 				Action:  proto.String("nudge"),<br />
+ 				Text:    proto.String("Nudge!"),<br />
+ 				User:    event.GetUser(),<br />
+ 			})<br />
+ 		}<br />
+ 	'''}()'''</p>
+
+<p> 	'''msgClient := MurmurRPC.NewV1Client(conn)'''<br />
+ 	'''caClient := MurmurRPC.NewV1Client(conn)'''<br />
+ 	'''stream, err := caClient.ContextActionEvents(context.Background(), &amp;MurmurRPC.ContextAction{'''<br />
+ 		'''Server: server,'''<br />
+ 		'''Action: proto.String("nudge"),'''<br />
+ 	'''})'''<br />
+ 	'''if err != nil {'''<br />
+ 		'''panic(err)'''<br />
+ 	'''}'''<br />
+ 	'''for {'''<br />
+ 		'''event, err := stream.Recv()'''<br />
+ 		'''if err != nil {'''<br />
+ 			'''break'''<br />
+ 		'''}'''<br />
+ 		'''if event.GetUser() == nil {'''<br />
+ 			'''continue'''<br />
+ 		'''}'''<br />
+ 		'''actor, err1 := msgClient.UserGet(context.Background(), event.GetActor())'''<br />
+ 		'''user, err2 := msgClient.UserGet(context.Background(), event.GetUser())'''<br />
+ 		'''if err1 != nil || err2 != nil {'''<br />
+ 			'''continue'''<br />
+ 		'''}'''<br />
+ 		'''if actor.GetSession() == user.GetSession() {'''<br />
+ 			'''msgClient.TextMessageSend(context.Background(), &amp;MurmurRPC.TextMessage{'''<br />
+ 				'''Server: server,'''<br />
+ 				'''Users:  []*MurmurRPC.User{actor},'''<br />
+ 				'''Text:   proto.String("Cannot nudge yourself!"),'''<br />
+ 			'''})'''<br />
+ 			'''continue'''<br />
+ 		'''}'''<br />
+ 		'''log.Printf("%s nudged %s\n", actor.GetName(), user.GetName())'''<br />
+ 		'''msg := &amp;MurmurRPC.TextMessage{'''<br />
+ 			'''Server: server,'''<br />
+ 			'''Users: []*MurmurRPC.User{user},'''<br />
+ 			'''Text: proto.String(actor.GetName() + " nudged you!"),'''<br />
+ 		'''}'''<br />
+ 		'''for i := 1; i &lt;= 3; i++ {'''<br />
+ 			'''msgClient.TextMessageSend(context.Background(), msg)'''<br />
+ 		'''}'''<br />
+ 	'''}'''<br />
+ }</p>
+
+<p>You will notice in the above modifications that the &lt;code&gt;ServerEvents&lt;/code&gt; stream was placed in its own Go routine. This is done to allow the server event listener to run at the same time as the context action listener.</p>
+
+<p>The usage of &lt;code&gt;UserGet&lt;/code&gt; might seem strange, since the context action actor and user are already part of the event. However, if you were to inspect either &lt;code&gt;event.Actor&lt;/code&gt; or &lt;code&gt;event.User&lt;/code&gt;, you would notice that only the user's server and session would be set. This is a bandwidth saving technique: embedded messages sometimes only contain enough identifying information to request more information via an RPC call. You should refer to the protocol buffer comments to see where this applies.</p>
+
+<p>And that's it! Running the above, completed program will allow your users to nudge other users on the server.</p>
+
+
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Mumble Server">Category:Mumble Server</a></p>

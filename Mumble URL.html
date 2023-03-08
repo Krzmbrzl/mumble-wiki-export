@@ -1,0 +1,125 @@
+<p>Mumble supports an own URL concept which enables you to join Mumble servers by a click of a link on a website, via links in the Mumble client (eg, in <a href="Murmur.ini#welcometext">MOTD</a>/chat messages, but only if <a href="Murmur.ini#allowhtml">AllowHTML</a> is set to true), via links in your Desktop system or via the "Run" dialog of your system.</p>
+
+<p>Mumble will also accept URLs as command line arguments:</p>
+
+<p>Example:</p>
+
+<p> mumble.exe mumble://server.com/?version=1.2.0</p>
+
+<p>Beginning with 1.2.4, you can grab a URL to the current server/channel by right clicking the channel and selecting "Copy URL". Note that also beginning with 1.2.4, "?version" is not required, but it's still recommended that you include it as anyone who has 1.2.3 or earlier will launch the 1.1.x compatibility client when clicking links without "?version=1.2.0".</p>
+
+<h3>General URL</h3>
+
+<p>Mumble uses normal URLs with the "mumble" scheme.</p>
+
+<p> mumble://[username[:password]@]&lt;address&gt;[:port]/[channelpath]?version=&lt;serverversion&gt;[&amp;title=&lt;servername&gt;][&amp;url=&lt;serverurl&gt;]</p>
+
+<p>'''username''' and '''password''' are optional.</p>
+
+<p>'''address''' is mandatory, and can be a IPv4 or IPv6 numerical address, or a hostname.</p>
+
+<p>'''port''' is optional, and 64738 is the default if not specified.</p>
+
+<p>'''channelpath''' is the path to the channel the client should try to move into. If the channel does not exist, the client will stay in the default channel.</p>
+
+<p>'''serverversion''' is the protocol version of the server. This should be ''1.1.0'' for 1.1 servers, and ''1.2.0'' for 1.2. For the time being, ''1.1.0'' will be assumed if this parameter is missing, but once the majority of users have switched to the 1.2 release, the default will be 1.2.0 to make URLs shorter.</p>
+
+<p>'''servername''' and '''serverurl''' are optional, and only used if the user drags the link and drops it in the server browser in Mumble. As this is a conventient way to add the server, we recommend they be filled out.</p>
+
+<p>Remember to encode special characters with their % equivalent. Most URL classes will do this for you.</p>
+
+<h3>Simple Server Address</h3>
+
+<p>Scheme:</p>
+
+<p> mumble://[SERVER ADDRESS]:[PORT]/?version=1.2.0</p>
+
+<p>Examples:</p>
+
+<p> mumble://server.com/?version=1.2.0<br />
+ mumble://172.16.31.199/?version=1.2.0<br />
+ mumble://server.com:23840/?version=1.2.0<br />
+ mumble://172.16.31.199:2000/?version=1.2.0</p>
+
+<p>This method simply enables you to join a server via an URL. Mumble will ask you instantly for your username and, if needed, for your password. As you can see in the examples, you are free to specify either an IP address or a DNS Name which represents the server you want to join. If the Mumble server does not listen on the default Mumble Port (64738), you can specify a port number after a separating colon.</p>
+
+<h3>Username</h3>
+
+<p>Scheme:</p>
+
+<p> mumble://[USERNAME]@[SERVER ADDRESS]:[PORT]/?version=1.2.0</p>
+
+<p>Examples:</p>
+
+<p> mumble://TestUser@server.com/?version=1.2.0<br />
+ mumble://TheGimp@172.16.31.199/?version=1.2.0<br />
+ mumble://TestUser@server.com:23840/?version=1.2.0<br />
+ mumble://TheGimp@172.16.31.199:2000/?version=1.2.0</p>
+
+<p>This method simply enables you to join a server via an URL with an already specified username. Mumble will ask you instantly for your password, if this should be needed.</p>
+
+<h3>Username and Password</h3>
+
+<p>Scheme:</p>
+
+<p> mumble://[USERNAME]:[PASSWORD]@[SERVER ADDRESS]:[PORT]/?version=1.2.0</p>
+
+<p>Examples:</p>
+
+<p> mumble://TestUser:mypassword@server.com/?version=1.2.0<br />
+ mumble://TheGimp:ilovezed@172.16.31.199/?version=1.2.0<br />
+ mumble://TestUser:mypassword@server.com:23840/?version=1.2.0<br />
+ mumble://TheGimp:ilovezed@172.16.31.199:2000/?version=1.2.0</p>
+
+<p>This method simply enables you to join a server via an URL with an already specified username and a password.</p>
+
+<h3>Server Password</h3>
+
+<p>To create a link to a server and specifying that servers password, you can leave the username empty.</p>
+
+<p> mumble://:mypassword@server.com/?version=1.2.0</p>
+
+<h3>Channels</h3>
+
+<p>Scheme:</p>
+
+<p> mumble://[USERNAME]:[PASSWORD]@[SERVER ADDRESS]:[PORT]/[CHANNEL]/[SUBCHANNEL]/[SUBSUBCHANNEL]/.../?version=1.2.0</p>
+
+<p>Examples:</p>
+
+<p> mumble://server.com/Open%20Talk/Subchannel%20A/Root/TestChannel/?version=1.2.0<br />
+ mumble://172.16.31.199/TestChannel/?version=1.2.0<br />
+ mumble://server.com:23840/Open%20Talk/Subchannel%20A/?version=1.2.0<br />
+ mumble://172.16.31.199:2000/TestChannel/?version=1.2.0</p>
+
+<p> mumble://TestUser@server.com/Open%20Talk/Subchannel%20A/?version=1.2.0<br />
+ mumble://TheGimp@172.16.31.199/TestChannel/?version=1.2.0<br />
+ mumble://TestUser@server.com:23840/Open%20Talk/Subchannel%20A/?version=1.2.0<br />
+ mumble://TheGimp@172.16.31.199:2000/TestChannel/?version=1.2.0</p>
+
+<p> mumble://TestUser:mypassword@server.com/Open%20Talk/Subchannel%20A/?version=1.2.0<br />
+ mumble://TheGimp:ilovezed@172.16.31.199/TestChannel/?version=1.2.0<br />
+ mumble://TestUser:mypassword@server.com:23840/Open%20Talk/Subchannel%20A/?version=1.2.0<br />
+ mumble://TheGimp:ilovezed@172.16.31.199:2000/TestChannel/?version=1.2.0</p>
+
+<p>This method enables you to join a server while specifying, in which channel you want to join. As you can see in the examples, you can combine this method with the methods described before. If your channel names contain whitespaces, you have to type "%20" instead of that whitespace.</p>
+
+<h2>Special characters</h2>
+
+<p>If some other characters cause problems (like whitespaces), you have to use URL encoding on them. Simply get their hexadecimal number from an [http://en.wikipedia.org/wiki/Ascii_table#ASCII_printable_characters ASCII table] and replace the character with a "%" in front of it. For whitespace use %20.</p>
+
+<h2>URL Handler Installation</h2>
+
+<p>If you have compiled Mumble from it's sources by yourself, the feature will not be available at first. You will have to register Mumble as a protocol handler for it's own URL type for your Desktop system in that case. If you installed Mumble with it's official installer, Mumble URLs should be accepted by your Desktop system, in that case, you can ignore this section.</p>
+
+<h3>Gnome</h3>
+
+<p>To enable Mumble URLs in the Gnome Desktop System on Linux, you have to execute the following commands:</p>
+
+<p> gconftool-2 -s -t string /desktop/gnome/url-handlers/mumble/command 'mumble "%s"'<br />
+ gconftool-2 -s -t bool /desktop/gnome/url-handlers/mumble/enabled true</p>
+
+<p>If the "mumble" command is not globally accessible through the PATH environment variable, you must specify it's full path instead of the last "mumble" in the first of the two commands above.</p>
+
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

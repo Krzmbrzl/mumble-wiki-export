@@ -1,0 +1,10 @@
+= Introduction =
+This page is supposed to contain information for server owners on what to expect of the upcoming [[1.2.0]] release on the server-side. For specific changes and upgrade instructions from 1.1.8 see [[1.2.0 Upgrade|Upgrade]].
+
+== [[Ice]]-Interface ==
+1.2.0 contains an enhanced [[Ice]] interface. This means more useful information and functionality gets exposed. Please see the corresponding documentation.
+
+== phpBB3 authenticator ==
+Starting with 1.2.0 we have a [[Ice]] + [http://www.python.org python] implementation of an authenticator that can be used to authenticate users from a phpBB3 database on a murmur 1.2.0 server. You can find [http://gitorious.org/mumble-scripts/mumble-scripts/trees/master/Authenticators/phpBB3 phpBB3auth here].
+
+[[Category:Documentation English]]

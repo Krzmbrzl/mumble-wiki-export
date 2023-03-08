@@ -1,0 +1,97 @@
+{{Warning
+|message=The build instructions listed here only apply to Mumble v1.3.x or older. If you want to build Mumble starting from v1.4.0, checkout https://github.com/mumble-voip/mumble/tree/master/docs/dev/build-instructions
+}}
+
+# Building
+
+### Introduction 
+
+This guide describes the method to get a fully working and redistributable version of Mumble and Murmur that uses the Cocoa version of Qt 4.
+
+To build Mumble you will need:
+* Mac OS X 10.8 (Mountain Lion)
+* Xcode 4.4
+
+### Creating a build environment 
+
+The git repository at https://github.com/mumble-voip/mumble-releng contains pre-made scripts that build the current canonical Mumble OS X build environment.
+
+Simply clone the repo, and cd into it:
+
+  $ git clone https://github.com/mumble-voip/mumble-releng
+  $ cd mumble-releng/buildenv/1.3.x/osx
+
+Create a MumbleBuild directory in your home dir:
+
+  $ mkdir -p ~/MumbleBuild
+
+Copy the 'env' script to the directory you created in the previous step:
+
+  $ cp env ~/MumbleBuild/env
+
+Source the env script to set up the proper environment variables for the Mumble build environment:
+
+  $ source ~/MumbleBuild/env
+
+Build the enviroment:
+
+  $ ./build-all.bash
+
+Once this is done, you should have a fully functional installation of Mumble's dependencies (tools and libs) in a self-contained MumbleBuild directory in your home directory.
+
+### Building Mumble 
+
+Make sure you've sourced ~/MumbleBuild/env into your current shell session:
+
+ $ source ~/MumbleBuild/env
+
+Fetch the Mumble source from Git into a directory of your choosing:
+
+ git clone --recursive https://github.com/mumble-voip/mumble
+
+To build the client, execute:
+
+ cd mumble
+ qmake -recursive -Wall main.pro CONFIG+="release static"
+ make
+
+If everything went well, you should now have a Mumble.app application bundle in the release directory of the root of the source tree.
+
+### Building Murmur 
+
+Make sure you've sourced ~/MumbleBuild/env into your current shell session:
+
+ $ source ~/MumbleBuild/env
+
+Fetch the Mumble and Murmur source from Git into a directory of your choosing:
+
+ git clone --recursive https://github.com/mumble-voip/mumble
+
+To build the server, execute:
+
+ cd mumble
+ qmake -spec unsupported/macx-clang -recursive CONFIG+="release static no-client no-dbus"
+ make
+
+If everything went well, you should now have a murmur binary in the release directory of the root of the source tree.
+
+### Distributing Mumble 
+
+If you wish to create a proper redistributable Mumble application bundle, please refer to the osxdist.py script in
+the macx/scripts directory. This will help you clean up your application bundle, include the needed dependencies, resources etc., and create a compressed disk image - ready to redistribute!
+
+The script expects you to be in the root of the source tree. After executing, it will spit out a .dmg of your Mumble build in the release folder.
+
+If you only have a Mumble.app, and have not built Murmur, you should also pass the
+
+ --no-server
+
+parameter to the osxdist.py script. This will not attempt to package Murmur-specific files in the generated .dmg.
+
+The script supports code signing, and among other things, allow you to build a copy of Mumble signed with your Developer ID certificates from Apple.
+To build with code signing enabled, use the following three parameters to the osxdist.py script:
+
+* --developer-id='<Name or Organization>'
+* --keychain=<keychain> (optional, defaults to 'login.keychain')
+
+

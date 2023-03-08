@@ -1,0 +1,18 @@
+{{ReleaseTimeline}}
+<!-- I derived the content of this page from the 1.2.15 release blog post: http://blog.mumble.info/mumble-1-2-15/ -->
+=== Summary ===
+Mumble 1.2.15 is a bugfix release in the 1.2-series of Mumble. 1.2.15 includes backported fixes for Xbox controller support from the 1.3.x branch of Mumble. These changes fix an incompatibility with a Windows 10 update that caused instability when an Xbox controller is present on the system. 1.2.15 also includes a backported feature from 1.3.x allowing the option to disable and edit the public Mumble server list. Additional changes are listed below.
+
+=== Changes in this release ===
+
+* Support for XInput ("XboxInput") has been backported from 1.3.x. This is due to an incompatibility in a recent Windows 10 update that make programs that use Xbox controllers via DirectInput very unstable (See issues [https://github.com/mumble-voip/mumble/issues/2104 #2104] and [https://github.com/mumble-voip/mumble/issues/2147 #2147] for more information.)
+* Various improvements to the WASAPI audio backend has been backported from 1.3.x. This should bring better compatibility with audio devices that do not provide floating point samples, such as headsets used via an Xbox controller.
+* A blacklist for misbehaving DirectInput devices has been backported from 1.3.x. This blacklists an input device presented by various popular DACs.
+* The ability to disable the public server list, as well as the ability to create and/or edit Mumble’s server list has been backported from 1.3.x.
+* Various references to http://mumble.sourceforge.net/ have been changed to point to https://www.mumble.info or https://wiki.mumble.info/
+* OpenSSL has been updated to OpenSSL 1.0.1s in our binary releases.
+
+For a full changelog, please see the [https://github.com/mumble-voip/mumble/compare/1.2.14...1.2.15 diff between 1.2.14 and 1.2.15] on GitHub.
+
+[[Category:Documentation English]]
+[[Category:Releases]]

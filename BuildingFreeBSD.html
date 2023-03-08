@@ -1,0 +1,190 @@
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=The build instructions listed here only apply to Mumble v1.3.x or older. If you want to build Mumble starting from v1.4.0, checkout <a href="https://github.com/mumble-voip/mumble/tree/master/docs/dev/build-instructions">https://github.com/mumble-voip/mumble/tree/master/docs/dev/build-instructions</a></td>
+</tr>
+</table>
+<p>}}</p>
+
+<p><img src="Building" title="Building" alt="Building" /></p>
+
+<h2>Compatible FreeBSD Releases</h2>
+<p>I can only confirm that Murmur runs on the following FreeBSD releases. However, it should build and run on others just fine. Feel free to edit this to add more versions that you've had success with.</p>
+
+<ul>
+	<li>FreeBSD 7.1</li>
+	<li>FreeBSD 7.2</li>
+	<li>FreeBSD 8.0</li>
+	<li>FreeBSD 8.1</li>
+	<li>FreeBSD 8.2</li>
+	<li>FreeBSD 9.0</li>
+	<li>FreeBSD 9.1</li>
+	<li>FreeBSD 10.1</li>
+</ul>
+<h2>Mumble Client</h2>
+
+<p>This is a place holder. This guide is targeted towards Murmur from git at the moment. You should be able to install the Mumble client 1.2.8 from ports relatively pain-free:</p>
+
+<p> cd /usr/ports/audio/mumble<br />
+ make install clean</p>
+
+<h2>Murmur from Ports</h2>
+
+<p>You can rather trivially install Murmur 1.2.8 from the ports tree:</p>
+
+<p> cd /usr/ports/audio/murmur<br />
+ make install clean</p>
+
+<h2>Murmur from git</h2>
+
+<h3>Grabbing sources from git</h3>
+
+<p>I put this part here because I got sick of going over to the Linux page every time I build Murmur on a new machine. If you haven't already installed git:</p>
+
+<p> cd /usr/ports/devel/git<br />
+ make install clean</p>
+
+<p>or for the impatient:</p>
+
+<p> pkg install git</p>
+
+<p>Next, clone the entire repository:</p>
+
+<p> git clone git://github.com/mumble-voip/mumble.git mumble<br />
+ cd mumble<br />
+ git submodule init<br />
+ git submodule update</p>
+
+<p>Alternatively, you can fetch a zip file of the entire repository, without the need for git, like so:</p>
+
+<p> cd ~<br />
+ fetch <a href="https://github.com/mumble-voip/mumble/archive/master.zip">https://github.com/mumble-voip/mumble/archive/master.zip</a><br />
+ unzip master.zip<br />
+ rm master.zip<br />
+ cd mumble-master</p>
+
+<h3>Install the dependencies</h3>
+
+<p>The following are the main dependencies required for building Murmur 1.2.x from git using Qt4.</p>
+
+<ul>
+	<li>devel/boost (devel/boost-libs on 8.0+)</li>
+	<li>devel/ice</li>
+	<li>security/openssl (See notes below)</li>
+	<li>devel/protobuf</li>
+	<li>devel/qt4-corelib</li>
+	<li>devel/qt4-moc</li>
+	<li>net/qt4-network</li>
+	<li>devel/qt4-qmake</li>
+	<li>devel/qt4-rcc</li>
+	<li>databases/qt4-mysql-plugin (See note below)</li>
+	<li>databases/qt4-sql</li>
+	<li>databases/qt4-sqlite-plugin</li>
+	<li>textproc/qt4-xml</li>
+</ul>
+<p>If you want to include '''Bonjour''' support, include these deps as well:</p>
+<ul>
+	<li>net/avahi</li>
+	<li>net/avahi-qt4</li>
+</ul>
+<p>'''security/openssl port''': The port isn't required, however at the time of writing there's a rather nasty DoS in QSslSocket which is fixed by upgrading to OpenSSL 0.9.8o or 1.0.0a, neither of which are in base on any current release, but the latter of which is in security/openssl port at the time of writing. However, if you install this port, you'll need to rename /usr/lib/libssl.so to something else, because Qt's runtime loader will grab the non-ports libssl and cause you all manner of grief.</p>
+
+<p>'''databases/qt4-mysql-plugin port''': The port is only required if you wish to use the QMYSQL driver.</p>
+
+<h3>Install the dependencies (Qt5)</h3>
+
+<p>I was able to build Murmur with Qt5 using the following dependencies:</p>
+
+<p> pkg install boost-libs ice qt5-core qt5-network qt5-xml qt5-qmake qt5-sqldrivers-sqlite3 protobuf qt5-buildtools</p>
+
+<p>The same OpenSSL caveat applies as above - with the recent changes in Murmur, it will segfault on run instead:</p>
+
+<p> (gdb) bt</p>
+<ol>
+	<li>0  0x2830c0e6 in ssl_create_cipher_list () from /usr/local/lib/libssl.so.8</li>
+</ol>
+<h3>Compilation</h3>
+
+<p>To build the server, Murmur:</p>
+
+<p> qmake-qt4 CONFIG+=no-client CONFIG+=no-dbus CONFIG+=no-bonjour main.pro<br />
+ make release</p>
+
+<p>For Qt5:</p>
+
+<p> /usr/local/lib/qt5/bin/qmake CONFIG+=no-client CONFIG+=no-dbus CONFIG+=no-bonjour main.pro<br />
+ make release</p>
+
+<p>Note, I currently don't use '''CONFIG+=optimize''' because I'm building on 7.2 and running the binary on 7.1.<br />
+I have no idea what possible consequences could come of that. I would not expect anything, but I'm just being on the safe side.</p>
+
+<h3>Run Murmur</h3>
+
+<p>I actually prefer to build Murmur in a VM and send builds up to the production server. To view murmur's dynamic dependencies for your system and configuration, simply run &lt;code&gt;ldd `which murmurd`&lt;/code&gt;.  In case you're wondering, here are the run deps (without Bonjour support):</p>
+
+<p>        libprotobuf.so.7 =&gt; /usr/local/lib/libprotobuf.so.7 (0x800a5e000)<br />
+        libcrypto.so.6 =&gt; /lib/libcrypto.so.6 (0x800d84000)<br />
+        libIce.so.34 =&gt; /usr/local/lib/libIce.so.34 (0x801122000)<br />
+        libIceUtil.so.34 =&gt; /usr/local/lib/libIceUtil.so.34 (0x80166b000)<br />
+        libQtSql.so.4 =&gt; /usr/local/lib/qt4/libQtSql.so.4 (0x8018b9000)<br />
+        libQtXml.so.4 =&gt; /usr/local/lib/qt4/libQtXml.so.4 (0x801b00000)<br />
+        libQtNetwork.so.4 =&gt; /usr/local/lib/qt4/libQtNetwork.so.4 (0x801d4e000)<br />
+        libQtCore.so.4 =&gt; /usr/local/lib/qt4/libQtCore.so.4 (0x8020df000)<br />
+        libstdc++.so.6 =&gt; /usr/lib/libstdc++.so.6 (0x802610000)<br />
+        libm.so.5 =&gt; /lib/libm.so.5 (0x80290b000)<br />
+        libgcc_s.so.1 =&gt; /lib/libgcc_s.so.1 (0x802b29000)<br />
+        libthr.so.3 =&gt; /lib/libthr.so.3 (0x802d36000)<br />
+        libc.so.7 =&gt; /lib/libc.so.7 (0x802f58000)<br />
+        libz.so.6 =&gt; /lib/libz.so.6 (0x8032a2000)<br />
+        libbz2.so.4 =&gt; /usr/lib/libbz2.so.4 (0x8034b7000)<br />
+        libgthread-2.0.so.0 =&gt; /usr/local/lib/libgthread-2.0.so.0 (0x8036c8000)<br />
+        libglib-2.0.so.0 =&gt; /usr/local/lib/libglib-2.0.so.0 (0x8038cc000)<br />
+        libiconv.so.3 =&gt; /usr/local/lib/libiconv.so.3 (0x803bae000)<br />
+        libintl.so.9 =&gt; /usr/local/lib/libintl.so.9 (0x803eaa000)<br />
+        libpcre.so.3 =&gt; /usr/local/lib/libpcre.so.3 (0x8040b4000)</p>
+
+<ul>
+	<li>see <a href="Running Murmur">Running Murmur</a> for information on how to start the server.</li>
+</ul>
+<h2>Caveats and Historical problems</h2>
+
+<h3>No SSL ciphers of at least 128 bit found</h3>
+
+<p>It seems to me like there's a problem with Qt on FreeBSD. When you have OpenSSL from ports, and the ABI is different from the one in base (say, OpenSSL 1.0 from ports, 0.9.8 from base) Qt does some weird things. It'll load half the library from ports (the part that ld(1) loads), then Qt comes along and loads its share from base. The result is lots of unexpected behavior, with "No SSL ciphers of at least 128 bit found" being the most common.</p>
+
+<p>The dirty fix if you have root access is simply to rename the base libssl.so to something so that Qt's loader doesn't find it, and looks in /usr/local/lib instead:</p>
+
+<ol>
+	<li>mv /usr/lib/libssl.so /usr/lib/libssl.so.old</li>
+</ol>
+<p>'''Note:''' On FreeBSD 10.1 with Qt5, you have to rename /usr/lib/libssl.so.7, which breaks a lot of stuff including git. :(</p>
+
+<h3>No certificates could be verified</h3>
+
+<p>Note that recent versions of OpenSSL will verify the server's own certificate at the start of a TLS session, so you might get an error like "No certificates could be verified". Older versions of Murmur didn't have the FreeBSD cert store in the search path, so you needed to tell it where to find it:</p>
+
+<p> qmake-qt4 CONFIG+=no-client CONFIG+=no-dbus CONFIG+=no-bonjour \ DEFINES+="SYSTEM_CA_BUNDLE=/usr/local/share/certs/ca-root-nss.crt" main.pro</p>
+
+<h3>slice2cpp errors</h3>
+
+<p>If you get errors about slice2cpp or Ice/SliceChecksumDict.ice, you must edit src/murmur/murmur.pro and add another include path (/usr/local/share/Ice) to the slice2cpp line (#72 at time of writing), like so:</p>
+
+<p> slice2cpp --checksum -I/usr/local/share/Ice ....</p>
+
+<p>... or you could just symlink that directory to one of the directories the Makefile searches already, or use patch [http://sourceforge.net/tracker/?func=detail&amp;aid=3026518&amp;group_id=147372&amp;atid=768007 #3026518].</p>
+
+<p>This error has been fixed for a while.</p>
+
+<h3>alloca.h missing</h3>
+
+<p>When building 1.1.8 or earlier, build fails because of a missing alloca.h header. On FreeBSD, alloca() is declared in [http://www.mail-archive.com/autoconf@gnu.org/msg18685.html stdlib.h], so it's safe to comment the line out (in src/murmur/murmur_pch.h). This has been fixed in git for quite some time, and is apparently fixed in the port of 1.1.8.</p>
+
+<h3>Requesting crypt-nonce resync</h3>
+
+<p>On 64-bit FreeBSD installations, Murmur 1.1.x and early 1.2 builds would fail, spamming "Requesting crypt-nonce resync" messages in the log, as reported [http://sourceforge.net/projects/mumble/forums/forum/492607/topic/3201763?message=7153824 here] and [http://sourceforge.net/projects/mumble/forums/forum/492607/topic/3378871 here].</p>
+
+<p>Crypto was broken on amd64 (and presumably others), however it's fixed in git. If you're trying to build a 1.1.8 server from source, [http://mumble.git.sourceforge.net/git/gitweb.cgi?p=mumble/mumble;a=commitdiff;h=279ca01e7c5eb43aaf676cc8e222e45141739a21 this patch] might help. </p>
+
+<p>This was fixed in ports ([http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/139384 ports/139384]), so if you're building from ports, make sure your ports tree is up to date.</p>
+
+<p><a href="Category:Development">Category:Development</a></p>

@@ -1,0 +1,76 @@
+<p>'''NOTE: Please go to [https://www.mumble.info/documentation/user/positional-audio/ the new documentation on our website] instead. The documentation here is now obsolete.'''</p>
+
+<p>---</p>
+
+<h1>Positional Audio</h1>
+
+<p>This article describes how Positional Audio (PA) works. For a list of games with PA support, see <a href="Games">Games</a>.</p>
+
+<h2>What is Positional Audio</h2>
+<p>Positional Audio is a feature of Mumble that places the people talking to you in a certain position relative to your own depending on their actual position in the game you are playing. This way you can hear the person as if their actual avatar in-game was talking to you.</p>
+
+<p>If someone is NOT using Positional Audio, you would hear that audio source always from the same spot, equally loud from each of your stereo speakers.</p>
+
+<p><a href="File:StationaryAudio.gif">center|alt=Shows Audiowaves without Postional Audio in cyberspace</a></p>
+
+<p>If someone uses Positional Audio, and is in the same context <a href="Games">(game)</a> you will hear them louder from one speaker than from the other in such a way that correctly represents their angle and distance to you.</p>
+
+<p><a href="File:Positional_Audio.gif">center|alt=Shows Audiowaves with Postional Audio in cyberspace</a></p>
+
+<h2>How does Mumble get informations about the virtual positions of the clients</h2>
+
+<p>There are two different approaches for Mumble to get this information.</p>
+<ul>
+	<li>One: The <a href="Games#Supported_Games">Game</a> itself has a routine that transmits this data from within the program to the mumble client.</li>
+	<li>Two: The Mumble client can use a specially crafted plugin to peek into the memory of a game to get the needed information. This approach is done from outside of the program. If a program gets  updated and stores the position on a different memory offset the plugin has to be updated as well to work again.</li>
+</ul>
+<p>Either way Mumble tries to gain the following information:</p>
+<ul>
+	<li>Position/Heading of your avatar <a href="Games#Supported_Games">in-game</a></li>
+	<li>Position/Heading of the <a href="Games#Supported_Games">in-game</a> camera</li>
+	<li>A so called "context" uniquely identifying the game (as in server/realm and so on) you are playing on</li>
+	<li>A so called "identity" uniquely identifying the client amongst other clients with the same "context". It is also used to store additional information like team or class depending on the game.</li>
+</ul>
+<p>The server will only transmit positional audio data to client with matching context information. That means if you play a game on two different servers you will not hear each other positionally. The context and identity information are not forwarded to the other clients though. They can be used by server side applications which could, for example, place players in different channels/groups depending on the server/team they are currently playing on/in.</p>
+
+<h2>How to activate Positional Audio</h2>
+<p><a href="File:Audio-Output.jpg">thumb|This shows the Settings Page of the Audio output.</a><br />
+Postional Audio is activated by default. If you wish to configure it you will have to open settings pages of Mumble and check the </p>
+
+
+<p>(1) Advanced Config settings</p>
+
+<p>on the Audio Output is a check box (2) to General enable or disable Positional Audio for your client.</p>
+
+<p>&lt;div style="clear:right;"&gt;&lt;/div&gt;</p>
+
+<hr />
+
+<p><a href="File:Plugin.jpg">thumb|left|the Plug-ins Config Page</a></p>
+
+<p>On this Page you are able to generally allow Mumble to see if you run a program that matches one of the plugins in Box (2)<br />
+The check box in the plug-in list (2) enables or disables the plug-in. This way you can decide if you want positonal audio for a certain program or not.<br />
+The Button (3) "reload Plugins" tells the client to reload the .dll's from the filesystem and check if there is a new Plugin in the plugin folder on your local drive.</p>
+
+
+<p>Mumble does this lookup on startup and futher more checks on the internet for updated versions of the plugins. If there is a newer version the client downloads it automatic and places it into the  right folder. Be aware that if there is an old .dll it gets replaced.<br />
+(4) shows you addtional Infos about the selected plugin in (2) the main box.</p>
+
+<p>If the Plugin can be configured you can use Button (5) Configure to get into the options of the selected Plugin.</p>
+
+
+<p>Currently the only Plugin that has such a page is the ''"Manual Positonal Audio"'' Plugin (see --&gt; Games <a href="Games#Special_Plugins">Games#Special_Plugins</a>)</p>
+
+<p>&lt;div style="clear:left;"&gt;&lt;/div&gt;</p>
+
+<h2>What Programs/Games does Mumble Support with Positional Audio</h2>
+
+<p>see --&gt; <a href="Games">Games</a></p>
+
+<h2>How do I create Positional Audio for an unsupported Game</h2>
+
+<p>See <a href="Pluginguide">Pluginguide</a> for a step-by-step explanation on how to create plugins and <a href="HackPositionalAudio">HackPositionalAudio</a> for a more abstract explanation with more methods for retrieving the data.</p>
+
+<p>If you can mod the game you might be able to use <a href="Link">Link</a>. Check in advance if the game's modding API allows you access to the relevant data! </p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

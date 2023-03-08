@@ -1,0 +1,467 @@
+<p><img src="Deprecated" title="Deprecated" alt="Deprecated" /><br />
+<img src="Building" title="Building" alt="Building" /></p>
+
+<p><img src="Notice" title="message=Please refer to and use [[BuildingWindows]] instead. This is an old, outdated guide. We do not know if it still works like this. [[BuildingWindows]] uses our own build environment." alt="message=Please refer to and use [[BuildingWindows]] instead. This is an old, outdated guide. We do not know if it still works like this. [[BuildingWindows]] uses our own build environment." /></p>
+
+<h1>Introduction</h1>
+
+<p>Mumble has quite a few dependencies for building on Windows, and as the feature set grows, so does the list of dependencies. This page will try to detail the steps required to set up a Win32 build environment suitable for compiling the current code found in our repository. Be aware that these steps might not work for older revisions of Mumble as dependencies might have been removed or updated to an incompatible version in the meantime. '''Note that you must follow each step in order, or you will have problems.'''</p>
+
+<p>The paths used here equal the defaults assumed in the Mumble build files. You are free to change them, but you might need to <a href="#Custom Dependency Paths">adjust the build files</a> themselves. If you find any problems or incorrect steps in this article please either correct them or contact us and we will try our best to resolve the issue.</p>
+
+<p>Also note, that if you are submitting a bug report for a self-built executable, we expect you to either</p>
+<ul>
+	<li>Follow these instructions to the letteror</li>
+	<li>Report any deviations from these instructions</li>
+</ul>
+<p>Deviations means anything, from "I installed to the D: drive" to "I changed the gcc build options for Qt" or "I used another version of Speex".</p>
+
+<p>'''A note to those following this guide''': When you extract compressed files, sometimes they will have container folders and sometimes they will not. Please ensure (for example) that when you extract a compressed file like protobuf-2.2.0.zip, you see "bin" "include" and such folders as that directly inside of the folder named "protobuf-2.2.0". If you just see one folder and no other files, then you need to open that folder, and use the folder that is inside of it.</p>
+
+<p>'''Also remember that this guide may not be updated every single time a build dependency gets updated. It's up to you to make sure that you have the latest versions on the various dependencies; it would also be appreciated if you would update this wiki to reflect any changes you run into.'''</p>
+
+<h1>Software which you will need</h1>
+
+<p>Tools: [http://go.microsoft.com/?linkid=9709949 Visual Studio 2010 Express], [http://code.google.com/p/msysgit/downloads/list Git for Windows], [http://www.activestate.com/activeperl/downloads ActivePerl], [http://www.nasm.us/ NASM]</p>
+
+<p>Optional Tools: [http://code.google.com/p/tortoisegit/downloads/list TortoiseGIT], [http://notepad-plus-plus.org/download/ Notepad++], [http://7-zip.org/download.html 7-Zip]</p>
+
+<p>Dependencies: [http://code.google.com/p/protobuf/downloads/list Protocol Buffers], [http://www.boost.org/users/download/ Boost], [http://www.openssl.org/source/ OpenSSL], [http://www.zlib.net/ zlib], [http://www.mega-nerd.com/libsndfile/#Download libsndfile], [http://www.microsoft.com/downloads/dlx/en-us/listdetailsview.aspx?FamilyID=6b6c21d2-2006-4afa-9702-529fa782d63b Microsoft Windows SDK], [http://www.microsoft.com/download/en/details.aspx?displaylang=en&amp;id=6812 Microsoft DirectX SDK]</p>
+
+<p>Optional:, [https://developer.apple.com/bonjour/ Bonjur (requires account)], [http://www.logitech.com/en-gb/support/3498?bit=64&amp;crid=404&amp;osid=14 G15SDK] (included in the Gaming Software), [http://dev.mysql.com/downloads/mysql/ MySQL], ([http://sites.google.com/site/dmoulding/vld Visual Leak Detector]), [http://www.zeroc.com/download.html ZeroC Ice] , [http://www.steinberg.net/nc/en/company/developer/sdk_download_portal.html ASIO SDK (requires Account)]</p>
+
+<p>'''Dependency-Tree:'''</p>
+
+<p> Mumble &lt;- boost<br />
+        &lt;- protobuf<br />
+        &lt;- openssl   &lt;- zlib<br />
+                     &lt;- perl<br />
+        &lt;- libsndfile</p>
+
+<p>        // optional:<br />
+        &lt;- ice<br />
+        &lt;- (vld)<br />
+        &lt;- bonjour<br />
+        &lt;- asio<br />
+        &lt;- g15sdk<br />
+        &lt;- mysql</p>
+
+<h1>Preparations</h1>
+
+<h2>Tools Used in Compiling</h2>
+<h3>Visual Studio</h3>
+
+<p>You'll need Visual Studio 2010 (or Visual C++ Express Edition) with SP1 or later.</p>
+
+<p>Visual Studio 2010 trials: <a href="http://www.microsoft.com/visualstudio/en-us/try">http://www.microsoft.com/visualstudio/en-us/try</a></p>
+
+<p>Visual C++ 2010 Express Edition: <a href="http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express">http://www.microsoft.com/visualstudio/en-us/products/2010-editions/visual-cpp-express</a></p>
+
+<h3>Git</h3>
+
+<p>Download the most recent Git from <a href="http://code.google.com/p/msysgit/downloads/list">http://code.google.com/p/msysgit/downloads/list</a> and install it. Make sure you select "Run Git from the Windows Command Prompt."</p>
+
+<p>'''After you install Git, start a command prompt and run'''<br />
+ git config --global core.autocrlf true</p>
+
+<p>{{Elaboration</p>
+<table>
+<tr>
+	<td>message=This will ensure line endings of text files you commit will be converted to LF line-endings ([http://kernel.org/pub/software/scm/git/docs/gitattributes.html#_end_of_line_conversion see]). The Mumble repository uses LF line endings only! This setting will also make Git convert LF to the system native line-endings for your working directory.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<h3>TortoiseGit</h3>
+
+<p>[http://code.google.com/p/tortoisegit/downloads/list TortoiseGit] is a GUI frontend for Git. You can install this along with the one above for realtime information about changes to the Git code.</p>
+
+<h3>ActivePerl and NASM</h3>
+
+<p>Download and install ActivePerl from here: <a href="http://www.activestate.com/activeperl/&lt;br&gt;">http://www.activestate.com/activeperl/&lt;br&gt;</a></p>
+
+<p>Download and install NASM from here: <a href="http://www.nasm.us/">http://www.nasm.us/</a></p>
+
+<h3>7-Zip and Notepad++</h3>
+
+<p>Get 7-Zip [http://7-zip.org/ here]. After you install it, start the 7-Zip File Manager, go to Tools -&gt; Options, and select the file associations you want. We recommend selecting .zip and .7z file extensions.</p>
+
+<p>[http://notepad-plus-plus.org/download/ Notepad++]. After you install Notepad++, start it, go to Preferences -&gt; New Document/Default Directory, and check "Unix" in the Format box.</p>
+
+<h2>Libraries and Depedencies</h2>
+
+<h3>Bonjour</h3>
+<p>Download the Bonjour SDK from [http://developer.apple.com/opensource/ Apple site] ''(Apple account is required)'' and install it to its default install location.</p>
+
+<p>{{Notice|<br />
+message=Bonjour can be disabled by passing ''CONFIG+=no-bonjour'' to qmake. Compiling without Bonjour support means that you do not need the SDK at all.<br />
+}}</p>
+
+<h3>G15SDK</h3>
+<p>Download the G15 software from here: <a href="http://www.logitech.com/en-us/434/3498?section=downloads&amp;WT.ac=sc|downloads||dd">http://www.logitech.com/en-us/434/3498?section=downloads&amp;WT.ac=sc|downloads||dd</a> and install it.</p>
+
+<p>Now go to ''C:\Program Files\Logitech Gaming Software\LCDSDK'' and extract "LCDSDK_3.06.109.zip". Take the folder that has been extracted and rename it to ''G15SDK''. Put this folder into ''c:\dev''.</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=Support for G15 Displays can be disabled by passing ''CONFIG+=no-g15'' to qmake. The G15 software is not necessary if you're compiling without G15 support.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<h3>libsndfile</h3>
+<p>Download the '''32-bit''' Windows installer from <a href="http://www.mega-nerd.com/libsndfile/#Download">http://www.mega-nerd.com/libsndfile/#Download</a> and install it to its default install location.</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=This dependency is not needed for the server.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<h3>Microsoft Windows SDK</h3>
+
+<p>At the time of writing this, the latest version is the "Microsoft Windows SDK for Windows 7 and .NET Framework 4". Download it from <a href="http://msdn.microsoft.com/en-us/windows/bb980924.aspx">http://msdn.microsoft.com/en-us/windows/bb980924.aspx</a> .</p>
+
+<p>Install it to a location of your choice. The “Documentation” and “Samples” in the SDK are not required for Mumble and can be left out to speed up the installation.</p>
+
+<p>After installing the Windows SDK you must make sure Visual Studio uses it. Start the WindowsSdkVer.exe utility in the SDK's setup folder and change the used version to 7.X. If you get an error that says you don't have VS2005 or VS2008 installed see [http://blogs.msdn.com/b/windowssdk/archive/2009/08/21/windows-sdk-configuration-tool-may-report-an-error-when-os-display-format-is-not-english.aspx on how to fix it].</p>
+
+<h3>Microsoft DirectX SDK</h3>
+
+<p>Download the DirectX SDK from <a href="http://www.microsoft.com/en-us/download/details.aspx?id=6812.">http://www.microsoft.com/en-us/download/details.aspx?id=6812.</a> Install it to the default location.</p>
+
+<h3>MySQL</h3>
+
+<p>Download the latest release of MySQL Server (x86, 32-bit). It can be found here: <a href="http://dev.mysql.com/downloads/mysql/">http://dev.mysql.com/downloads/mysql/</a> (select "Without installer (unzip in C:\)"). Unzip it to ''c:\dev\MySQL''.</p>
+
+<p>{{Notice|message=<br />
+Compiling Qt (and thus Mumble) without MySQL support means you don’t need MySQL at all.<br />
+}}</p>
+
+<h3>Protocol Buffers</h3>
+
+<ul>
+	<li>Download [http://code.google.com/p/protobuf/ Protocol Buffers from Google] (''protobuf-x.y.z.zip'')</li>
+	<li>unpack it to ''c:\dev\protobuf-x.y.z''.</li>
+</ul>
+<p>{{Notice|message=<br />
+You must have Visual Studio (see above) installed.<br />
+}}</p>
+<ul>
+	<li>Open protobuf-x.y.z\vsprojects\protobuf.sln</li>
+	<li>Find a dropdown box at the top right of VS2010 that says "Debug" on it. Change that to "Release"</li>
+	<li>Right click the "Solution 'protobuf' (9 projects)" at the top left of VS2010 and select "Batch Build..." Click "Select All," then click "Build".</li>
+</ul>
+<p>{{Notice|message=<br />
+You'll get errors, but for our purposes, you can ignore them<br />
+}}</p>
+
+<p>Now run the file ''C:\dev\protobuf-x.y.z\vsprojects\extract_includes.bat''.</p>
+
+
+<p>{{Notice|message=<br />
+The release version (''x.y.z'') in prep.bat (''introduced later'') has to match the version in the directory name or you (/the compilation process) won't be able to call ''protoc.exe''.<br />
+}}</p>
+
+<h3>Visual Leak Detector (optional)</h3>
+
+<p>{{Notice|message=<br />
+VLD is no longer a default requirement for a Mumble build environment. You only have to install it if you want to use it in which case you have to manually enable it with ''CONFIG+=vld''.<br />
+}}</p>
+
+<p>[http://dmoulding.googlepages.com/vld Download] VLD and install it to its default install location.</p>
+
+<p>If you're using Visual C++ Express Edition, you will need to manually extract the files using a tool like [http://7-zip.org/ 7-zip ]. Extract it to ''C:\dev\'' and adjust <a href="BuildingWindows#Custom_Dependency_Paths">the VLD_PATH</a> to point to it.</p>
+
+<p>{{Notice|message=<br />
+VLD is only enabled for debug builds. If you only compile Release builds you do not need it.<br />
+}}</p>
+
+<h3>ZeroC Ice</h3>
+
+<p>Download Ice version 3.4.2 of ZeroC Ice from <a href="http://www.zeroc.com/download.html.">http://www.zeroc.com/download.html.</a> Install to the default install location.</p>
+
+<p>{{Notice|message=<br />
+Ice can be disabled by passing ''CONFIG+=no-ice'' to qmake. Bear in mind that the <a href="Ice">Ice</a> RPC Interface is the recommended way to control the server. This dependency is not needed for building the client.<br />
+}}</p>
+
+<h1>Create Prep</h1>
+
+<p>Create ''C:\dev'', and inside that directory create a file ''prep.cmd'' containing: <br />
+ @echo off<br />
+ SET DIR=c:\dev<br />
+ SET VSVER=10.0<br />
+ SET LIB=<br />
+ SET QT_DIR=%DIR%\QtMumble<br />
+ SET MUMBLE_DIR=%DIR%\mumble<br />
+ SET VLD_DIR=%DIR%\vld<br />
+ SET MYSQL_DIR=%DIR%\mysql<br />
+ SET NASM_DIR=%DIR%\nasm<br />
+ SET ICE_DIR=%DIR%\Ice</p>
+
+<p> IF DEFINED %PROGRAMFILES(X86)% (<br />
+   GOTO amd64<br />
+ ) ELSE (<br />
+   GOTO x86<br />
+ )</p>
+
+<p> :amd64<br />
+ SET PROGPATH=%PROGRAMFILES(X86)%<br />
+ GOTO Common</p>
+
+<p> :x86<br />
+ SET PROGPATH=%PROGRAMFILES%<br />
+ GOTO Common</p>
+
+<p> :Common<br />
+ CALL "%PROGPATH%\Microsoft Visual Studio %VSVER%\VC\vcvarsall.bat" x86<br />
+ CALL "%DXSDK_DIR%\Utilities\bin\dx_setenv.cmd" x86<br />
+ SET PATH=%QT_DIR%\bin;%DIR%\OpenSSL\bin;%PROGPATH%\Mega-Nerd\libsndfile\bin;%MYSQL_DIR%\lib;%ICE_DIR%\bin\vc100;%DIR%\protobuf-2.4.0a\vsprojects\Release;%NASM_DIR%;%VLD_DIR%\bin;%PATH%<br />
+ TITLE Mumble Development Environment</p>
+
+<p> if "%1"=="" (<br />
+   cmd /V:ON<br />
+   exit /b<br />
+ )</p>
+
+
+<p>Now create a shortcut to ''C:\Windows\System32\cmd.exe /K "..\prep.cmd"'' on your desktop. Edit its properties to make it Start in ''C:\dev\mumble''.</p>
+
+<p>Alternatively, you can use the advanced script <a href="BuildingWindows/mde.cmd">BuildingWindows/mde.cmd</a> ([http://luki.net.pl/dl/mumble/mde.cmd download]) which allows you to set it up in its head (vs-ver and paths of your environment), and additionally to preparing your environment provides some git and building commands.</p>
+
+<h1>Custom Dependency Paths</h1>
+
+<p>The build files were modified to support custom dependency paths a while ago. This is for the people who have '''the dependencies installed in some other place than the C:\dev directory structure'''. To specify the custom paths you need to '''create a ''winpaths_custom.pri'' file''' to the root of your Mumble project. In this file you can override all paths found in ''winpaths_default.pri''. For example:</p>
+
+<p>  OPENSSL_PATH = /dev/MyOpenSSLIsSomewhereElse<br />
+  ICE_PATH = C:<br />
+Program Files (x86)<br />
+ZeroC<br />
+Ice-3.4.1</p>
+
+<p>Would make the build process search its OpenSSL and Ice dependencies in the specified folders and use defaults for everything else. Note that you should only override the variables for dependencies you actually installed in non-default locations to prevent clashes with possible future updates.</p>
+
+
+<p>'''Note:''' If you copied ''winpaths_default.pri'' to create your ''winpaths_custom.pri'' make sure to delete the following lines from your ''winpaths_custom.pri'' file:</p>
+
+<ol>
+	<li>Include custom file if it exists exists(winpaths_custom.pri) { 	include(winpaths_custom.pri) }</li>
+</ol>
+<h1>Commandline Instructions</h1>
+<p>Whenever something appears<br />
+ like this<br />
+you're supposed to enter it in that command shell (or copy it from this webpage and right click in the command window and select ''Paste''). </p>
+
+<p>Note that ''each line'' is a separate command. So, if you wanted to do the following,<br />
+ cd mumble<br />
+ prep<br />
+you would type "cd mumble" in your command prompt, and press enter, and then you would type "prep", and press enter.</p>
+
+<p>Ok. So you're ready to start compiling.</p>
+
+<p>Start a new command shell (run ''cmd.exe'')<br />
+ cd \dev<br />
+ prep</p>
+
+<p>After you run prep make sure a message similar to "Setting environment for using Microsoft Visual Studio 2010 x86 tools" appears.</p>
+
+<p>{{Notice|message=<br />
+If you set up a shortcut like described in the section above you can open it and it will run prep automatically.<br />
+}}</p>
+
+
+<p>'''''When you later want to compile a dependency or program, always remember to call prep.bat first to set paths correctly.'''''</p>
+
+<h1>Compile Mumble Dependencies</h1>
+
+<h3>Boost</h3>
+
+<p>Download the most recent Windows version of the [http://www.boost.org/ Boost C++ libraries] and unzip it to ''c:\dev''</p>
+
+<p> cd \dev <br />
+ prep<br />
+ cd boost_*<br />
+ bootstrap.bat<br />
+ b2 <small>toolset=msvc-10.0 </small>prefix=C:\dev\Boost install</p>
+
+<p>This might take a while (like hour), but when done you'll have Boost installed.</p>
+
+<p>{{Notice|message=<br />
+If you get the warning, that some targets were skipped or failed, it can be ignored for our purposes.<br />
+}}</p>
+
+<p>{{Notice|message=<br />
+None of the other build dependencies do themselves depend on boost (meaning: only Mumble does), so if you want you can just continue with the other dependencies in a new command shell (but remember to call ''prep.bat''). <br />
+}}</p>
+
+<p>{{Notice|message=<br />
+Once all is done, you can safely delete the boost_* directory.<br />
+}}</p>
+
+<h3>OpenSSL</h3>
+
+<p>Download [http://www.zlib.net/ zlib] source and unpack it to ''C:\dev'' and rename the ''zlib-x.y.z'' folder to ''zlib''</p>
+
+<p>[http://www.openssl.org/source/ Download the OpenSSL source] named "openssl-1.0.0d.tar.gz" and unpack it to ''c:\dev'' (it will create a directory called openssl-x.y.z)</p>
+
+<p> cd c:\dev\openssl&lt;press tab&gt;<br />
+ perl Configure VC-WIN32 <small>prefix=c:\dev\OpenSSL zlib-dynamic </small>with-zlib-include=c:<br />
+dev<br />
+zlib<br />
+ ms\do_nasm<br />
+ nmake -f ms\ntdll.mak<br />
+ nmake -f ms\ntdll.mak test</p>
+
+<p>Make sure all the tests passed, then run:<br />
+ nmake -f ms\ntdll.mak install</p>
+
+<p>{{Notice|message=<br />
+You can remove the ''c:\dev\openssl-x.y.z'' folder after this.<br />
+}}</p>
+
+<h3>Qt</h3>
+
+<p>Checkout the Mumble Qt git repo to &lt;code&gt;C:\dev\QtMumble&lt;/code&gt;:<br />
+ cd c:\dev<br />
+ git clone git://gitorious.org/+mumble-developers/qt/mumble-developers-qt.git QtMumble</p>
+
+<p>Switch to the ''4.8-mumble'' branch:</p>
+
+<p> cd QtMumble<br />
+ git checkout --track -b 4.8-mumble origin/4.8-mumble</p>
+
+<p>{{Notice|message=<br />
+For the latest Mumble Git, change the above "4.8" to the latest version listed [http://gitorious.org/+mumble-developers/qt/mumble-developers-qt here] under branches.'''<br />
+}}</p>
+
+<p>Now for compilation configuration and compilation itself execute<br />
+ configure -debug-and-release -qt-sql-sqlite -qt-sql-mysql -no-qt3support -no-exceptions -qt-zlib -qt-libpng -qt-libjpeg -openssl -I c:\dev\OpenSSL\include -L c:\dev\OpenSSL\lib -I c:\dev\MySQL\include -L c:\dev\MySQL\lib -platform win32-msvc2010 -no-dbus -nomake demos -nomake examples -no-webkit -ltcg -mp<br />
+ nmake</p>
+
+<p>{{Notice|message=<br />
+The directory syntax  for the ''configure'' parameter listed above is '''case sensitive'''. ''-L c:\dev\mysql\lib'' is different from ''-L c:\dev\'''MySQL'''\lib''<br />
+}}<br />
+{{Notice|message=<br />
+Compiling Qt will take a while. So if you want to compile Mumble without MySQL support, leave the ''-qt-sql-mysql'' parameter out (on the configure call). If you do this, please also remove the ''-I c:\dev\MySQL\include -L c:\dev\MySQL\lib'' section.<br />
+}}<br />
+{{Elaboration|message=<br />
+The [http://msdn.microsoft.com/en-us/library/xbf3tbeh%28v=vs.80%29.aspx -ltcg] and [http://msdn.microsoft.com/en-us/library/bb385193.aspx -mp (''multi-process compilation'')] parameters being passed are optimizations that should speed up your compilation process.<br />
+}}</p>
+
+<h1>Download, Compile and Run Mumble</h1>
+
+<h3>Download Mumble and Submodules</h3>
+
+<p>To clone the repositories you must open <a href="#Create Prep">Mumble Development Environment</a> console and type:<br />
+ git clone git://github.com/mumble-voip/mumble.git mumble &amp;&amp; cd mumble &amp;&amp; git submodule init &amp;&amp; git submodule update</p>
+
+<h3>Compile Mumble and Murmur</h3>
+
+<p>Once all of the above is done we can get to compiling Mumble itself. </p>
+
+<p>If you want to have ASIO support you have to install an additional, proprietary, ASIO SDK.</p>
+
+<p>There are three dependencies that most people who make their own compiles will not need: </p>
+<ol>
+	<li>g15</li>
+	<li>asio</li>
+	<li>bonjour</li>
+</ol>
+<p>The bonjour dependency is useful if you want to browse servers across a local network, but you can disable it if this feature is not needed. </p>
+
+<p>To compile Mumble without ASIO, G15, Bonjour, and with disabled privilege elevation (would require a valid code signing certificate) replace the qmake command below with this one:</p>
+
+<p> qmake CONFIG-=sse2 CONFIG+=no-asio CONFIG+=no-g15 CONFIG+=no-bonjour CONFIG+=no-elevation -recursive</p>
+
+<p>{{Notice|message=<br />
+The compile ''will fail'' if you leave out these build flags and do not have the SDK(s) required. You can pass ''no-client'' or ''no-server'' to only build the server or the client. Default will build both.<br />
+}}</p>
+
+<p>If you get errors about qt_*.ts files, then go to ''C:\dev\QtMumble\translations'' and copy and rename any qt_*.qm's to qt_*.ts.</p>
+
+<p>To compile Mumble:</p>
+
+<p> cd c:\dev\mumble<br />
+ ..\prep<br />
+ qmake<br />
+ nmake clean<br />
+ nmake</p>
+
+<p>{{Notice|message=<br />
+If you get an error message stating that some boost includes can not be found, check the compiler.pri file in mumble/ to see if the path set in the first INCLUDEPATH matches the version number of boost (e.g. INCLUDEPATH *= "$$BOOST_PATH/include/boost-1_53/")<br />
+}}</p>
+
+<p>Note that this builds the debug versions, which is what we strongly recommend to use while developing. If you want to send the binary to someone else, use <br />
+ nmake release<br />
+instead of the  last ''nmake'' command listed above. This will result in a much smaller binary with fewer dependencies.</p>
+
+<h3>Run Mumble and Murmur</h3>
+
+<p>Once compiled, you can go into ''c:\dev\mumble\release'' or (''\debug'' if you compiled the debug version) and can execute mumble.exe or murmur.exe. Before executing Mumble or Murmur you need to open a command prompt and do<br />
+ cd \dev<br />
+ prep<br />
+ cd mumble\debug (or release)<br />
+Then execute either Mumble or Murmur ''from the command prompt'' with <br />
+ mumble.exe<br />
+or<br />
+ murmur.exe</p>
+
+<p>If you want to run the release build directly from Windows Explorer, you will need to collect all the library files into one folder, along with the executables you built when you compiled Mumble. Have a look at the files the official Mumble installer creates in ''Program Files\Mumble''.</p>
+
+<h1>Build a Mumble installer package</h1>
+<p>If you want to create an installable .msi package from your self-compiled Mumble some additional steps are needed.</p>
+
+<p>Download and install the latest WIX stable Version (currently 3.8) from [http://wixtoolset.org/releases/ here].</p>
+
+<p>Set the following environment variables as needed (see defaults in installer/Settings.wxi):<br />
+  MumbleSourceDir  default: \dev\mumble<br />
+  MumbleQtDir  default: \dev\QtMumble<br />
+  MumbleDebugToolsDir  default: C:\Program Files (x86)\Debugging Tools for Windows (x86)<br />
+  MumbleSndFileDir  default: \Program Files (x86)\Mega-Nerd\libsndfile\bin<br />
+    Define MumbleNoSndFile to exclude  libsndfile<br />
+  MumbleMySQLDir  default: \dev\MySQL<br />
+    Define MumbleNoMySQL to exclude  MySQL<br />
+  MumbleIceDir  default: \Program Files (x86)\ZeroC\Ice-3.4.2\bin\vc100<br />
+    Define MumbleNoIce to exclude Ice<br />
+  MumbleOpenSslDir  default: \dev\openssl<br />
+  MumbleZlibDir  default: \dev\zlib<br />
+  MumbleMergeModuleDir  default: C:\Program Files (x86)\Common Files\Merge Modules<br />
+  Define MumbleSSE to include SSE<br />
+  Define MumbleNoSSE2 to exclude SSE2<br />
+  Define MumbleNoG15 to exclude G15</p>
+
+<p>Open installer/MumbleInstall.sln, switch to release and build the installer.</p>
+
+<p>Once this completed successfully run the ''build_installer.pl'' script to include all translations into your installer.</p>
+
+<p>You should now have a working .msi installer.</p>
+
+<h1>Static Build</h1>
+
+<p>Since <a href="1.2.5">1.2.5</a> we are distributing Mumble as a static build where the main Mumble app logic is provided in a DLL rather than the exe.</p>
+
+<p>The static environment and builds should not be necessary for normal development and playing around.</p>
+
+<h2>Scripted Build</h2>
+
+<p>For our static build scripts see [https://github.com/mumble-voip/mumble-releng/tree/master/buildenv/win32-static mumble-releng (Release Engineering) buildenv/win32-static].</p>
+
+<p>In contrary to the environment setup in the above section(s) releng will use its own build environment in your home directory. For the build you can follow the README. If you have cygwin installed it should be a matter of starting a mumble buildenv cygwin console and running &lt;code&gt;./build-all.bash&lt;/code&gt;. Dependencies will be downloaded an compiled - this will take quite some time (especially Qt compilation).</p>
+
+<p><img src="Notice" title="message=If your build of qt4 fails on the git clone or git reset commands (segfault/inflate data stream error/pack corrupt) try using non-cygwin git instead." alt="message=If your build of qt4 fails on the git clone or git reset commands (segfault/inflate data stream error/pack corrupt) try using non-cygwin git instead." /></p>
+
+<h2>Manual Build</h2>
+
+<p>This section describes the necessary flags and steps - be aware though that our releng scripts will apply source patches on the fly when compiling, which you will have to apply yourself. '''With the below instructions alone your build will not succeed yet.'''</p>
+
+<p>The '''Qt''' library (dependency) will have to be built with the *static* flag. Pass `static` to the `configure` call before building Qt.</p>
+
+<p>To build '''Mumble''' statically add the &lt;code&gt;static&lt;/code&gt; config property to the call to &lt;code&gt;qmake&lt;/code&gt;.</p>
+
+<p> CONFIG+=static</p>
+
+
+<p><a href="Category:Development">Category:Development</a></p>

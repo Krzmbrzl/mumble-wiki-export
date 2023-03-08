@@ -1,0 +1,113 @@
+Installation of murmur server on CentOS 6 with standard settings
+----
+= General configuration =
+Regardless of murmur version, you need to create iptables rules for murmur. Below is an example of how to do that using the standard port 64738.
+
+== Configuration iptables ==
+<pre>
+service iptables stop
+
+iptables -A INPUT -p udp -m udp --dport 64738 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 64738 -j ACCEPT
+
+service iptables save
+service iptables start
+</pre>
+
+= Murmur 1.2.4 =
+{{Warning
+|message=The binaries linked to from this page are from a 3rd party and have not been tested by the Mumble team. Use at your own discretion.
+}}
+== The binary package and the source ==
+<pre>
+https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm
+https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm
+https://www.dropbox.com/s/nc0odvada3u6hc4/mumble-server-1.2.4-1.el6.src.rpm
+</pre>
+
+You need the epel and the ZeroC repository for Ice 3.5. (ZeroC™ is the Home of Ice™)
+
+{{Warning
+|message=The db53 package from zeroc-ice obsoletes db4 from the ordinary CentOS updates repo without providing a db4 implementation. It is strongly recommended to disable the zeroc-ice repo after installing the packages.
+}}
+
+For x64
+
+<pre>
+rpm -ivh http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget --directory-prefix=/etc/yum.repos.d/ http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf
+rpm -ivh https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm
+</pre>
+
+For x86
+<pre>
+rpm -ivh http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+wget --directory-prefix=/etc/yum.repos.d/ http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf
+rpm -ivh https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm
+</pre>
+
+== Set the password of murmur ==
+<pre>
+/usr/sbin/murmurd -ini /etc/mumble-server/mumble-server.ini -supw yourpassword
+</pre>
+
+== The service ==
+<pre>
+service mumble-server start
+chkconfig mumble-server on
+</pre>
+
+Don't forget the iptables settings!
+= Murmur 1.2.3 =
+{{Warning
+|message=The binaries linked to from this page are from a 3rd party and have not been tested by the Mumble team. Use at your own discretion.
+}}
+If for some reason you want to install the older 1.2.3 version of Murmur use the following instructions. Do not try to install both packages at the same time.
+
+== The binary package and the source ==
+
+<pre>
+https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm
+https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm
+https://www.dropbox.com/s/9ywof04f320kowm/murmur-1.2.3-1.el6.src.rpm
+</pre>
+
+You need the epel and the ZeroC repository for Ice 3.4. (ZeroC™ is the Home of Ice™)
+
+{{Warning
+|message=The db53 package from zeroc-ice obsoletes db4 from the ordinary CentOS updates repo without providing a db4 implementation. It is strongly recommended to disable the zeroc-ice repo after installing the packages.
+}}
+
+For x86
+
+<pre>
+rpm -ivh http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+wget --directory-prefix=/etc/yum.repos.d/ http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf
+rpm -ivh https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm
+</pre>
+
+For x64
+
+<pre>
+rpm -ivh http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget --directory-prefix=/etc/yum.repos.d/ http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf
+rpm -ivh https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm
+</pre>
+
+== Set the password of murmur ==
+<pre>
+/usr/sbin/murmurd -ini /etc/mumble-server.ini -supw yourpassword
+</pre>
+
+== The service ==
+<pre>
+service murmur start
+chkconfig murmur on
+</pre>
+
+Don't forget the iptables settings!
+[[Category:Documentation English]]

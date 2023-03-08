@@ -1,0 +1,26 @@
+<p>The RPC subcommand allows users to more easily issue SocketRPC requests to a running Mumble client in version 1.3.0 or higher.</p>
+
+<p>Currently, only commands for muting/deafning are supported.</p>
+
+<p>Supported commands are currently:</p>
+<ul>
+	<li>'mute' - Unmute self</li>
+	<li>'unmute' - Unmute self</li>
+	<li>'togglemute' - Toggle self-mute status</li>
+	<li>'deaf' - Deafen self</li>
+	<li>'undeaf' - Undeafen self</li>
+	<li>'toggledeaf' - Toggle self-deafen status(You can also see them via 'mumble rpc --help')</li>
+</ul>
+<p>Example:<br />
+&lt;code&gt;<br />
+  $ mumble rpc mute    # Mute a running Mumble client<br />
+  $ mumble rpc unmute  # Unmute a running Mumble client<br />
+  [...]<br />
+&lt;/code&gt;</p>
+
+<h2>See also</h2>
+<p>An alternative to this subcommand is the usage of <a href="DBus#DBus_in_the_Mumble_client">DBus methodes for the client</a>.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Mumble Client">Category:Mumble Client</a><br />
+<a href="Category:1.3.0">Category:1.3.0</a></p>

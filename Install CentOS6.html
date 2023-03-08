@@ -1,0 +1,129 @@
+<p>Installation of murmur server on CentOS 6 with standard settings</p>
+<hr />
+<h1>General configuration</h1>
+<p>Regardless of murmur version, you need to create iptables rules for murmur. Below is an example of how to do that using the standard port 64738.</p>
+
+<h2>Configuration iptables</h2>
+<p>&lt;pre&gt;<br />
+service iptables stop</p>
+
+<p>iptables -A INPUT -p udp -m udp --dport 64738 -j ACCEPT<br />
+iptables -A INPUT -p tcp -m tcp --dport 64738 -j ACCEPT</p>
+
+<p>service iptables save<br />
+service iptables start<br />
+&lt;/pre&gt;</p>
+
+<h1>Murmur 1.2.4</h1>
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=The binaries linked to from this page are from a 3rd party and have not been tested by the Mumble team. Use at your own discretion.</td>
+</tr>
+</table>
+<p>}}</p>
+<h2>The binary package and the source</h2>
+<p>&lt;pre&gt;<br />
+<a href="https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm">https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm</a><br />
+<a href="https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm">https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm</a><br />
+<a href="https://www.dropbox.com/s/nc0odvada3u6hc4/mumble-server-1.2.4-1.el6.src.rpm">https://www.dropbox.com/s/nc0odvada3u6hc4/mumble-server-1.2.4-1.el6.src.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<p>You need the epel and the ZeroC repository for Ice 3.5. (ZeroC™ is the Home of Ice™)</p>
+
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=The db53 package from zeroc-ice obsoletes db4 from the ordinary CentOS updates repo without providing a db4 implementation. It is strongly recommended to disable the zeroc-ice repo after installing the packages.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<p>For x64</p>
+
+<p>&lt;pre&gt;<br />
+rpm -ivh <a href="http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm">http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</a><br />
+wget --directory-prefix=/etc/yum.repos.d/ <a href="http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo">http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo</a><br />
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf<br />
+rpm -ivh <a href="https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm">https://www.dropbox.com/s/wla29wnabsz53nq/mumble-server-1.2.4-1.el6.x86_64.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<p>For x86<br />
+&lt;pre&gt;<br />
+rpm -ivh <a href="http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm">http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm</a><br />
+wget --directory-prefix=/etc/yum.repos.d/ <a href="http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo">http://zeroc.com/download/Ice/3.5/el6/zeroc-ice-el6.repo</a><br />
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf<br />
+rpm -ivh <a href="https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm">https://www.dropbox.com/s/hs0ztzrdy4unn75/mumble-server-1.2.4-1.el6.i686.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<h2>Set the password of murmur</h2>
+<p>&lt;pre&gt;<br />
+/usr/sbin/murmurd -ini /etc/mumble-server/mumble-server.ini -supw yourpassword<br />
+&lt;/pre&gt;</p>
+
+<h2>The service</h2>
+<p>&lt;pre&gt;<br />
+service mumble-server start<br />
+chkconfig mumble-server on<br />
+&lt;/pre&gt;</p>
+
+<p>Don't forget the iptables settings!</p>
+<h1>Murmur 1.2.3</h1>
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=The binaries linked to from this page are from a 3rd party and have not been tested by the Mumble team. Use at your own discretion.</td>
+</tr>
+</table>
+<p>}}<br />
+If for some reason you want to install the older 1.2.3 version of Murmur use the following instructions. Do not try to install both packages at the same time.</p>
+
+<h2>The binary package and the source</h2>
+
+<p>&lt;pre&gt;<br />
+<a href="https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm">https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm</a><br />
+<a href="https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm">https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm</a><br />
+<a href="https://www.dropbox.com/s/9ywof04f320kowm/murmur-1.2.3-1.el6.src.rpm">https://www.dropbox.com/s/9ywof04f320kowm/murmur-1.2.3-1.el6.src.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<p>You need the epel and the ZeroC repository for Ice 3.4. (ZeroC™ is the Home of Ice™)</p>
+
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=The db53 package from zeroc-ice obsoletes db4 from the ordinary CentOS updates repo without providing a db4 implementation. It is strongly recommended to disable the zeroc-ice repo after installing the packages.</td>
+</tr>
+</table>
+<p>}}</p>
+
+<p>For x86</p>
+
+<p>&lt;pre&gt;<br />
+rpm -ivh <a href="http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm">http://ftp-stud.hs-esslingen.de/pub/epel/6/i386/epel-release-6-8.noarch.rpm</a><br />
+wget --directory-prefix=/etc/yum.repos.d/ <a href="http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo">http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo</a><br />
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf<br />
+rpm -ivh <a href="https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm">https://www.dropbox.com/s/8tx3t75lscnycf2/murmur-1.2.3-1.el6.i686.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<p>For x64</p>
+
+<p>&lt;pre&gt;<br />
+rpm -ivh <a href="http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm">http://ftp-stud.hs-esslingen.de/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</a><br />
+wget --directory-prefix=/etc/yum.repos.d/ <a href="http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo">http://zeroc.com/download/Ice/3.4/rhel6/zeroc-ice-rhel6.repo</a><br />
+yum install avahi-compat-libdns_sd qt qt-sqlite ice-libs protobuf<br />
+rpm -ivh <a href="https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm">https://www.dropbox.com/s/cp9amj5f9glae11/murmur-1.2.3-1.el6.x86_64.rpm</a><br />
+&lt;/pre&gt;</p>
+
+<h2>Set the password of murmur</h2>
+<p>&lt;pre&gt;<br />
+/usr/sbin/murmurd -ini /etc/mumble-server.ini -supw yourpassword<br />
+&lt;/pre&gt;</p>
+
+<h2>The service</h2>
+<p>&lt;pre&gt;<br />
+service murmur start<br />
+chkconfig murmur on<br />
+&lt;/pre&gt;</p>
+
+<p>Don't forget the iptables settings!<br />
+<a href="Category:Documentation English">Category:Documentation English</a></p>

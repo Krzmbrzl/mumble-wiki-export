@@ -1,0 +1,56 @@
+Ice 3.4 is now in Beta with quite a bit of changes in the PHP api. Here is a guide howto install Ice with PHP bindings on a CentOS 5 machine and getting the weblist.php example distributed with murmur to work.
+
+ cd /etc/yum.repos.d/
+ wget http://www.zeroc.com/download/Ice/3.4/rhel5/zeroc-ice.repo
+
+Edit the zeroc-ice.repo to look like this:
+
+ [zeroc-ice]
+ name=Ice 3.4b for RHEL $releasever - $basearch
+ baseurl=http://www.zeroc.com/download/Ice/3.4/rhel5/$basearch
+ enabled=0
+ gpgcheck=1
+ gpgkey=http://www.zeroc.com/download/RPM-GPG-KEY-zeroc-beta
+
+This way the repo is not enabled by default. My flavor of CentOS didn't have $releasever set so I changed the baseurl to a static version 5.
+
+ yum --enable zeroc-ice install ice-php ice-php-devel
+ /etc/init.d/httpd graceful
+
+Now go the murmur folder and locate Murmur.ice
+
+ slice2php Murmur.ice
+
+Edit weblist.php:
+
+remove
+
+ Ice_loadProfile();
+
+replace with
+ 
+ require 'Ice.php';
+ require 'Murmur.php';
+ $ICE = Ice_initialize();
+
+Move weblist.php and Murmur.php to your web space and access weblist.php
+
+As of now the PHP implementation does '''not''' implement the Implicit Context, so you can't use murmur with a secret. When ZeroC decides to implement it you should be able to do something like this:
+
+ $ICE->getImplicitContext('secret', 'passphrase');
+
+## Getting Glacier to work 
+Glacier2 is a Ice '''routing and firewall utility''', and allows you to securely run the server on one machine and murmur on another. Note that if both server and client are on a secure LAN, you can just use iptables to protect the Ice port, which is a lot easier than setting up Glacier2. Also, '''since Mumble 1.2.2 you can set an icesecret''' in your murmur.ini and use it as a password. '''This is a lot easier to set up''' and use than Glacier2.
+
+ yum  install ice-servers
+
+You will need an extra require:
+
+ require 'Glacier2.php';
+
+Then just follow the guide [[Ice#Using_Glacier2]].
+
+--[Ogre x](User:Ogre x.md) 11:26, 26 January 2010 (UTC)
+
+
+

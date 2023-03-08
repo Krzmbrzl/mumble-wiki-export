@@ -1,0 +1,50 @@
+<p><img src="Notice" title="message=This page is probably outdated. If you do want to specifically use DBus, please try it and extend this page with (your) information." alt="message=This page is probably outdated. If you do want to specifically use DBus, please try it and extend this page with (your) information." /></p>
+
+<h2>Windows</h2>
+
+<p>This script registers or changes a user for Murmur on Win32 operating systems; it can also find a user id. It does not need to be executed from a command line or in any specific location in order to function properly. Copy the text in the box below and put it into a file called regmum.bat. Note you must have Murmur running for this script to function, and you must have the line <br />
+ dbus=session<br />
+in the file ''C:\Program Files\Mumble\murmur.ini''. On Windows x64 change the path for dbus-send.exe in the script to ''%PROGRAMFILES&lt;X86&gt;%''.</p>
+
+<p> @ECHO OFF<br />
+ COLOR 0F<br />
+ ECHO Welcome to this registration script. If you are changing a registration and only wish to change a certain part of a registration only fill out the fields you wish to change and  leave the other fields blank. You must fill in the user id however. The int 32 value is the same as the user id.<br />
+ ECHO <small>-</small><small>-</small><small>-</small>--<br />
+ :COLLECTINFO <br />
+ SET /P A=Username: <br />
+ SET /P B=Email (leave blank if trying to find user id): <br />
+ SET /P C=Password (leave blank if trying to find user id): <br />
+ SET /P D=Server id (1 if you are only running one Murmur server): <br />
+ SET /P E=User id (leave blank unless changing a registration): <br />
+ SET /P F=1 to add a registration, 2 to change, 3 to find user id for Username: <br />
+ IF %F%==1 GOTO REGISTER<br />
+ IF %F%==2 GOTO CHANGEREGISTER<br />
+ IF %F%==3 GOTO FINDREGISTER<br />
+ :FINDREGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"<br />
+ SET /P G=Do you want to change this registration (y/n)?: <br />
+ IF %G%==y GOTO COLLECTINFO<br />
+ IF %G%==n GOTO REGFOUND<br />
+ :CHANGEREGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.setRegistration int32:%E% string:"%A%" string:"%B%" string:"%C%"<br />
+ :SHOWREGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"<br />
+ GOTO REGCHANGED <br />
+ :REGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.registerUser string:"%A%"<br />
+ SET /P H=Type the number to the right of int32 and press enter: <br />
+ :SETREGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.setRegistration int32:%H% string:"%A%" string:"%B%" string:"%C%"<br />
+ :SHOWREGISTER<br />
+ "%ProgramFiles%\Mumble\dbus-send.exe" <small>session </small>print-reply <small>dest=net.sourceforge.mumble.murmur </small>type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"<br />
+ :COMPLETE<br />
+ :REGCOMPLETE<br />
+ IF %F%==1 ECHO <small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small>  Registration Complete <br />
+ :REGCHANGED<br />
+ IF %F%==2 ECHO <small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small>  Registration Changed<br />
+ :REGFOUND<br />
+ IF %F%==3 ECHO <small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small><small>-</small>  Registration Found<br />
+ PAUSE</p>
+
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

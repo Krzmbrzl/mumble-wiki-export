@@ -1,0 +1,54 @@
+<p>This example shows you howto create a channel where all users will be redirected after joining the server, authenticated users will be able to move around but others (guests) can only speak in this channel and are not allowed to move around</p>
+
+<p>Info:<br />
+If this is a fresh mumble install you have to set the SuperUser password first:<br />
+murmur -ini /path/to/murmur.ini -supw somepassword</p>
+
+
+<p>1. Setting the defaultchannel</p>
+
+<p>Connect as Admin or SuperUser.<br />
+Create a channel that will serve as the "first channel", for example: Entrance<br />
+Take a look at murmur.log, you will find a line looking like this one:</p>
+
+<p>&lt;W&gt;2010-02-02 22:30:34.873 1 =&gt; &lt;26:SuperUser(0)&gt; Added channel Entrance[4:0] under Root[0:-1]</p>
+
+<p>4 is the channel ID in this case that we want.</p>
+
+<p>Add defaultchannel=4 to <a href="murmur.ini">murmur.ini</a> and restart the server.</p>
+
+
+<p>2. Permissions</p>
+
+<p>Now every user is redirected to the Entrance channel but everyone can still move around. Lets change that.<br />
+Right click on Root, choose Edit -&gt; Permissions and add a new rule called all.<br />
+After you moved @all to the position below you will see:</p>
+
+<p>@''all''</p>
+
+<p>@all   &lt;<small>-</small><small>-</small>- New</p>
+
+<p>@admin</p>
+
+<p>@auth</p>
+
+
+<p>change @all to disallow: enter, register. dont set any other permissions for this rule. This denys users to enter the root channel and to register themselves, because if they could register themselves they could move around freely (You can still register other users as admin).<br />
+Set "Applies to sub-channels".<br />
+Keep the other rules as they are.</p>
+
+<p>Now lets change the permission for Entrance, below permissions you will see all rules that are inherited:<br />
+@''all''</p>
+
+<p>@''all''</p>
+
+<p>@''admin''</p>
+
+<p>@''auth''</p>
+
+<p>Add a new rule called all and allow traverse, enter, speak (im not sure about traverse, works if its enabled). disallow all other options.<br />
+Add a new rule called auth and allow traverse, enter, speak, move. dont allow/disallow anything else.<br />
+And your done :)</p>
+
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

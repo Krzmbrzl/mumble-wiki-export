@@ -1,0 +1,34 @@
+= Driver support for overlay request =
+With this letter we hope to get at least one graphics card vendor to include support for overlays into their drivers. If one of them includes it maybe the rest will follow suit. To help the process check the Attempts/Replies/Tickets section. If you can think of a vendor not listed there try to find the best way to bring up this issue and log your progress/attempt here.
+
+## Letter 
+Dear <Vendor>,
+
+I'm one of the developers of Mumble (http://www.mumble.info), a VoIP tool for gaming.
+
+One of Mumble's features that users really appreciate is an in-game overlay showing who is talking. Today, this is implemented by injecting a DLL into the gaming process which will detour IDirect3D9::CreateDevice, CreateDeviceEx, wglSwapBuffers etc. The approach works, but has some problems:
+
+1) There are many applications that wish to do overlays this way. In addition to Mumble, Steam has its own overlay, as does X-Fire, FRAPS and others. If you are running more than one of these, their code replacements will overwrite each other, resulting either in only one of them working, or an application crash.
+
+2) All of these applications modify the game's memory in some way, which becomes a problem for anti-cheat utilities. While the developers of such utilities could ban all such overlays, the overlays are very popular, and so they have to spend long hours analyzing each overlay and whitelisting its injection method, something cheaters abuse by emulating known overlays.
+
+3) The methods do not always work cleanly. Games may have bugs in their rendering engine that are only exposed when running with an overlay.
+
+Full process injection is powerful and flexible, but all such an overlay program really needs is a way to display a texture on top of the game window when the application is running in full screen.
+
+Would you consider adding (or exposing if it already exists) an API for fullscreen "outside application" overlays? We'd be happy to do texture conversion to whatever format is preferable and follow any additional restrictions that are necesarry. Such an API would mean more stable overlays, all of which would work at the same time, as well as an easier job for anti-cheat developers.
+
+Sincerely,
+<Your name>
+
+## Attempts/Replies/Tickets 
+### AMD  
+Type: Ticket
+
+State: Pending
+
+Url: http://developer.amd.com/support/KnowledgeBase/pages/ticketdetails.aspx?TicketID=559
+
+Summary: "Thank you for you post, but at the moment we will pass on this."
+
+

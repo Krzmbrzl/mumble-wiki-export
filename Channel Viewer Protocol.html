@@ -1,0 +1,481 @@
+<p>People often wish to have a view on their Mumble servers without needing to actually<br />
+run the client. This is mostly accomplished using a web based channel viewer which<br />
+retrieves channel and user data from a web server, which in turn queries it from<br />
+Murmur, and then using techniques like JavaScript to render that data into a nice<br />
+tree structure.</p>
+
+<p>As multiple channel viewers started to arise, developers found the consensus that<br />
+using a standardized format for data retrieval yields multiple advantages, the most<br />
+important of which is interoperability: The need for using a specific server and<br />
+viewer does not arise when all servers and viewers use a shared data format, thus<br />
+allowing for both parts to be exchanged easily and independent from one another.</p>
+
+<p>A good example implementation is <a href="Mumble reader">Mumble reader</a>, written in PHP and JQuery. It uses IcePHP to query Murmur via <a href="Ice">Ice</a> and generate the Channel Viewer Protocol JSON data, which the JQuery front-end reads and formats into the channel viewer itself. The Ice query code only works with IcePHP versions earlier than 3.4, although other query services can be read by its JQuery front-end.</p>
+
+<h2>General notes</h2>
+
+<h3>Data integrity</h3>
+
+<p>The data format should generally be aimed towards delivering information retrieved<br />
+from Murmur unaltered. That means that any field that exists in Murmur should be<br />
+exposed by the server (unless there is a really good reason not to do so, like for<br />
+passwords and the like), and it should not alter any fields that exist in Murmur<br />
+to prevent confusion.</p>
+
+<h3>Custom data fields</h3>
+
+<p>If the implementer of the protocol chooses to add extra information that does not<br />
+originate from Murmur itself, these fields should be prefixed with "x_" in order<br />
+to prevent name clashes (so for example, a custom field named "coolstuff" should<br />
+be named "x_coolstuff" instead).</p>
+
+<p>If a client encounters a field which it does not understand, it must ignore that<br />
+field.</p>
+
+<h3>Empty fields</h3>
+
+<p>In general, empty fields should be treated as if they would not have been set at<br />
+all. This means that a client should not rely on that a field that exists actually<br />
+has a usable value.</p>
+
+<h3>Encoding</h3>
+
+<p>The documents, be it JSON or XML, should be encoded in UTF-8 in order to be as<br />
+easily usable as possible. Servers must set their encoding headers correctly to<br />
+prevent encoding issues.</p>
+
+<h3>The Address field</h3>
+
+<p>The address field in the user records requires special attention for multiple reasons.</p>
+
+<ul>
+	<li>To respect users' privacy, user records should generally not contain the address if the request does not provide any means of authentication. What kind of authentication the client needs to provide is a bit hard to say; a compromise between security and ease of implementation (both client- and server side) is to accept both...
+	<ul>
+		<li>the standard authentication means of the platform the server is implemented in; that means if your server implementation uses a web framework, its built-in authentication (e.g. through cookies) should be accepted. This way, web based clients will support authentication without any further modification.</li>
+		<li>HTTP Basic auth if no other authentication data has been provided, to enable non-web-based clients to retrieve the address information if they need to.</li>
+	</ul></li>
+	<li>To ease client implementation, the server should set the "x_addrstr" field to a string that contains either...
+	<ul>
+		<li>a fully qualified domain name: "somewhere.example.com".</li>
+		<li>an IPv4 address in dotted quad notation: "192.168.0.1".</li>
+		<li>an IPv6 address in colon notation: "2001:6f8:108f:1:21f:3cff:wx:yz".</li>
+	</ul></li>
+</ul>
+<p>Note however that in most cases, the users' addresses will not even be needed by the<br />
+client, so most of this shouldn't even apply to most clients.</p>
+
+<p>If a server does not support delivering users' addresses at all, it should just ignore<br />
+any authentication data the client may have sent.</p>
+
+
+<h2>Example Channel tree</h2>
+
+<p>All examples are based on the following channel structure:</p>
+
+<ul>
+	<li>test server
+	<ul>
+		<li>newtesting</li>
+		<li>testing
+		<ul>
+			<li>htmlsubtesting - This channel has HTML elements in its description
+			<ul>
+				<li>subsubtesting</li>
+			</ul></li>
+			<li>plainsubtesting - This channel has HTML elements in its description which are escaped and should NOT be evaluated
+			<ul>
+				<li>subsubtesting</li>
+			</ul></li>
+		</ul></li>
+	</ul></li>
+</ul>
+
+<h2>JSON</h2>
+
+<p>To expose the full channel tree using JSON, start with the root channel and<br />
+recursively add the users and data to it.</p>
+
+<p>In order to make cross-site requests easier, the server must implement<br />
+[http://bob.pythonmac.org/archives/2005/12/05/remote-json-jsonp/ JSONP].<br />
+The name for the request parameter that holds the callback name must be<br />
+"callback". If this parameter is not specified, the server must not wrap<br />
+the JSON in parenthesis to ensure compatibility with e.g. Python's<br />
+simplejson.</p>
+
+<h3>Server format</h3>
+
+<p>The root object of the tree must always be the server itself, which has<br />
+the following properties:</p>
+
+<p> 'id': 1,             // The ID of this server instance<br />
+ 'name': 'some name', // The server's name<br />
+ 'root': {...},       // The root channel object</p>
+
+<p>And may optionally have:</p>
+
+<p> 'x_connecturl': 'mumble://somewhere/'<br />
+ 'x_uptime': 7156     // The number of seconds this server has been running</p>
+
+<h3>Channel format</h3>
+
+<p>A Channel entry must at least contain the following fields:</p>
+
+<p> 'description': '',<br />
+ 'id': 0,<br />
+ 'links': [],         // A list of IDs that name linked channels<br />
+ 'name': 'Root',<br />
+ 'parent': -1,<br />
+ 'users': [],         // A list of users in this channel<br />
+ 'position': 0,<br />
+ 'channels': [],      // A list of subchannels<br />
+ 'temporary': false</p>
+
+<p>And may optionally contain:</p>
+
+<p> 'x_connecturl': 'mumble://somewhere/somechannel'</p>
+
+<h3>User format</h3>
+
+<p>A User entry must at least contain the following fields:</p>
+
+<p> 'channel': 40,<br />
+ 'deaf': false,<br />
+ 'mute': false,<br />
+ 'name': 'Yps0',<br />
+ 'selfDeaf': false,<br />
+ 'selfMute': false,<br />
+ 'session': 143,<br />
+ 'suppress': false,<br />
+ 'userid': 4,</p>
+
+<p>And may optionally contain:</p>
+
+<p> 'address': (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 192, 168, 0, 10),<br />
+ 'x_addrstring': '192.168.0.10',           // A nicely formatted version of the IP address (hostname, dotted quad, IPv6 notation)<br />
+ 'recording': false,<br />
+ 'bytespersec': 6580,<br />
+ 'comment': '',<br />
+ 'context': '',<br />
+ 'identity': '',<br />
+ 'idlesecs': 0,<br />
+ 'onlinesecs': 161,<br />
+ 'os': 'Win',<br />
+ 'osversion': '5.1.2600.1',<br />
+ 'prioritySpeaker': false,<br />
+ 'release': '02071e',<br />
+ 'tcponly': false,<br />
+ 'x_texture': 'http://shotgunfun.de/mumble/1/4/texture.png',   // A URL to retrieve the texture/avatar from<br />
+ 'version': 66051</p>
+
+<p>Which fields to expose may depend on the user of the channel viewer, e.g. the IP adress<br />
+may be shown to certain logged-in users only.</p>
+
+<h3>Full Example: JSON</h3>
+
+<p>Serializing the aforementioned channel structure as JSON, we will get:<br />
+ {<br />
+    "x_connecturl": "mumble://kuunavang.funzt-halt.net?version=1.2.2", <br />
+    "x_uptime": 53289, <br />
+    "root": {<br />
+        "channels": [<br />
+            {<br />
+                "channels": [], <br />
+                "x_connecturl": "mumble://kuunavang.funzt-halt.net/newtesting?version=1.2.2", <br />
+                "temporary": false, <br />
+                "description": "", <br />
+                "parent": 0, <br />
+                "position": 0, <br />
+                "users": [], <br />
+                "name": "newtesting", <br />
+                "links": [], <br />
+                "id": 6<br />
+            }, <br />
+            {<br />
+                "channels": [<br />
+                    {<br />
+                        "channels": [<br />
+                            {<br />
+                                "channels": [], <br />
+                                "x_connecturl": "mumble://kuunavang.funzt-halt.net/testing/htmlsubtesting%20%C3%B6%C3%A4%C3%BC/subsubtesting?version=1.2.2", <br />
+                                "temporary": false, <br />
+                                "description": "", <br />
+                                "parent": 4, <br />
+                                "position": 0, <br />
+                                "users": [], <br />
+                                "name": "subsubtesting", <br />
+                                "links": [], <br />
+                                "id": 5<br />
+                            }<br />
+                        ], <br />
+                        "x_connecturl": "mumble://kuunavang.funzt-halt.net/testing/htmlsubtesting%20%C3%B6%C3%A4%C3%BC?version=1.2.2", <br />
+                        "temporary": false, <br />
+                        "description": "This channel has &lt;i&gt;HTML&lt;/i&gt; elements in its description that are evaluated as &lt;span style=\"color:#ff0000\"&gt;red &lt;/span&gt;&lt;b&gt;&lt;span style=\"color:#ff0000\"&gt;bold&lt;/span&gt;&lt;/b&gt; Fonts!", <br />
+                        "parent": 1, <br />
+                        "position": 0, <br />
+                        "users": [<br />
+                            {<br />
+                                "comment": "", <br />
+                                "mute": false, <br />
+                                "suppress": false, <br />
+                                "selfDeaf": false, <br />
+                                "x_addrstring": "2001:6f8:108f:1:21f:3cff:wx:yz", <br />
+                                "deaf": false, <br />
+                                "selfMute": true, <br />
+                                "bytespersec": 0, <br />
+                                "session": 1, <br />
+                                "tcponly": false, <br />
+                                "address": [ 32, 1, 6, 248, 16, 143, 0, 1, 2, 31, 60, 255, w, x, y, z ], <br />
+                                "idlesecs": 33, <br />
+                                "identity": "", <br />
+                                "name": "svedrin", <br />
+                                "userid": 1, <br />
+                                "version": 66050, <br />
+                                "context": "", <br />
+                                "release": "1.2.2-2", <br />
+                                "osversion": "Debian GNU/Linux unstable (sid)", <br />
+                                "os": "X11", <br />
+                                "onlinesecs": 35, <br />
+                                "channel": 4<br />
+                            }<br />
+                        ], <br />
+                        "name": "htmlsubtesting \u00f6\u00e4\u00fc", <br />
+                        "links": [<br />
+                            2<br />
+                        ], <br />
+                        "id": 4<br />
+                    }, <br />
+                    {<br />
+                        "channels": [<br />
+                            {<br />
+                                "channels": [], <br />
+                                "x_connecturl": "mumble://kuunavang.funzt-halt.net/testing/plainsubtesting/subsubtesting?version=1.2.2", <br />
+                                "temporary": false, <br />
+                                "description": "", <br />
+                                "parent": 2, <br />
+                                "position": 0, <br />
+                                "users": [], <br />
+                                "name": "subsubtesting", <br />
+                                "links": [], <br />
+                                "id": 3<br />
+                            }<br />
+                        ], <br />
+                        "x_connecturl": "mumble://kuunavang.funzt-halt.net/testing/plainsubtesting?version=1.2.2", <br />
+                        "temporary": false, <br />
+                        "description": "This channel has &amp;lt;i&amp;gt;HTML&amp;lt;/i&amp;gt; elements in its description that are not evaluated as &amp;lt;span style=&amp;quot;color: red&amp;quot;&amp;gt;red &amp;lt;b&amp;gt;bold&amp;lt;/b&amp;gt;&amp;lt;/span&amp;gt; Fonts!", <br />
+                        "parent": 1, <br />
+                        "position": 0, <br />
+                        "users": [], <br />
+                        "name": "plainsubtesting", <br />
+                        "links": [<br />
+                            4<br />
+                        ], <br />
+                        "id": 2<br />
+                    }<br />
+                ], <br />
+                "x_connecturl": "mumble://kuunavang.funzt-halt.net/testing?version=1.2.2", <br />
+                "temporary": false, <br />
+                "description": "", <br />
+                "parent": 0, <br />
+                "position": 0, <br />
+                "users": [], <br />
+                "name": "testing", <br />
+                "links": [], <br />
+                "id": 1<br />
+            }<br />
+        ], <br />
+        "x_connecturl": "mumble://kuunavang.funzt-halt.net?version=1.2.2", <br />
+        "temporary": false, <br />
+        "description": "", <br />
+        "parent": -1, <br />
+        "position": 0, <br />
+        "users": [], <br />
+        "name": "Root", <br />
+        "links": [], <br />
+        "id": 0<br />
+    }, <br />
+    "name": "test server", <br />
+    "id": 1<br />
+ }</p>
+
+<h2>XML</h2>
+
+<p>For XML, the same principles apply as for JSON, along with the following encoding principles:</p>
+
+<ul>
+	<li>Boolean values are represented as "true" or "false"</li>
+	<li>Lists (e.g. for the players' IP addresses or the channel links) are space-separated numbers</li>
+</ul>
+<p>The root element (&lt;tt&gt;&lt;server&gt;&lt;/tt&gt;) should set the following namespace attributes:</p>
+
+<ul>
+	<li>xmlns="http://mumble.sourceforge.net/Channel_Viewer_Protocol"</li>
+	<li>xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance</li>
+	<li>xsi:schemaLocation="http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-X-Y-Z.xsd" with X.Y.Z being the version of Murmur that the data in this document originates from.</li>
+</ul>
+<p>As XML Schema Definitions need to be adapted to match the fields returned by Murmur,<br />
+including the correct Murmur version in the URL is important to enable a correct<br />
+validation. Currently, the following XSD documents are available:</p>
+
+<p>{| border="1" cellspacing="0" cellpadding="5" align="center"<br />
+! Murmur Version<br />
+! XSD URL</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>1.2.2</td>
+</tr>
+<tr>
+	<td><a href="http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-1-2-2.xsd">http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-1-2-2.xsd</a></td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>1.2.3</td>
+</tr>
+<tr>
+	<td><a href="http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-1-2-3.xsd">http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-1-2-3.xsd</a></td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<h3>Server Format</h3>
+
+<p>A server is represented using the &lt;tt&gt;&lt;server /&gt;&lt;/tt&gt; tag.</p>
+
+<h3>Channel Format</h3>
+
+<p>A channel is represented using the &lt;tt&gt;&lt;channel /&gt;&lt;/tt&gt; tag.</p>
+
+<h3>User Format</h3>
+
+<p>A user is represented using the &lt;tt&gt;&lt;user /&gt;&lt;/tt&gt; tag.</p>
+
+<p>'''Warning''': Mumble includes NULL bytes in the ''context'' field, so the context field - if not empty - must be base64 encoded.</p>
+
+<h3>Full Example: XML</h3>
+
+<p> &lt;?xml version="1.0" encoding="UTF-8" ?&gt;<br />
+ &lt;server<br />
+  xmlns="http://mumble.sourceforge.net/Channel_Viewer_Protocol"<br />
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance<br />
+  xsi:schemaLocation="http://bitbucket.org/Svedrin/mumble-django/wiki/channel-viewer-protocol_murmur-1-2-3.xsd"<br />
+  id="1"<br />
+  name="test server"<br />
+  x_connecturl="mumble://kuunavang.funzt-halt.net?version=1.2.2"&gt;<br />
+   &lt;channel<br />
+    description=""<br />
+    id="0"<br />
+    links=""<br />
+    name="Root"<br />
+    parent="-1"<br />
+    position="0"<br />
+    temporary="false"<br />
+    x_connecturl="mumble://kuunavang.funzt-halt.net?version=1.2.2"&gt;<br />
+     &lt;channel<br />
+      description=""<br />
+      id="6"<br />
+      links=""<br />
+      name="newtesting"<br />
+      parent="0"<br />
+      position="0"<br />
+      temporary="false"<br />
+      x_connecturl="mumble://kuunavang.funzt-halt.net/newtesting?version=1.2.2" /&gt;<br />
+     &lt;channel<br />
+      description=""<br />
+      id="1"<br />
+      links=""<br />
+      name="testing"<br />
+      parent="0"<br />
+      position="0"<br />
+      temporary="false"<br />
+      x_connecturl="mumble://kuunavang.funzt-halt.net/testing?version=1.2.2"&gt;<br />
+       &lt;channel<br />
+        description="This channel has &amp;lt;i&amp;gt;HTML&amp;lt;/i&amp;gt; elements in its description that are evaluated as &amp;lt;span style=&amp;amp;quot;color:#ff0000&amp;amp;quot;&amp;gt;red &amp;lt;/span&amp;gt;&amp;lt;b&amp;gt;&amp;lt;span style=&amp;amp;quot;color:#ff0000&amp;amp;quot;&amp;gt;bold&amp;lt;/span&amp;gt;&amp;lt;/b&amp;gt; Fonts!"<br />
+        id="4"<br />
+        links="2"<br />
+        name="htmlsubtesting"<br />
+        parent="1"<br />
+        position="0"<br />
+        temporary="false"<br />
+        x_connecturl="mumble://kuunavang.funzt-halt.net/testing/htmlsubtesting?version=1.2.2"&gt;<br />
+         &lt;channel<br />
+          description=""<br />
+          id="5"<br />
+          links=""<br />
+          name="subsubtesting"<br />
+          parent="4"<br />
+          position="0"<br />
+          temporary="false"<br />
+          x_connecturl="mumble://kuunavang.funzt-halt.net/testing/htmlsubtesting/subsubtesting?version=1.2.2" /&gt;<br />
+         &lt;user<br />
+          address="32 1 6 248 16 143 0 1 2 31 60 255 w x y z"<br />
+          bytespersec="0"<br />
+          channel="4"<br />
+          comment=""<br />
+          context="QmF0dGxlZmllbGQgQmFkIENvbXBhbnkgMgA= "<br />
+          deaf="false"<br />
+          identity=""<br />
+          idlesecs="1693"<br />
+          mute="false"<br />
+          name="svedrin"<br />
+          onlinesecs="2943"<br />
+          os="X11"<br />
+          osversion="Debian GNU/Linux unstable (sid)"<br />
+          release="1.2.2-2"<br />
+          selfDeaf="false"<br />
+          selfMute="false"<br />
+          session="7"<br />
+          suppress="false"<br />
+          tcponly="false"<br />
+          userid="1"<br />
+          version="66050"<br />
+          x_addrstring="2001:6f8:108f:1:21f:3cff:wx:yz" /&gt;<br />
+       &lt;/channel&gt;<br />
+       &lt;channel<br />
+        description="This channel has &amp;amp;lt;i&amp;amp;gt;HTML&amp;amp;lt;/i&amp;amp;gt; elements in its description that are not evaluated as &amp;amp;lt;span style=&amp;amp;quot;color: red&amp;amp;quot;&amp;amp;gt;red &amp;amp;lt;b&amp;amp;gt;bold&amp;amp;lt;/b&amp;amp;gt;&amp;amp;lt;/span&amp;amp;gt; Fonts!"<br />
+        id="2"<br />
+        links="4"<br />
+        name="plainsubtesting"<br />
+        parent="1"<br />
+        position="0"<br />
+        temporary="false"<br />
+        x_connecturl="mumble://kuunavang.funzt-halt.net/testing/plainsubtesting?version=1.2.2"&gt;<br />
+         &lt;channel<br />
+          description=""<br />
+          id="3"<br />
+          links=""<br />
+          name="subsubtesting"<br />
+          parent="2"<br />
+          position="0"<br />
+          temporary="false"<br />
+          x_connecturl="mumble://kuunavang.funzt-halt.net/testing/plainsubtesting/subsubtesting?version=1.2.2" /&gt;<br />
+       &lt;/channel&gt;<br />
+     &lt;/channel&gt;<br />
+   &lt;/channel&gt;<br />
+ &lt;/server&gt;</p>
+
+<h2>Existing Implementations</h2>
+
+<p>A number of implementations exist already, which one you choose depends mostly on your needs. If you only want a channel viewer and no administration capabilities, you might want to go with [http://code.google.com/p/mumblereader/ MumbleReader]. For a full-featured web administration interface that also features CVP, check out <a href="Mumble-Django">Mumble-Django</a> or <a href="Mumble_PHP_Interface">MumPI</a>.</p>
+
+<p>More information is to be found on the <a href="3rd Party Applications#Channel_Viewers">3rd Party Applications</a> page.</p>
+
+<h2>Authors and Contact</h2>
+
+<p>This standard has been written based on the consensus made on <a href="IRC">IRC</a>: #mumble on irc.freenode.net.</p>
+
+<p>Main authors:</p>
+<ul>
+	<li>Michael "Svedrin" Ziegler &lt;diese-addy@funzt-halt.net&gt;</li>
+	<li>Pimmetje</li>
+	<li>S_Roach</li>
+</ul>
+<p>If you wish to discuss parts of this standard or help maintaining it, you should join the <a href="IRC">IRC</a><br />
+channel or send a mail to Svedrin.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

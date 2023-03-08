@@ -1,0 +1,2 @@
+#redirect [[Murmur.ini]]
+

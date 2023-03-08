@@ -1,0 +1,107 @@
+<h2>Intro</h2>
+<p>A page for possible improvements to the audio wizard.</p>
+
+<p>I feel like an overwhelming majority of users will click "next" through the wizard until they're "allowed" to connect to something.&lt;br /&gt;<br />
+A large portion of personal experience with VoIP setups are typically in-game; eg, a new user needs to connect to VoIP as fast as possible.&lt;br /&gt;<br />
+This person is not interested in complicated configurations, typically has people wait on them, and wants it to get working ASAP. </p>
+
+<p>Some of these changes may seem a little silly or strange; I am proposing them in the hopes of making it more human.&lt;br /&gt;<br />
+Try to consider the changes as a whole rather than individually, and they'll probably make more sense.&lt;br /&gt;<br />
+I feel that if the setup is more like a conversation, people will tend to actually care about it and use it correctly.<br />
+For example, Skype does an excellent job at this.</p>
+
+<h2>Current Wizard and Constructive Feedback</h2>
+
+<p>The high-level goal of this review would be to change the audio wizard from less of a "next" clicking spree to more of a conversation. I'll go into this per slide.</p>
+
+<h3>Slide 1: Introduction</h3>
+<p><a href="File:Current-Wizard-01.jpg">File:Current-Wizard-01.jpg</a></p>
+
+<p>Nothing really to comment here, but I would aid to make this more personal and less technical.<br />
+"Hello, welcome to Mumble! Let's get started."</p>
+
+<p>The next button, like all others to come, should be removed, and replaced with an different phrase that makes sense in context.<br />
+Essentially, anything but "next."</p>
+
+<h3>Slide 2: Device selection</h3>
+<p><a href="File:Current-Wizard-02.jpg">File:Current-Wizard-02.jpg</a></p>
+
+<p>First off, the audio loopback is, in my opinion, a poor decision and should be removed.&lt;br /&gt;<br />
+Using speakers as output is very common, and blaring feedback to the user within seconds of installing is not a great way to introduce mumble.</p>
+
+<p>Selecting input and output on the same page isn't a good idea. Let's break this page up.&lt;br /&gt;<br />
+Selection of audio output should happen first, with a multi-stage selection process (pick a device -&gt; test it) rather than all-in-one.&lt;br /&gt;<br />
+This is a good example of how I would want one decision to be made per page, instead of several at once.</p>
+
+<h3>Slide 3: Device tuning</h3>
+<p><a href="File:Current-Wizard-03.jpg">File:Current-Wizard-03.jpg</a></p>
+
+<p>My immediate question (lacking knowledge of the technical guts of mumble) is: why is this needed?&lt;br /&gt;<br />
+Ventrilo, Teamspeak, and Skype all manage without it.&lt;br /&gt;<br />
+I understand the idea here would probably be to bring latency to an absolute minimum, but is there no way to test for this internally?&lt;br /&gt;<br />
+For example, would it be possible to pump that sample audio through the card and record the result?</p>
+
+<p>If it is reasonably necessary, keep the page but change it to be more conversation-oriented:</p>
+<ul>
+	<li>We're going to test your sound card. (User presses test button)</li>
+	<li>(mumble plays sound sample at 10 ms)</li>
+	<li>Did that work? (user responds with yes or no buttons)</li>
+	<li>If no, mumble increases value and repeats</li>
+</ul>
+<h3>Slide 4: Volume tuning</h3>
+<p><a href="File:Current-Wizard-04.jpg">File:Current-Wizard-04.jpg</a></p>
+
+<p>Same problem with loopback as before, that should be removed.</p>
+
+<p>I think the way Skype handles this is far superior; specifically, the question-answer flow.&lt;br /&gt;<br />
+With Skype, you can call an automated voice who asks you to say something. Afterwards, it is played back to you.&lt;br /&gt;<br />
+Again, bringing it to more of a conversational tone would benefit the user experience.</p>
+
+<p>Other thought: give the user feedback compared to how we expect people to sound.&lt;br /&gt;<br />
+That is, play a sound clip at the expected volume of an average Mumble user, then their recorded clip.&lt;br /&gt;<br />
+A common problem is not understanding how you sound to others - this could alleviate that.</p>
+
+<h3>Slide 5: Voice Detection</h3>
+<p><a href="File:Current-Wizard-05.jpg">File:Current-Wizard-05.jpg</a></p>
+
+<p>This is better, but I would still like to split it up.&lt;br /&gt;<br />
+It also doesn't take into account people who don't want to transmit at all.</p>
+
+<ul>
+	<li>Do you have a microphone?</li>
+	<li>[Conditional on previous question] How do you want to transmit?</li>
+	<li>[Conditional on previous question] Keybinds / thresholds / etc</li>
+</ul>
+<h3>Slide 6: Quality &amp; Notifications</h3>
+<p><a href="File:Current-Wizard-06.jpg">File:Current-Wizard-06.jpg</a></p>
+
+<p>I like the highlighted "recommended default" option, but this has far too many words/terms/options on it to be useful.&lt;br /&gt;<br />
+To understand what this page is telling you, you have to understand or ignore:</p>
+<ul>
+	<li>the concept of bandwidth</li>
+	<li>latency and effective quality</li>
+	<li>what kbit/s means, and why you care</li>
+	<li>millisecond ratings per packet</li>
+	<li>the concept of codecs, Speex, and CELT</li>
+</ul>
+<p>This all makes sense to me, but is far too complicated for an average user.&lt;br /&gt;<br />
+Firstly, separate out the sound quality from the text to speech.&lt;br /&gt;<br />
+Then, simplify this down to low/medium/high with human descriptions.</p>
+
+<h3>Slide 7: Finished</h3>
+<p><a href="File:Current-Wizard-07.jpg">File:Current-Wizard-07.jpg</a></p>
+
+<p>Not as much to say here, but a shorter explanation of the reasoning would be nice.&lt;br /&gt;<br />
+The checkbox should also change to a yes/no set of buttons.&lt;br /&gt;<br />
+This will hopefully be clearer when I put up my proposed changes.</p>
+
+<h2>Example button change</h2>
+<p>This network wizard from Windows 7 is an example of how I'd like to change the "next" operation in mumble wizards. Notice how instead of an obvious "next" button for a confused or irritated user to click, it creates a simple, intuitive conversation with the user. A clearly stated purpose ("select a location") with clear options, each with a useful icon that makes the choices obvious to the non-technical.</p>
+
+<p><a href="File:Example-wizard-button.jpg">File:Example-wizard-button.jpg</a></p>
+
+<h2>Proposed, Alternate Wizard</h2>
+<p>This will be coming soon within the next few days.</p>
+
+
+<p><a href="Category:Suggestions">Category:Suggestions</a></p>

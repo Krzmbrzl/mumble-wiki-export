@@ -1,0 +1,53 @@
+<h1>WeTab</h1>
+
+<p>Compiling Mumble on the WeTab is possible, but requires compiling protobuf beforehand.</p>
+
+<p>First of all, installing the openssh-server package is very advisable, as it will give you a shell to be used on a device which has a keyboard - of course, your mileage may vary. :)</p>
+
+<p>I executed the following commands in a root shell started via ``sudo bash``, so I won't prefix every command with sudo here. We start by installing a bunch of dependencies:</p>
+
+<p> yum install make gcc-c++<br />
+ yum install git<br />
+ yum install openssl-devel<br />
+ yum install alsa-lib-devel<br />
+ yum install libsndfile-devel<br />
+ yum install pulseaudio-devel<br />
+ yum install speex-devel<br />
+ yum install subversion<br />
+ yum install libtool<br />
+ yum install boost-devel<br />
+ yum install avahi-compat-libdns_sd-devel<br />
+ yum install libqtopengl-devel</p>
+
+<p>Next, compile and install protobuf:</p>
+
+<p> svn checkout <a href="http://protobuf.googlecode.com/svn/trunk/">http://protobuf.googlecode.com/svn/trunk/</a> protobuf-read-only<br />
+ cd protobuf-read-only/<br />
+ ./autogen.sh<br />
+ ./configure<br />
+ make<br />
+ make check<br />
+ make install</p>
+
+<p>This command will install protobuf to /usr/local, which is why we need to adapt the $PATH environment variable accordingly. Otherwise, the build process won't be able to find protoc.</p>
+
+<p> export PATH="/usr/local/bin:$PATH"</p>
+
+<p>Now, compile mumble:</p>
+
+<p> git clone <a href="https://github.com/mumble-voip/mumble.git">https://github.com/mumble-voip/mumble.git</a><br />
+ cd mumble/<br />
+ git submodule init<br />
+ git submodule update<br />
+ qmake -recursive CONFIG+=no-server CONFIG+=no-overlay CONFIG+=no-g15 CONFIG+=no-speechd main.pro<br />
+ make clean<br />
+ make</p>
+
+<p>Now you should be able to start Mumble as your normal user (that is, not root), by opening a new shell and running the following commands:</p>
+
+<p> cd mumble/release<br />
+ LD_LIBRARY_PATH=/usr/local/lib ./mumble</p>
+
+<p>Enjoy :)</p>
+
+<p><a href="Category:Development">Category:Development</a></p>

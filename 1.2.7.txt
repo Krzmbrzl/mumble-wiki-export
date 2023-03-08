@@ -1,0 +1,18 @@
+{{ReleaseTimeline}}
+
+Mumble 1.2.7 is a bug fix release and security update on top of [[1.2.6]]. For a list of known issues, please visit the [[1.2.7_Known_Issues|1.2.7 known issues page]].
+
+Changes in this release:
+
+The log view in Mumble 1.2.6 didn’t correctly scroll when an image is included in a text message. ([https://github.com/mumble-voip/mumble/issues/1258 Issue #1258])
+
+Some users were unable to connect to Mumble servers due to a “remote host closed the connection” caused by a bug in Skype’s optional click-to-call feature ([https://github.com/mumble-voip/mumble/issues/1271 Issue #1271])
+
+For binary packages distributed by the Mumble team, OpenSSL has been updated to 1.0.0m due to [https://www.openssl.org/news/secadv_20140605.txt OpenSSL Security Advisory [05 Jun 2014]]
+
+For a source-level changelog, please see the [https://github.com/mumble-voip/mumble/commits/1.2.7 GitHub commit list] or the [https://github.com/mumble-voip/mumble/blob/1.2.7/CHANGES CHANGES file] for Mumble 1.2.7.
+
+More details can be found in the [http://blog.mumble.info/mumble-1-2-7/ Mumble blog].
+
+[[Category:Documentation English]]
+[[Category:Releases]]

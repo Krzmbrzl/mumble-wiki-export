@@ -1,0 +1,67 @@
+<p><img src="ReleaseTimeline" title="ReleaseTimeline" alt="ReleaseTimeline" /></p>
+
+<p>Mumble 1.2.3, the successor of <a href="1.2.2">1.2.2</a> has been released on 19th February 2011.</p>
+
+<h2>Screenshot</h2>
+<p><a href="File:Mumble -- 1.2.3.png">center</a></p>
+
+
+<h2>Mumble</h2>
+<p>List of new features, improvements and bug fixes already in place for the upcoming release.</p>
+
+<h3>Improved Voice Activity Detection</h3>
+
+<p><a href="File:Agraph.png">left|200px</a> With 1.2.3 amplitude based voice activity detection has been greatly improved. The biggest benefits are expected for people using it in a noisy environment as the detection now operates on noise filtered instead of raw audio data.<br />
+&lt;br style="clear:both"/&gt;</p>
+
+
+<h3>Customizable Overlay with FPS counter</h3>
+<p><a href="File:overlay123_s.png">left|url=File:overlay123.png</a> The overlay is now highly customizable. Instead of only being able to control position and size as in previous released you can now freely reorder, scale, show/hide its components giving you the freedom to make it look just the way you want it.<br />
+It can also display additional useful information like your Framerate (FPS).<br />
+&lt;br style="clear:both"/&gt;</p>
+
+<h3>Recording</h3>
+<p><a href="File:recording123.png">left|300px</a> Another long awaited feature finally arrived in Mumble: Recording. Our recorder can store in several widespread formats and supports Mixdown as well as Multichannel recording ([http://blog.mumble.info/for-the-record/ see our blog for more information]).<br />
+&lt;br style="clear:both"/&gt;</p>
+
+
+<h3>Priority speaker</h3>
+<p><a href="File:priority_speaker.png">left|200px</a> As of popular request Mumble now has the ability to prioritize certain speakers. Meaning that once a priority speaker starts talking all other players in the channel are attenuated.<br />
+&lt;br style="clear:both"/&gt;</p>
+
+<h3>New installer</h3>
+<p><a href="File:Mumble 1.2.3 Setup.png">left|300px</a> Mumble 1.2.3 has a new MSI based installer for smoother installations and updates. Besides the new foundation the installer also received new branding, we hope you like it.</p>
+
+<p>&lt;br style="clear:both"/&gt;</p>
+<h3>Other changes</h3>
+<ul>
+	<li>Display of the full blown client user interface inside the overlay. On the Windows platform it is fully interactive just like the desktop client. (This feature is '''EXPERIMENTAL''')</li>
+</ul>
+<ul>
+	<li>Updated CELT Codec to version 0.11.0 which improves audio quality for low bandwidth settings [http://git.xiph.org/?p=celt.git (CELT changes)]</li>
+</ul>
+<ul>
+	<li>Optional auto reconnect to last used server</li>
+</ul>
+<ul>
+	<li>The client is now able to operate in WASAPI exclusive mode. This drops the latency overhead of the audio output considerably but has the disadvantage that no other application can input/output sound from that device. ([http://blog.mumble.info/oh-no-weve-made-a-buzzword/ see our blog for more information])</li>
+</ul>
+<ul>
+	<li>Tons of other [http://mumble.git.sourceforge.net/git/gitweb.cgi?p=mumble/mumble;a=shortlog bugfixes/changes]</li>
+</ul>
+<h2>Murmur</h2>
+<p>Notable changes to Murmur, the server component of Mumble.</p>
+<ul>
+	<li>Support for priority speakers / recording</li>
+	<li>Logs in Database can be switched off (murmur.ini: "logdays=-1")</li>
+	<li>Defaultchannel setting can be applied to registered users (murmur.ini: "rememberchannel=false")</li>
+	<li>Ice interface changes:
+	<ul>
+		<li>getLogLen() function added to retrieve number of log entries</li>
+		<li>recording and priority_speaker flag added to user state</li>
+		<li>There are now separate <a href="Ice">Ice</a> secrets for read and write operations</li>
+	</ul></li>
+</ul>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Releases">Category:Releases</a></p>

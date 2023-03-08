@@ -1,0 +1,99 @@
+<p>MurmurCL is a basic console interface to some of the functionality the murmur server exposes via the <a href="Ice">Ice</a> RPC mechanism.</p>
+
+<p>'''Note:''' As MurmurCL was mainly written for testing purposes it has some limits and usability issues.</p>
+
+<h2>Features</h2>
+<p>Following is a list of the features included in the script as of writing this:</p>
+
+<p>'''Add servers'''</p>
+
+<p>Adds a virtual server to a mumble instance</p>
+
+<p>'''Delete servers'''</p>
+
+<p>Deletes a virtual server from a mumble instance</p>
+
+<p>'''List servers'''</p>
+
+<p>Lists virtual servers on a mumble instance</p>
+
+<p>'''Configure servers'''<br />
+Sets a config variable on a virtual server</p>
+
+
+<p>'''Add players'''</p>
+
+<p>Adds a player to a virtual server</p>
+
+<p>'''Delete players'''</p>
+
+<p>Deletes a player from a virtual server</p>
+
+<p>'''List players'''</p>
+
+<p>Lists players registered on a virtual server</p>
+
+<p>'''Configure players'''</p>
+
+<p>Sets a config variable of a user on a virtual server</p>
+
+
+<p>'''List channels'''</p>
+
+<p>List channels on a virtual server</p>
+
+<p>'''Add channels'''</p>
+
+<p>Adds a channel to a virtual server</p>
+
+<p>'''Delete Channels'''</p>
+
+<p>Deletes a channel from a virtual server</p>
+
+
+<p>'''Help'''</p>
+
+<p>Help about the commands with short description and syntax explanation</p>
+
+<h2>Examples</h2>
+<h3>The help command</h3>
+<p>If you want to get information about a command the help function is very useful. It can be called with one or zero parameters. If you call it without any parameters it looks like this:<br />
+   console&gt; ./murmurcl.py help</p>
+
+<p>       Displays this help<br />
+       usage: help [command]</p>
+
+<p>   Available commands: ['addchannel', 'listplayers', 'addserver', 'cfgserver', 'listservers', 'listchannels', 'startserver'<br />
+   , 'addplayer', 'cfgplayer', 'delchannel', 'delplayer', 'stopserver', 'delserver']<br />
+If you want information about a specific command just use it's name as the paramter for help.<br />
+   console&gt; ./murmurcl.py help addserver</p>
+
+<p>       Add a new virtual server to the murmur instance<br />
+       usage: addserver [port]</p>
+
+
+<h3>Setting a default channel</h3>
+<p>Mumble has some features which are not accessible via the default graphical user interface. One of them is setting a default channels players will join when they connect to the server. This can be done by setting the defaultchannel paramter for a server.</p>
+
+<p>To do this we first have to find out the port of our server, you usually know this but let's say you don't.   <br />
+   console&gt; ./murmurcl.py listservers<br />
+   ==================================================<br />
+   Id              Port            Running<br />
+   ==================================================<br />
+   1               64738           True</p>
+
+<p>After that we have to find out the id of the channel you want to set as default.<br />
+   console&gt; ./murmurcl.py listchannels 64738<br />
+   ==================================================<br />
+   Id      Parent  Name<br />
+   ==================================================<br />
+   0       -1      Root<br />
+   1       0       A channel<br />
+Ok, now we have the id of "A channel", let's make it the new default:<br />
+   console&gt; ./murmurcl.py cfgserver defaultchannel 1 on 64738<br />
+   'defaultchannel' set to '1' on server 64738</p>
+
+<p>Now new players will always join "A channel" instead of "Root". Be aware that this doesn't work on clients which choose their default channels themselves.</p>
+
+
+<p><a href="Category:3rd Party">Category:3rd Party</a></p>

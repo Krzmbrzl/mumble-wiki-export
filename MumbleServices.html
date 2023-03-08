@@ -1,0 +1,60 @@
+<h2>What services are offered</h2>
+
+<p>The client can make use of a number of service offered by our infrastructure. Namely things like:</p>
+<ul>
+	<li>Retrieving the '''public server list'''</li>
+	<li>Submitting anonymous '''usage statistics'''</li>
+	<li>Retrieving '''overlay updates'''</li>
+	<li>Retrieving '''positional audio plugin updates'''</li>
+	<li>Submitting '''crash reports'''</li>
+	<li>Polling for '''client updates'''</li>
+	<li>Retrieving client updates</li>
+</ul>
+<h2>With whom and how does the client communicate</h2>
+
+<p>Mumble uses either ''https'' or ''http'' over standard ports for talking to our services. Hosts that might be contacted are: ''mumble.info'', ''*.mumble.info'' . Currently these domains are assigned to the following IPs (might change in the future):</p>
+
+
+<p>{| border=1<br />
+ ! IP<br />
+ ! Host(s)</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>52.201.18.254</td>
+</tr>
+<tr>
+	<td>mumble.info / *.mumble.info (exceptions below)</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>46.253.206.249</td>
+</tr>
+<tr>
+	<td>se.mumble.info / de.mumble.info</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>50.97.218.234</td>
+</tr>
+<tr>
+	<td>us.mumble.info</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<ul>
+	<li>Usage statistics are submitted via a ''http'' post request to <a href="http://mumble.info/usage.cgi">http://mumble.info/usage.cgi</a> on port 80.</li>
+	<li>Crashreports are submitted as ''https'' post requests to <a href="https://mumble.info/crashreport.php">https://mumble.info/crashreport.php</a> on port 443</li>
+	<li>The channel list, overlay-, plugin- and client updates are retrieved via a http get request to mumble.info on port 80 on first try or as a fallback. During later exchanges the regional mirrors *.mumble.info will be used. If all of these are unreachable panic.mumble.info is tried.</li>
+</ul>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

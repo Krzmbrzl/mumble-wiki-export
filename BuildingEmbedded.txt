@@ -1,0 +1,53 @@
+= WeTab =
+
+Compiling Mumble on the WeTab is possible, but requires compiling protobuf beforehand.
+
+First of all, installing the openssh-server package is very advisable, as it will give you a shell to be used on a device which has a keyboard - of course, your mileage may vary. :)
+
+I executed the following commands in a root shell started via ``sudo bash``, so I won't prefix every command with sudo here. We start by installing a bunch of dependencies:
+
+ yum install make gcc-c++
+ yum install git
+ yum install openssl-devel
+ yum install alsa-lib-devel
+ yum install libsndfile-devel
+ yum install pulseaudio-devel
+ yum install speex-devel
+ yum install subversion
+ yum install libtool
+ yum install boost-devel
+ yum install avahi-compat-libdns_sd-devel
+ yum install libqtopengl-devel
+
+Next, compile and install protobuf:
+
+ svn checkout http://protobuf.googlecode.com/svn/trunk/ protobuf-read-only
+ cd protobuf-read-only/
+ ./autogen.sh
+ ./configure
+ make
+ make check
+ make install
+
+This command will install protobuf to /usr/local, which is why we need to adapt the $PATH environment variable accordingly. Otherwise, the build process won't be able to find protoc.
+
+ export PATH="/usr/local/bin:$PATH"
+
+Now, compile mumble:
+
+ git clone https://github.com/mumble-voip/mumble.git
+ cd mumble/
+ git submodule init
+ git submodule update
+ qmake -recursive CONFIG+=no-server CONFIG+=no-overlay CONFIG+=no-g15 CONFIG+=no-speechd main.pro
+ make clean
+ make
+
+Now you should be able to start Mumble as your normal user (that is, not root), by opening a new shell and running the following commands:
+
+ cd mumble/release
+ LD_LIBRARY_PATH=/usr/local/lib ./mumble
+
+Enjoy :)
+
+[[Category:Development]]

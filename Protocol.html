@@ -1,0 +1,143 @@
+<p>The Mumble Protocol is Open Source, just like Mumble itself. The source code for the current version can be found in the Git repository in the file [https://github.com/mumble-voip/mumble/blob/master/src/Mumble.proto Mumble.proto].</p>
+
+<h1>Protocol documentation</h1>
+
+<p>A complete documentation about the protocol can be found at <br />
+[https://mumble-protocol.readthedocs.org/en/latest/ readthedocs.org].</p>
+
+<h1>UDP Ping packet</h1>
+
+<p>Mumble supports querying the following data by sending a ping packet to the target server. Both the request and the response packets are formatted in Big Endian.</p>
+
+<p>The ping request packet contains the following data:</p>
+
+<p>{|<br />
+!Width<br />
+!Data type<br />
+!Value<br />
+!Comment</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>4 bytes</td>
+</tr>
+<tr>
+	<td>int</td>
+</tr>
+<tr>
+	<td>0</td>
+</tr>
+<tr>
+	<td>Denotes the request type</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>8 bytes</td>
+</tr>
+<tr>
+	<td>long long</td>
+</tr>
+<tr>
+	<td>ident</td>
+</tr>
+<tr>
+	<td>Used to identify the reponse.</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<p>The response will then contain the following data:</p>
+
+<p>{|<br />
+!Width<br />
+!Data type<br />
+!Value<br />
+!Comment</p>
+<table>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>4 bytes</td>
+</tr>
+<tr>
+	<td>int</td>
+</tr>
+<tr>
+	<td>Version</td>
+</tr>
+<tr>
+	<td>e.g., \x0\x1\x2\x3 for 1.2.3. Can be interpreted as one single int or four signed chars.</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>8 bytes</td>
+</tr>
+<tr>
+	<td>long long</td>
+</tr>
+<tr>
+	<td>ident</td>
+</tr>
+<tr>
+	<td>the ident value sent with the request</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>4 bytes</td>
+</tr>
+<tr>
+	<td>int</td>
+</tr>
+<tr>
+	<td>Currently connected users count</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>4 bytes</td>
+</tr>
+<tr>
+	<td>int</td>
+</tr>
+<tr>
+	<td>Maximum users (slot count)</td>
+</tr>
+<tr>
+	<td>-</td>
+</tr>
+<tr>
+	<td>4 bytes</td>
+</tr>
+<tr>
+	<td>int</td>
+</tr>
+<tr>
+	<td>Allowed bandwidth</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<p>Example implementations of pinging:</p>
+
+<ul>
+	<li>The official python script [https://raw.githubusercontent.com/mumble-voip/mumble-scripts/master/Non-RPC/mumble-ping.py mumble-ping.py]</li>
+	<li>The IRC bot <a href="K-10">K-10</a>’s [https://bitbucket.org/Svedrin/k10-plugins/src/tip/BwCalc/plugin.py#cl-120 extension of that script] that adds IPv6 support</li>
+	<li>The C#/.NET Core [https://github.com/Kissaki/mumble-ping mumble-ping application]</li>
+	<li>[https://git.lolcat.ca/lolcat/mumble-ping PHP implementation]</li>
+</ul>
+
+<p><a href="Category:Development">Category:Development</a></p>

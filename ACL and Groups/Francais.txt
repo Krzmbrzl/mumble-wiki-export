@@ -1,0 +1,76 @@
+{{Languages|ACL and Groups}}
+
+= Activer l'éditeur de groupe et de LCA =
+
+Vous devez cocher la case "Avancée" dans la fenêtre de configuration (Configurer → Paramètres) pour pouvoir voir l'éditeur de groupes et de LCA pour un channel
+
+= Les Groupes =
+
+'''''Note : Dans la version française de Mumble, les ACLs se nomment LCA.'''''
+
+Pour éditer ou pour créer un nouveau groupes, faîtes un clic droit sur le channel root et cliquez sur Editer (habituellement, vous créerez des groupes depuis le channel root pour une meilleur gestion de ceci).
+Maintenant cliquez sur l'onglet "Groupes".
+Maintenant, vous pouvez soit sélectionner un groupe existant ou en créer un nouveau en cliquant dans la case vide appelée "Groupe", en tapant le nom du nouveau groupe et en validant en appuyant sur la touche Entrée.
+Maintenant que le groupe est sélectionné, ajoutez un utilisateur à ce groupe en tapant son nom dans la case en bas à gauche et en cliquant sur "Ajouter".
+
+'''Note : Seul les utilisateurs enregistrés peuvent être ajoutés à un groupe.'''
+
+Les groupes sont liés à un channel spécifique, mais peuvent aussi être hérité par les sous-channels, uniquement si la case "Héritable" et coché dans le channel parent et la case "Hérite" et coché dans le sous-channel (habituellement, vous laisserez ces caches cochées). Cela ouvre un moyen commode pour administrer les channels et leurs LCAs; paramètrez les LCAs sur le channel root  et cela affectera tous les sous-channels.
+
+Pour chaque channel, un groupe a 3 paramètres différent :
+* "Membres" : la liste des utilisateurs à ajouter au groupe (parce qu'ils ne sont pas déjà membres du même groupes dans le channel parent)
+* "Membres exclus" : la liste des utilisateurs exclus du groupe
+* "Membres hérités" : la liste des membres hérités du même groupe depuis le channel parent
+
+= Exemple =
+
+Prenons un exemple concret, le groupe ''admin''. A chaque fois qu'un joueur crée un channel, il est automatiquement ajouté au groupe admin de ce channel. Cela ne lui donne pas automatiquement des privilèges, il est juste marqué comme membre de ce groupe, cependant l'installation par défaut de Murmur installe une LCA qui donne au groupe admin le droit de modifier les LCAs (tous les accès donc).
+
+Dans une structure comme celle-ci :
+
+* Root
+** A
+*** B 
+** C
+*** D 
+
+
+Le joueur "Big Boss" est le seul membre du groupe ''admin'' dans le channel '''Root'''. Dans le channel A, le joueur "BossA" et dans le channel B, le joueur "BoosB" sont marqués comme étant membres du groupe ''admin''.<br>
+Dans les channels Root, A et B les cases Hérite et Héritable sont activés pour le groupe ''admin'' (paramètres par défaut de Murmur). Un joueur devient membres de ce groupe dans chacun de ces channels est donc un "Membres hérités" dans un sous-channel. Donc, la liste total des membres dans le channel B est "Big Boss, BossA, BoosB". L'avantage de ce système est que si plus tard nous ajoutons "SuperBoos" au groupe ''admin'' dans le channel Root, il sera automatiquement dans le groupe ''admin' des channels A et B.<br>
+Passons à autre chose et disons que le joueur BossC et dans la liste des Membres du channel C, mais dans ce channel, la case Hérite du groupe ''admin'' n'est pas activée. Cela veut dire que "Big Boss" n'est pas dans le groupe ''admin'' et que tout changement pour le groupe ''admin'' dans le channel Root ne sera pas éffectif pour le channel C. Le channel D hérite de la liste de C, sauf si C marque aussi le groupe ''admin'' comme n'étant pas héritable.
+
+= Les LCA =
+
+LCA (Listes de Contrôle d'Accès) sont toutes attachées à un channel spécifique. Un channel peut spécifier si il veut hériter des LCA du channel parent, mais il ne peut pas spécifier lesquels ; c'est tout où rien. 
+Les LCA sont évaluées dans l'ordre, de haut en bas le long de la liste des channels. Pour ajouter où supprimer une LCA, faîtes un clic droit sur le channel dont vous souhaitez changer les LCA, cliquez sur Éditer et rendez-vous dans l'onglet '''LCA'''. Une fois que vous avez ajoutée une LCA, vous devez paramètrez le groupe pour lequel cette LCA agit en tapant le nom du groupe en question dans la case en bas qui se nomme "Groupe". Si vous souhaitez appliquez une LCA pour un utilisateur en particulier, laisser la case "Groupe" vide et indiquer le nom de l'utilisateur en question dans la case qui se nomme "ID Utilisateur"<br>
+Pour chaque entrée, un groupe où un utilisateur correspondra. Un utilisateur doit être spécifique et enregistré, alors qu'un groupe peut être n'importe quel groupe valide dans le channel sur lequel la/les LCA sont défini.
+Notez que l'appartenance au groupe est évaluée dans le channel ou est éxécuté la/les LCA, ce qui est imporant pour les LCA hérités. Si un groupe commence avec un !, ses membres seront inversés et si un groupe commence avec un ~, il est évalué dans le contexte du channel sur lequel la/les LCA sont définies (et non le channel actif).
+<br>
+# all
+#* Tout le monde
+# auth 
+#* Tous les utilisateurs enregistrés (authentifiés)
+# in 
+#* Tous les utilisateurs actuellement dans le channel
+# out 
+#* Tous les utilisateurs en dehors du channel actuel
+
+Pour chaque entrée, les permissions sont soit autorisées ou refusées ; en cas de conflit la dernière entrée a la priorité. 
+Rappelez-vous que toutes les entrées sont évaluées dans l'ordre, alors, si vous avez le jeu d'entrée suivant :
+
+* @all deny speak
+* @all allow speak 
+
+Tout le monde sera autorisé à parler (@all allow speak étant la dernière entrée). De la même manière :
+
+* @all allow speak
+* @all deny speak 
+
+Interdira à tout le monde de parler (@all deny speak étant la dernière entrée).
+<br>
+Chaque entrée peut être marquée soit comme étant appliqué dans le channel actuel, dans un sous-channel, où les deux. La plupart du temps vous choisirez les deux. N'oubliez pas que pour chaque entrée qui est appliqué à un sous-channel, vous devez l'appliquez à tous les sous-channels '''et''' autorisé cocher la case Héritable dans les sous-channels.
+
+= The @sub group =
+
+
+[[Category:Documentation Francais]]

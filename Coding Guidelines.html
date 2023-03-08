@@ -1,0 +1,187 @@
+<h1>General</h1>
+<p>Much of the Mumble codebase does not yet follow these new code guidelines. However if your write new code or adjust existing code make sure to follow them so we can reach a consistent style as soon as possible.</p>
+
+<ul>
+	<li>The [http://qt-project.org/wiki/Coding-Conventions Qt coding conventions] mostly apply</li>
+	<li>Every source file should contain a license header</li>
+	<li>Lines should generally be no longer than 100 characters</li>
+	<li>Use newlines for logical grouping</li>
+	<li>Try to be standards (C++03) compliant and const correct</li>
+	<li>When interfacing with system code feel free to locally use the coding style recommended for that system</li>
+	<li>Consistency is important but these are no laws. Use your own judgement.</li>
+</ul>
+<h1>Indentation</h1>
+<ul>
+	<li>Use tabs for indenting and space for lining up code.
+	<ul>
+		<li>This means using tabs '''only''' at the beginning of lines. Otherwise users cannot set their own tabstop without breaking formatting</li>
+	</ul></li>
+	<li>Never indent preprocessor commands controlling control flow (e.g. #ifdef, #endif,...)</li>
+</ul>
+<h1>Headers</h1>
+<ul>
+	<li>Include guards should use MUMBLE_PATH_FILENAME_H_ to prevent ambiguity. E.g. for the file MainWindow.h in src/mumble:
+<ol>
+	<li>ifndef MUMBLE_MUMBLE_MAINWINDOW_H_</li>
+	<li>define MUMBLE_MUMBLE_MAINWINDOW_H_ ...</li>
+	<li>endif
+<ul>
+	<li>Don't use non-standard ''#pragma once''</li>
+	<li>Try to use forward declarations where possible to reduce coupling</li>
+</ul></li>
+</ol></li>
+</ul>
+<h1>Naming</h1>
+<ul>
+	<li>Don't abbreviate names.</li>
+	<li>Good naming is essential for code maintainability. Treat it accordingly.</li>
+</ul>
+<h2>Classes</h2>
+<ul>
+	<li>Use CamelCase names.</li>
+</ul>
+<h3>Member functions</h3>
+<ul>
+	<li>Arguments as well as function names should be camelCase Type camelCase(Type camelCase);</li>
+	<li>Getters should be prefixed with get/is/has, be constant and name the variable they return Type getVariable() const; /// Or for boolean bool isVariable() const; /// or bool hasVariable() const;</li>
+	<li>Setters should be prefixed with set and efficiently handle their argument void setVariable(const Type &amp;variable);</li>
+</ul>
+<h3>Qt Slots</h3>
+<ul>
+	<li>Use an "on" prefix onSomethingHappening() for manually wired slots</li>
+	<li>Feel free to use Qt auto-wire where possible (e.g. on_qpbRemove_clicked())</li>
+</ul>
+<h3>Member variables</h3>
+<p>m_ and s_ prefix</p>
+<ul>
+	<li>m_camelCase for member variables</li>
+	<li>s_camelCase for static member variables</li>
+</ul>
+<h2>Constants</h2>
+<ul>
+	<li>Use ALL_CAPS with underscore as a seperator for global, file global, static const member variables and static const local variables.</li>
+	<li>Non-static but const local variables are not capitalized, but formatted just like normal variables. static const int GLOBAL_SVAR;</li>
+</ul>
+<p> void fu() {<br />
+     static const int LOCAL_SVAR = 4;<br />
+     const int localVar = 5 + bla();<br />
+ }</p>
+
+<p> class bar {<br />
+     static const int MEMBER_SVAR;<br />
+     const int memberVar;<br />
+ };</p>
+
+<h2>Types</h2>
+<ul>
+	<li>Use CamelCase for type names class MyClass {}; typedef MyClass AlternativeClassName; enum MyEnum {};</li>
+</ul>
+<h2>Enums</h2>
+<ul>
+	<li>Use CamelCase for enumeration types</li>
+	<li>For disambiguation and improved auto-completion use a unique prefix for the enum variables. Prefer the capital letters in the CamelCase name if possible.</li>
+</ul>
+<p> enum CamelCase {CC_FIRST, CC_SECOND, CC_THIRD};</p>
+
+<ul>
+	<li>If you need an end marker for an enumeration prefer COUNT_PREFIX</li>
+	<li>If the enumeration values need explanation use multiple lines</li>
+</ul>
+<p> enum CamelCaseToo {<br />
+     /// First camel in the case<br />
+     CCT_FIRST,<br />
+     COUNT_CCT<br />
+ };</p>
+
+<h1>Code style</h1>
+<h2>if statements</h2>
+<p> if (a &gt; b</p>
+<table>
+<tr>
+	<td>b &gt; c</td>
+</tr>
+<tr>
+	<td>c &gt; d) {</td>
+</tr>
+</table>
+<p>     doSomething();<br />
+ } else {<br />
+     doSomethingElse();<br />
+ }</p>
+<ul>
+	<li>Split up long if statements at operators. Place the operators at the beginning of the new line instead of at the end.</li>
+	<li>Try to keep the logic in if statements understandable. E.g. use additional named variables or split one if statement into multiple statements if it makes the code more readable.</li>
+	<li>Always use { }</li>
+</ul>
+<h2>Classes (e.g. a QObject based class)</h2>
+<ul>
+	<li>Access specifiers should always be ordered public, public slots, signals, protected, private</li>
+	<li>QObject derived classes must have a Q_OBJECT statement to ensure signal/slot is working</li>
+	<li>Constructors with only one argument must be marked explicit</li>
+	<li>When overwriting a base-class function '''always''' use Q_DECL_OVERRIDE. Also for destructors. On platforms that support it this is equal to using the C++11 [http://en.cppreference.com/w/cpp/language/override override keyword]. Our experience shows not doing so will result in bugs.</li>
+	<li>For classes no-one is supposed to derive from (for example pretty much everything with a non-virtual destructor) or functions that must not be overridden by derived classes use the Q_DECL_FINAL macro. On platforms that support it this is equal to using the C++11 [http://en.cppreference.com/w/cpp/language/final final keyword]. /// Class for managing things by foo. class MyClass : public QObject {         Q_OBJECT     public:         /// Constructs MyClass without initializing foo management         explicit MyClass(QObject *parent = NULL);         /// Constructs MyClass for managing initialFooCount of foos         MyClass(int initialFooCount, QObject *parent = NULL);         /// Custom destructor because we handle some resource         MyClass() Q_DECL_OVERRIDE;         ...     public slots:         ...     signals:         ...     protected:         ...     private:         /// Stores the number of foos since the last reset         int m_fooCount; };</li>
+</ul>
+<ul>
+	<li>Constructor implementations</li>
+</ul>
+<p> MyClass::MyClass(int initialFooCount, QObject *parent)<br />
+     : QObject(parent)<br />
+     , m_fooCount(initialFooCount) {</p>
+
+<p>     doStuff();<br />
+ };</p>
+
+<h2>Switch</h2>
+<ul>
+	<li>Each case/default must have a break or a return. Fall throughs must be explicitly commented.</li>
+</ul>
+<p> switch (foo) {<br />
+     case A:<br />
+          ...<br />
+          break;<br />
+     case B:<br />
+     case C:<br />
+          ...<br />
+          // Fall through<br />
+     default:<br />
+          break;<br />
+ }</p>
+
+<h1>Comments</h1>
+<p>Try to use comments in a sensible way. Don't comment the obvious (e.g. no setBla() "Sets bla") and don't feel obligated to comment every single parameter and function if the variable naming and types already make the behavior obvious.</p>
+
+<ul>
+	<li>Comment intent over behavior</li>
+	<li>When in doubt err on the side of too much comments</li>
+	<li>Make sure you always keep related comments up to date when changing code</li>
+</ul>
+<h2>Classes / Functions</h2>
+<ul>
+	<li>Comment in header / at point of declaration</li>
+	<li>Use doxygen style comments
+	<ul>
+		<li>We use auto-brief style so your first sentence will be used like it was prefixed with ''@brief''. Be sure to finish the first sentence with a '.'.</li>
+	</ul></li>
+</ul>
+<p> /// Use this for single line comments<br />
+ int foo;</p>
+
+<p> /// Use this also for big comments.<br />
+ ///<br />
+ /// @param parameter Takes param in meters<br />
+ /// @return parameter in feet on success. A value &lt; 0 on failure.<br />
+ int bar(int param);</p>
+
+<ul>
+	<li>Place comments directly above the code they are referring to. Don't place them in the same line.</li>
+</ul>
+<h1>Specifics</h1>
+<p>Special guidelines for specific situations one should be aware of.</p>
+<h2>Qt backwards compatibility</h2>
+<p>Mumble has to be compatible with Qt 4 as well as Qt 5. For that reason there will be situations where you'll want to have different code based on version.</p>
+<ol>
+	<li>if QT_VERSION &gt; 0x050000     // Qt 5 code goes here</li>
+	<li>else     // Qt 4 code</li>
+	<li>endifAvoid using the QT_VERSION_CHECK macro and always specify the wanted version explicitely. It [http://lists.qt-project.org/pipermail/interest/2013-August/008368.html cannot be expanded] by Qt4's moc and hence can lead to invalid code.</li>
+</ol>
+<p><a href="Category:Development">Category:Development</a></p>

@@ -1,0 +1,65 @@
+<p>Upgrading Mumble from 1.1.8 to 1.2.0</p>
+
+<h1>Upgrading Mumble</h1>
+
+<p>Install the new client.</p>
+
+<p>To connect to 1.1.8 servers, Mumble 1.2.0 includes a backward-compatible client. This client will use your existing 1.1.8 list of servers and your current configuration. Most of the code in it is identical with 1.1.8, but quite a few fixes from the 1.2 series have been included, so audio works better on Windows 7, Ubuntu 9.10 etc.</p>
+
+<p>The first time you start the new 1.2.0 client, you'll need to generate a certificate, and we strongly recommend you go over the audio wizard again; quite a few things are now more aggressively tuned, and your automatically imported 1.1.8 settings might not be ideal anymore.</p>
+
+<p>Note that after you have upgraded, you can no longer use the 1.1.8 client, as the settings format has changed.</p>
+
+<h1>Upgrading Murmur</h1>
+
+<p>1.2.0 comes with a heavily upgraded database format and quite a few new features.</p>
+
+<p>You can upgrade to 1.2.0 by simply installing the new binaries and running them; the .ini format is the same (with a few notable exceptions, see below). The database will be upgraded in place. Note that this is a one-way change; after you have installed 1.2.0, you can not downgrade to 1.1.8. We therefore strongly recommend you to backup your database before upgrading; simply store a copy of your murmur.sqlite file somewhere.</p>
+
+<h2>Resource changes</h2>
+
+<p>While the default setting still is 20ms of audio per packet, Mumble 1.2.0 can use 10ms packets for lower latency. This means twice as many packets per second, which places twice the load on network drivers and kernel. If you host servers for hundreds of users, we recommend using a high quality network card with good driver support.</p>
+
+<p>Bandwidth-wise, 1.2 can work on the exact same bandwidth as 1.1, but it can also go a lot higher; the default audio settings use about 69 kbit/s of network bandwidth on IPv4. We recommend hosters to offer this bandwidth, but audio quality will be acceptable if it is as low as 30 kbit/s.</p>
+
+<p>The memory requirement for 1.2 should not have changed noticably from 1.1. Note that due to the multiple threads and buffer allocations, murmur still requires a lot of virtual address space, so we strongly recommend a 64 bit OS if you have many users or virtual hosts.</p>
+
+<p>CPU requirements for 1.2 are slightly higher than in 1.1, but in our tests this CPU usage was negligeble compared to the time spent in kernel network drivers.</p>
+
+<h2>.ini file changes</h2>
+
+<p>'''bandwidth''' is now specified in kbit/s instead of kbyte/s. You will need to change this.</p>
+
+<p>'''bonjour''', which can be ''true'' or ''false'', enables or disables LAN announcements. If you're using Murmur on a LAN, you definitely want to enable this. Everyone else, would probably want to disable it.</p>
+
+<p>'''host''' can now specify both IPv4 and IPv6 addresses (separated with spaces), and Murmur will bind to all of them.</p>
+
+<h2>RPC changes</h2>
+
+<p>The DBus interface is now deprecated, but still supported. No changes have been made to the interface, so all old code should work. However, none of the new features have been added.</p>
+
+<p>Ice has received a lot of upgrades, but most of your scripts will work if you simply change "Player" to "User" in function and structure names. If you do not plan to adapt your Ice using application and depend on its functionality, you should wait for an updated version or migrate to a different one.</p>
+
+<h2>Permission changes</h2>
+
+<p>'''Ban''' and '''Kick''' are now separate permissions, and valid on the root channel only.</p>
+
+<p>'''Make Channel''' is split in two; '''Make Channel''' and '''Make TempChannel'''.</p>
+
+<p>'''Register''' allows a user to register and unregister other users, and '''SelfRegister''' allows new users to register themselves on the server. Both of these permissions are valid on the root channel only, and will only work on users that use a certificate (which should be all of them).</p>
+
+<p>There's a new group called '''@strong''', and all users with a signed certificate will be a member of this group.</p>
+
+<h2>URLs</h2>
+
+<p>As we did not want to change the mumble:// service prefix and wanted to make transition as smooth as possible 1.1.X will be the default app that launches for these URLs (this might change in the future). You have to actively tell mumble a URL points to a 1.2.0 protocol server to make it launch the right client. You do this by appending a version parameter to the url: ?version=1.2.0 .</p>
+
+<p>For example: mumble://mumble.server.tld?version=1.2.0</p>
+
+<h2>Impact of user certificates</h2>
+
+<p>Users now authenticate with certificates by default, and simple user management is possible directly from the client. Remember that the Certificate Wizard forces users to take a backup of their certificate, so be extremely wary of users who claim to have "lost" their certificate; there's a good chance they are trying a social engineering attack by impersonating the user.</p>
+
+<p>Many major CAs offer free email certificates, with validation of email ownership, and these certificates can be imported into Mumble. While technically only valid for signing email, Mumble will allow these certificates to be used for SSL authentication as well. Strong certificates offer many advantages. First of all, you'll know the email address in the certificate really belongs to the user. Second, Murmur will use this fact to allow any strong certificate for the user's email address to authenticate. So if the users' registered email address is user@example.net, any signed certificate for user@example.net will be able to authenticate.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

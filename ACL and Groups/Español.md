@@ -1,0 +1,25 @@
+# Languages|ACL and Groups
+
+# Notice|message=This article is very limited; only a minor part was translated from the English documentation. If you are capable of understanding a different language, see that page.
+
+= Grupos =
+
+Para editar o crear un nuevo grupo, Damos clic derecho en el canal principal y seleccionamos "Editar" (por lo general se crear grupos en el canal principal para facilitar la administracion de los mismos).Damos clic en la pestaña "Grupos".Ahora podemos seleccionar o añadir un grupo dando click en el cuadro de texto llamado "Grupo", tecleando el nombre de grupo y presionando enter. Ahora que el grupo esta seleccionado, añadimos a los usuarios al grupo tecleando sus nombres registrados en el cuadro inferior izquierdo y presionando el boton "Agregar"
+
+Los grupos estan ligados a un canal en especifico, pero tambien pueden ser heredados por subcanales, cuando la casilla "heredable" esta seleccionada en el canal principal y "heredar" se encuentra seleccionado en el canal secundario (usualmente quieres que estas casillas esten seleccionadas. Esto abre un excelente camino para administrar los canales y sus ACLs; Configurar las ACLs en el canal principal del Mumble debe tener una estructura de privilegios similares, de esa manera solo hace falta cambiar los que pertenece a cada grupo en los subcanales
+
+
+Para cada canal, un grupo tiene tres tipos de datos:
+
+1."Miembros": lista de usuarios para añadir al grupo (es decir, porque ellos no son miembros de el mismo grupo en el canal principal.
+
+2."Miembros excluidos": lista de miembros heredados que se remueven del grupo.
+
+3."Miembros heredados": muestra la lista de los miembros que son heredados de un mismo grupo en el canal principal.
+
+'''Nota: Solo se pueden añadir a los usuarios que esten registrados.'''
+
+
+= Ejemplos =
+
+

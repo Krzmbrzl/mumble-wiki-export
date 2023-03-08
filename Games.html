@@ -1,0 +1,1657 @@
+<p>'''NOTE: Please go to [https://www.mumble.info/documentation/user/positional-audio/ the new documentation on our website] instead. The documentation here is now obsolete.'''</p>
+
+<p>---</p>
+
+<h1>Overlay</h1>
+<p>Our overlay is not technically game-specific but rendering-engine-specific. Thus it works for all games using supported rendering APIs.</p>
+
+<p>For more information on the overlay, see <a href="Overlay">the respective page about the Overlay</a>.</p>
+
+<h1>Positional audio</h1>
+<p><a href="File:Positional_Audio.gif">left|alt=Shows Audiowaves with Postional Audio in cyberspace</a><br />
+Please note that Mumble works with all games as a regular voice chat application. Those listed on this page are the games for which we are providing <a href="Positional-Audio">positional sound</a> support, so that the voice of your teammates comes from their direction in game.</p>
+
+<p>This feature '''can be enabled as follows''':</p>
+<ul>
+	<li>1.) Check "<a href="Advanced client configuration">Advanced</a>" in the ''Configure|Settings'' menu</li>
+	<li>2.) Go to ''Plugins'' and check "Link to Game and Transmit Position"</li>
+</ul>
+<p>If you deselected ''Enable positional audio'' during setup you have to re-enable it in the wizard.</p>
+
+<p>'''Just because your game says it is a different version from the plugin does not necessarily mean that the plugin will not work.'''</p>
+
+<p>It is possible that some plugins are outdated in the current release; in that case please check the lists below.</p>
+
+<p>If there is no update for the plugin, please report it [https://github.com/mumble-voip/mumble/issues here].</p>
+
+<p>For additional info on what positional audio is and how it works in Mumble, see <a href="Positional-Audio">here</a>.</p>
+
+<p>If you want to add support for a game and you are able to modify the source of this game you can use the <a href="Link">Link</a> plugin. If you cannot modify the source of the game you want to add, <a href="Pluginguide">this guide</a> should help. For an overall look at retrieving positional data from a game, see <a href="HackPositionalAudio">here</a>.<br />
+&lt;div style="clear:left;"&gt;&lt;/div&gt;</p>
+
+<h2>Supported games</h2>
+
+<p>The following table displays which games positional audio is available for, from which game version on (/for which version), for what platform and if extended support is available.</p>
+
+<p>Games that provide native positional data via the Link plugin are marked in &lt;span style="background-color:#e8e8ff"&gt;blue&lt;/span&gt; (that means they won’t get outdated). Outdated plugins are marked in &lt;span style="background-color:#FFFFC0"&gt;yellow&lt;/span&gt;.&lt;br&gt;<br />
+''No'' means that the games don't use the extended positional audio features that were introduced with Mumble 1.2. Move the pointer over to see more info about the extended support for a specific plugin (if available).</p>
+
+<p>'''Note:''' Windows plugins work on Wine!</p>
+
+<p>{{Warning</p>
+<table>
+<tr>
+	<td>message=Plugins for 64-bit games only work with Mumble x64!</td>
+</tr>
+</table>
+<p>}}<br />
+{|border="0" cellpadding="2" cellspacing="1" style="background:#e2e2e2;" class="sortable"<br />
+! Game<br />
+! Version<br />
+! Action required<br />
+! Platform<br />
+! Extended support (Context, identity)</p>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/17510 Age of Chivalry]</td>
+</tr>
+<tr>
+	<td>Build 4104</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#FFFFC0"</td>
+</tr>
+<tr>
+	<td>[http://www.arma2.com ArmA 2]</td>
+</tr>
+<tr>
+	<td>[http://steamcommunity.com/games/arma2/announcements/detail/1027014441254296137 1.08] while the latest is [http://steamcommunity.com/games/arma2/announcements/detail/1370438673676192803 1.10]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.arma2.com ArmA 2: Operation Arrowhead]</td>
+</tr>
+<tr>
+	<td>&gt;= 1.60</td>
+</tr>
+<tr>
+	<td>Install the [https://dev.withsix.com/projects/mumblelink dedicated mod]</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://arma3.com Arma 3]</td>
+</tr>
+<tr>
+	<td>&gt;= 0.5</td>
+</tr>
+<tr>
+	<td>Install the [https://dev.withsix.com/projects/mumblelink dedicated mod]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.assettocorsa.it/home-ac/ Assetto Corsa]</td>
+</tr>
+<tr>
+	<td>CSP &gt;= 0.1.77</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.battlefield.com Battlefield 1]</td>
+</tr>
+<tr>
+	<td>[https://www.battlefield.com/news/update-notes/spring-update 1.0.49.52296]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on server name. Identity: Team, Squad and Squad leader"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield-1942 Battlefield 1942]</td>
+</tr>
+<tr>
+	<td>1.61b</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield-2 Battlefield 2]</td>
+</tr>
+<tr>
+	<td>1.50</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on host IP address and port. Identity: Host IP address and port, Commander, Squad Leader, Squad, Team, On VoIP, On VoIP com, Target squad ID"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield-2142 Battlefield 2142]</td>
+</tr>
+<tr>
+	<td>[http://largedownloads.ea.com/pub/patches/BF2142/ 1.51]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on host IP address and port. Identity: Host IP address and port, Team ID, Squad ID, Commander, Squad Leader, Target squad ID, On VoIP, On VoIP com, Player"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield3 Battlefield 3]</td>
+</tr>
+<tr>
+	<td>Build 1147186 - End Game DLC</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on host IP address and port. Identity: Team, Squad, Squad Leader"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield4 Battlefield 4]</td>
+</tr>
+<tr>
+	<td>1.8.2.48475</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Server ID. Identity: Host IP address and port, Team, Squad, Squad Leader, Squad State"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefield.com/battlefield-bad-company-2-vietnam Battlefield Bad Company 2]</td>
+</tr>
+<tr>
+	<td>Build 795745</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.battlefieldheroes.com Battlefield Heroes]</td>
+</tr>
+<tr>
+	<td>?</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/362890 Black Mesa]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#FFFFC0"</td>
+</tr>
+<tr>
+	<td>[http://borderlandsthegame.com Borderlands]</td>
+</tr>
+<tr>
+	<td>[http://borderlands.wikia.com/wiki/Patch_1.4.0 1.4.0] while the latest is [http://borderlands.wikia.com/wiki/Patch_1.4.1 1.4.1]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#FFFFC0"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/49520 Borderlands 2]</td>
+</tr>
+<tr>
+	<td>[http://borderlands.wikia.com/wiki/Patch_1.8.X_(Borderlands_2) 1.8.3] while the latest is [http://borderlands.wikia.com/wiki/Patch_1.8.X_(Borderlands_2) 1.8.4]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Character name"&gt;Identity only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://breachgame.com Breach]</td>
+</tr>
+<tr>
+	<td>1.1.0</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/2630 Call of Duty 2]</td>
+</tr>
+<tr>
+	<td>1.3</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/7940 Call of Duty 4: Modern Warfare]</td>
+</tr>
+<tr>
+	<td>1.7.568</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://steamcommunity.com/app/10190 Call of Duty: Modern Warfare 2 Multiplayer]</td>
+</tr>
+<tr>
+	<td>1.2.208</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/10180 Call of Duty: Modern Warfare 2 Special Ops]</td>
+</tr>
+<tr>
+	<td>1.1</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/10090 Call of Duty: World at War]</td>
+</tr>
+<tr>
+	<td>1.7.1263</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/10 Counter-Strike 1.6]</td>
+</tr>
+<tr>
+	<td>1.6</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/730 Counter-Strike: Global Offensive]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://blog.counter-strike.net/index.php/2014/08/10222 Aug 27 2014]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/240 Counter-Strike: Source]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9893 Feb 5 2013]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.dayofdefeat.com Day of Defeat: Source]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9221 1.0.0.46 (01:24:57 Oct 26 2012 (5101))]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.dystopia-game.com Dystopia]</td>
+</tr>
+<tr>
+	<td>Build 4104</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://steamcommunity.com/app/10000 Enemy Territory: Quake Wars]</td>
+</tr>
+<tr>
+	<td>1.50</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://ezquake.sf.net ezQuake]</td>
+</tr>
+<tr>
+	<td>&gt;= 2.0 alpha</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.finalfantasyxiv.com Final Fantasy XIV]</td>
+</tr>
+<tr>
+	<td>2016.11.11.0000.0000</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Map. Identity: Map and Player"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#FFFFC0"</td>
+</tr>
+<tr>
+	<td>Garry's Mod 11</td>
+</tr>
+<tr>
+	<td>Build 5692</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.rockstargames.com/IV Grand Theft Auto IV]</td>
+</tr>
+<tr>
+	<td>[https://support.rockstargames.com/hc/en-us/articles/200145406--May-28-2010-Grand-Theft-Auto-IV-Patch-7-Title-Update-v-1-0-7-0-English-1-0-6-1-Russian-1-0-5-2-Japanese 1.0.7.0]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.rockstargames.com/sanandreas Grand Theft Auto: San Andreas]</td>
+</tr>
+<tr>
+	<td>1.0</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.rockstargames.com/GTAOnline Grand Theft Auto V]</td>
+</tr>
+<tr>
+	<td>1.50 (Steam) [https://support.rockstargames.com/hc/en-us/articles/115004482908 1.38] (Retail)</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Player nickname, vehicle, location and street"&gt;Identity only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.guildwars.com Guild Wars]</td>
+</tr>
+<tr>
+	<td>Build 36001</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on location + area"&gt;Partial context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.guildwars2.com/ Guild Wars 2]</td>
+</tr>
+<tr>
+	<td>&gt;= [https://forum-en.guildwars2.com/forum/info/news/Game-Update-Notes-February-26-2013 Build 2/26/13] &lt;sub&gt;[http://wiki.guildwars2.com/wiki/Mumble Official Wiki page]&lt;/sub&gt;</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/320/ Half-Life 2: Deathmatch]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9221 1.0.0.37 (01:24:57 Oct 26 2012 (5101))]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/222880/ Insurgency]</td>
+</tr>
+<tr>
+	<td>?</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/17700 Insurgency: Modern Infantry Combat]</td>
+</tr>
+<tr>
+	<td>Build 4044</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/8190 Just Cause 2]</td>
+</tr>
+<tr>
+	<td>1.0.0.2</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://leagueoflegends.com League of Legends]</td>
+</tr>
+<tr>
+	<td>1.0.0.145</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address and port"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.l4d.com Left 4 Dead]</td>
+</tr>
+<tr>
+	<td>[http://www.l4d.com/blog/post.php?id=20984 1.0.3.1]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Server ID. Identity: Host IP address and port, map name and player SteamID"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.l4d.com Left 4 Dead 2]</td>
+</tr>
+<tr>
+	<td>[http://www.l4d.com/blog/post.php?id=22240 2.1.4.6]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows, Linux</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Server ID. Identity: Host IP address and port, server name, map name, player nickname and player SteamID"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#FFFFC0"</td>
+</tr>
+<tr>
+	<td>[https://www.lotro.com Lord of the Rings Online]</td>
+</tr>
+<tr>
+	<td>[https://lotro-wiki.com/index.php/Patches Update 4] while the latest is [https://lotro-wiki.com/index.php/Patches Update 18]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on region and instance"&gt;Partial context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://minecraft.net Minecraft]</td>
+</tr>
+<tr>
+	<td>&gt;=  Beta 1.3</td>
+</tr>
+<tr>
+	<td>Install the mod for [https://github.com/zsawyer/MumbleLink Forge] or [https://github.com/magneticflux-/fabric-mumblelink-mod Fabric.]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes ([http://www.minecraftforum.net/topic/217587-164-mod-mumblelink-forge-smp-lan-mumble-realism-directional-voip/#developmentAddons moddable])</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.minetest.net/ Minetest]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>Install the [https://forum.minetest.net/viewtopic.php?f=53&amp;t=21586 dedicated mod]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/299740 Miscreated]</td>
+</tr>
+<tr>
+	<td>&gt;= Patch [http://miscreatedgame.com/news/patch-34 #34]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.gameconnect.net/projects/nucleardawn Nuclear Dawn]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9647 6.9]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.openarena.ws Open Arena]</td>
+</tr>
+<tr>
+	<td>&gt;= [https://github.com/OpenArena/engine/commit/0ee3960225 commit 0ee3960225]</td>
+</tr>
+<tr>
+	<td>Set ''cl_useMumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.quakelive.com Quake Live]</td>
+</tr>
+<tr>
+	<td>[http://steamcommunity.com/games/282440/announcements/detail/876328108049672536 1069]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on host IP address and port. Identity: Map and team"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://redeclipse.net/ Red Eclipse]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.championsofregnum.com Regnum-Online]</td>
+</tr>
+<tr>
+	<td>?</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://rq3.com/ Reaction]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>Set ''cl_useMumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://ethernet.wasted.ch Revenge of the Cats: Ethernet]</td>
+</tr>
+<tr>
+	<td>&gt;= prototype 1.6</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.rigsofrods.com Rigs of Rods]</td>
+</tr>
+<tr>
+	<td>&gt;= 0.38.20</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.rocketleaguegame.com/ Rocket League]</td>
+</tr>
+<tr>
+	<td>[https://rocketleaguegame.com/news/patch-notes-v1-42 1.42]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows, Linux</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://sauerbraten.org/ Sauerbraten]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://sauerbraten.org/docs/history.html#_2008_06_17_ctf_edition 2008_06_17_ctf_edition]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://playstaxel.com/ Staxel]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://subrosagame.com Sub Rosa]</td>
+</tr>
+<tr>
+	<td>0.07b</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.teamfortress.com/ Team Fortress 2]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9221 1.2.3.5 (01:24:57 Oct 26 2012 (5101))]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td><a href="#Source_Engine">&lt;span title='See "Source Engine"'&gt;Yes&lt;/span&gt;</a></td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://tesseract.gg Tesseract]</td>
+</tr>
+<tr>
+	<td>&gt;= First Edition</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://ufoai.org UFO: Alien Invasion]</td>
+</tr>
+<tr>
+	<td>&gt;= [https://ufoai.org/wiki/Changelog/2.5 2.5]</td>
+</tr>
+<tr>
+	<td>Set ''snd_mumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>[https://github.com/ufoai/ufoai/blob/136e4441b489643d378357fbff5666d60bc916ed/src/client/sound/s_mumble.cpp#L86 Context only]</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/13240 Unreal Tournament (UT99)]</td>
+</tr>
+<tr>
+	<td>436</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on server name"&gt;Partial context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/13230 Unreal Tournament 2004]</td>
+</tr>
+<tr>
+	<td>Build 3369</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://store.steampowered.com/app/13210 Unreal Tournament 3]</td>
+</tr>
+<tr>
+	<td>2.1</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.unvanquished.net/ Unvanquished]</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>Set ''cl_useMumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://www.warsow.net/ Warsow]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://www.warsow.net/forum/thread/t/191271#post-191271 0.6]&lt;br&gt;Improved &gt;= [http://www.warsow.net/forum/thread/t/206086#post-206086 1.0]</td>
+</tr>
+<tr>
+	<td>Set ''cl_mumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[https://www.etlegacy.com/ Wolfenstein: Enemy Territory]</td>
+</tr>
+<tr>
+	<td>2.60b</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#ddffdd"</td>
+	<td>&lt;span title="Based on host IP address, map and team"&gt;Context only&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#f8f8ff"</td>
+</tr>
+<tr>
+	<td>[http://blizzard.com/games/wow World of Warcraft]</td>
+</tr>
+<tr>
+	<td>7.0.3.22810</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Windows</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Realm's name. Identity: Player's nickname"&gt;Yes&lt;/span&gt;</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<h3>Supported engines</h3>
+
+<p>{|border="0" cellpadding="2" cellspacing="1" style="background:#e2e2e2;" class="sortable"<br />
+! Engine<br />
+! Version<br />
+! Action required<br />
+! Platform<br />
+! Extended support (Context, identity)</p>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://ioquake3.org ioquake3]</td>
+</tr>
+<tr>
+	<td>&gt;= [https://github.com/ioquake/ioq3/commit/0ee3960225 commit 0ee3960225]</td>
+</tr>
+<tr>
+	<td>Set ''cl_useMumble'' to ''1''</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-id="Source_Engine" style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[http://source.valvesoftware.com Source Engine]</td>
+</tr>
+<tr>
+	<td>&gt;= [http://store.steampowered.com/news/9221 ?]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Any</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>&lt;span title="Context based on Server ID. Identity: Universe, Account type, Account steam3ID, Instance, Team"&gt;Yes&lt;/span&gt;</td>
+</tr>
+</table>
+
+<table>
+<tr>
+	<td>-style="background-color:#e8e8ff"</td>
+</tr>
+<tr>
+	<td>[https://github.com/yEngine/YEng YEngine Next Generation] (if using Y.mumble)</td>
+</tr>
+<tr>
+	<td>&gt;= [https://github.com/yEngine/YEng/commit/b4011706e7 commit b4011706e7]</td>
+</tr>
+<tr>
+	<td>No</td>
+</tr>
+<tr>
+	<td>Linux</td>
+</tr>
+<tr>
+	<td>style="background-color:#abf8a1"</td>
+	<td>Yes</td>
+</tr>
+<tr>
+	<td>}</td>
+</tr>
+</table>
+
+<h2>Manual positional audio plugin</h2>
+
+<p><a href="File:POS-Audio-plugin.jpg">thumb|right|The configuration window of the manual positional audio plugin.</a><br />
+In addition to the mentioned plugins, there is a special plugin called ''manual placement plugin''. It does not require a game, instead you can configure the plugin itself to set your own position from which other people in the same channel can hear you.</p>
+
+<p>'''1''' Set yourself on the canvas from where others should hear you. '''Make sure to choose a position other than 0, 0, 0''' or you won't hear or send positionally.</p>
+
+<p>'''2''' Set your own orientation where you want your virtual avatar to look at on a 360° Scale.</p>
+
+<p>'''3''' Set your own azimuth (if you look up or down while you talk).</p>
+
+<p>'''4''' Set the context of your avatar. Only the people with the same context will hear you positionally.</p>
+
+<p>'''5''' Set the identity.</p>
+
+<p>'''6''' Link or unlink the plugin to transfer the settings to the server for processing.</p>
+
+<p>'''7''' Enable or disable the plugin.</p>
+
+<p>'''8''' Separate the plugin settings window. This is useful to change the positional audio settings without keeping the Mumble settings window opened.</p>
+
+<p>'''9''' Reset values for all settings.</p>
+
+<p>'''10''' Close the window.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

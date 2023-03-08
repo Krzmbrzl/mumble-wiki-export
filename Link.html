@@ -1,0 +1,158 @@
+<h1>Linking a game to Mumble</h1>
+
+<p>If you can change the source code of the game you want to add positional audio support to you can save yourself the trouble of creating your own plugin by using the facilities supplied by the Link plugin.</p>
+
+<p>All code listed below is of '''public domain''' and can be used, shared or modified freely.</p>
+
+<p>'''Note:''' Please don't forget to add your game to the list of supported <a href="games">games</a>. If your game was already supported by a dedicated plugin, update the list and ask [https://github.com/mumble-voip/mumble/issues/new here] to retract it.&lt;br /&gt;<br />
+You can also ask in the same page to add or update your game in the list, if you don't want to create a Wiki account.</p>
+
+<h2>Initialization</h2>
+
+<p>Somewhere in your game initialization, add these lines of code:</p>
+
+<p>&lt;syntaxhighlight lang="cpp" line&gt;</p>
+<ol>
+	<li>ifdef _WIN32</li>
+	<li>include &lt;windows.h&gt;</li>
+	<li>else</li>
+	<li>include &lt;sys/mman.h&gt;</li>
+	<li>include &lt;fcntl.h&gt; /* For O_* constants */</li>
+	<li>endif // _WIN32</li>
+</ol>
+
+<p>struct LinkedMem {</p>
+<ol>
+	<li>ifdef _WIN32	UINT32	uiVersion;	DWORD	uiTick;</li>
+	<li>else	uint32_t uiVersion;	uint32_t uiTick;</li>
+	<li>endif	float	fAvatarPosition[3];	float	fAvatarFront[3];	float	fAvatarTop[3];	wchar_t	name[256];	float	fCameraPosition[3];	float	fCameraFront[3];	float	fCameraTop[3];	wchar_t	identity[256];</li>
+	<li>ifdef _WIN32	UINT32	context_len;</li>
+	<li>else	uint32_t context_len;</li>
+	<li>endif	unsigned char context[256];	wchar_t description[2048];};</li>
+</ol>
+<p>LinkedMem *lm = NULL;</p>
+
+
+<p>void initMumble() {</p>
+
+<ol>
+	<li>ifdef _WIN32	HANDLE hMapObject = OpenFileMappingW(FILE_MAP_ALL_ACCESS, FALSE, L"MumbleLink");	if (hMapObject == NULL)		return;</li>
+</ol>
+<p>	lm = (LinkedMem *) MapViewOfFile(hMapObject, FILE_MAP_ALL_ACCESS, 0, 0, sizeof(LinkedMem));<br />
+	if (lm == NULL) {<br />
+		CloseHandle(hMapObject);<br />
+		hMapObject = NULL;<br />
+		return;<br />
+	}</p>
+<ol>
+	<li>else	char memname[256];	snprintf(memname, 256, "/MumbleLink.%d", getuid());</li>
+</ol>
+<p>	int shmfd = shm_open(memname, O_RDWR, S_IRUSR | S_IWUSR);</p>
+
+<p>	if (shmfd &lt; 0) {<br />
+		return;<br />
+	}</p>
+
+<p>	lm = (LinkedMem *)(mmap(NULL, sizeof(struct LinkedMem), PROT_READ | PROT_WRITE, MAP_SHARED, shmfd,0));</p>
+
+<p>	if (lm == (void *)(-1)) {<br />
+		lm = NULL;<br />
+		return;<br />
+	}</p>
+<ol>
+	<li>endif}&lt;/syntaxhighlight&gt;</li>
+</ol>
+<p>Then, for each frame, do the following:</p>
+
+<p>&lt;syntaxhighlight lang="cpp" line&gt;<br />
+void updateMumble() {<br />
+	if (! lm)<br />
+		return;</p>
+
+<p>	if(lm-&gt;uiVersion != 2) {<br />
+		wcsncpy(lm-&gt;name, L"TestLink", 256);<br />
+		wcsncpy(lm-&gt;description, L"TestLink is a test of the Link plugin.", 2048);<br />
+		lm-&gt;uiVersion = 2;<br />
+	}<br />
+	lm-&gt;uiTick++;</p>
+
+<p>	// Left handed coordinate system.<br />
+	// X positive towards "right".<br />
+	// Y positive towards "up".<br />
+	// Z positive towards "front".<br />
+	//<br />
+	// 1 unit = 1 meter</p>
+
+<p>	// Unit vector pointing out of the avatar's eyes aka "At"-vector.<br />
+	lm-&gt;fAvatarFront[0] = 0.0f;<br />
+	lm-&gt;fAvatarFront[1] = 0.0f;<br />
+	lm-&gt;fAvatarFront[2] = 1.0f;</p>
+
+<p>	// Unit vector pointing out of the top of the avatar's head aka "Up"-vector (here Top points straight up).<br />
+	lm-&gt;fAvatarTop[0] = 0.0f;<br />
+	lm-&gt;fAvatarTop[1] = 1.0f;<br />
+	lm-&gt;fAvatarTop[2] = 0.0f;</p>
+
+<p>	// Position of the avatar (here standing slightly off the origin)<br />
+	lm-&gt;fAvatarPosition[0] = 0.001f;<br />
+	lm-&gt;fAvatarPosition[1] = 0.0f;<br />
+	lm-&gt;fAvatarPosition[2] = 0.5f;</p>
+
+<p>	// Same as avatar but for the camera.<br />
+	lm-&gt;fCameraPosition[0] = 0.0f;<br />
+	lm-&gt;fCameraPosition[1] = 0.0f;<br />
+	lm-&gt;fCameraPosition[2] = 0.0f;</p>
+
+<p>	lm-&gt;fCameraFront[0] = 0.0f;<br />
+	lm-&gt;fCameraFront[1] = 0.0f;<br />
+	lm-&gt;fCameraFront[2] = 1.0f;</p>
+
+<p>	lm-&gt;fCameraTop[0] = 0.0f;<br />
+	lm-&gt;fCameraTop[1] = 1.0f;<br />
+	lm-&gt;fCameraTop[2] = 0.0f;</p>
+
+<p>	// Identifier which uniquely identifies a certain player in a context (e.g. the ingame name).<br />
+	wcsncpy(lm-&gt;identity, L"Unique ID", 256);<br />
+	// Context should be equal for players which should be able to hear each other positional and<br />
+	// differ for those who shouldn't (e.g. it could contain the server+port and team)<br />
+	memcpy(lm-&gt;context, "ContextBlob\x00\x01\x02\x03\x04", 16);<br />
+	lm-&gt;context_len = 16;<br />
+}<br />
+&lt;/syntaxhighlight&gt;</p>
+
+<h2>Coordinate system</h2>
+<p>Mumble, like most sound systems, uses a left handed coordinate system &lt;sup&gt;([http://msdn.microsoft.com/en-us/library/windows/desktop/bb204853(v=vs.85).aspx see this for a visual representation])&lt;/sup&gt;. If you imagine yourself looking over a large empty field; X increases towards your right, Y increases above your head, and Z increases in front of you. In other words, if we place origin in your chest and you stretch your arms out to your sides, your right hand will be (1,0,0), your left hand will be (-1,0,0) and your head will be (0,0.2,0). If you then stretch your arms out in front of you instead, they'll become (0,0,1).</p>
+
+<p>We need three vectors. First is the position vector. This should be in meters, so you may need to scale it. The reason: If it is not in meters, distance attenuation will be different to the other games/plugins, meaning users will have a bad experience with positional audio (audio configuration is dependant on a common distance measurement).</p>
+
+<p>The next two vectors are the heading. These should be [https://en.wikipedia.org/wiki/Unit_vector unit vectors (length one)], and should be perpendicular (to one another). The first vector is the front vector, which is simply the direction you are looking at. The second is the top vector, which is an imaginary vector pointing straight out the top of your head. If you do not supply a top vector, Mumble will assume you have a “Y-is-up” coordinate system and that the user can not tilt their head, and then compute the top vector based on that.  </p>
+
+<p>&lt;b&gt;Tip:&lt;/b&gt; If your game uses a 3D positional audio API such as OpenAL you may want to take a look at the code where the listener gets updated since these APIs usually require the same vectors.</p>
+
+<h2>f* variables</h2>
+<p>fAvatarPosition should be the player position in 3D space, to disable the transmission of positional information alongside audio without unlinking the plugin set x,y,z of the tuple to zero. fAvatarTop and fAvatarFront should be the orientation. The coordinate system is a left-handed one, and the units are in meters.</p>
+
+<p>If the camera of your game is not independent of the avatar be sure to copy the avatar values over to the fCameraPosition|Top|Front variables. If the camera moves independent of the avatar these values should contain the position, top- and front-vector of the camera.</p>
+
+<p><img src="Notice" title="message=Mumble fetches these values 50 times a second, so please update them every frame." alt="message=Mumble fetches these values 50 times a second, so please update them every frame." /></p>
+
+<h2>Context</h2>
+<p><img src="Notice" title="message=The context does '''not''' need to be updated every single frame. It '''shouldn't''' change more than a few times per second if at all during a game." alt="message=The context does '''not''' need to be updated every single frame. It '''shouldn't''' change more than a few times per second if at all during a game." /></p>
+
+<p>The context string is used to determine which users on a Mumble server should hear each other positionally. If context between two Mumble users does not match the positional audio the data is stripped server-side and voice will be received as non-positional.</p>
+
+<p>Accordingly the context should only match for players on the same server in the same game on the same map. Whether to include things like team in this string depends on the game itself. When in doubt err on the side of including less. This gives more flexibility later on.</p>
+
+<h2>Identity</h2>
+<p><img src="Notice" title="message=The identity does '''not''' need to be updated every single frame. It '''shouldn't''' change more than a few times per second if at all during a game." alt="message=The identity does '''not''' need to be updated every single frame. It '''shouldn't''' change more than a few times per second if at all during a game." /></p>
+
+<p>Identity should contain a string which uniquely identifies the player in the given context. This is usually satisfied by the in-game player name or the players ID (player-/connection-ID on the server or a global ID).</p>
+
+<p>Additionally the identity can contain any additional information about the player that might be interesting for the mumble server.</p>
+
+<p>For example by including team information in the identity a script on the Mumble server can move players into team channels automatically. Additional information like squad number, squad leader status and so on can be used to trigger even more behavior like automatically maintaining a leadership structure inside Mumble which is kept in-sync with in-game state. E.g. someone is elected squad leader and now can whisper to all other squad leaders and the team leader. For an example of such a server-side script see the [https://github.com/mumble-voip/mumo/blob/master/modules/bf2.py Battlefield 2 mumo plugin].</p>
+
+<p>We recommend using an easily parseable format like JSON or CSV for encoding the information but this is up to the game. Remember that the link structures only allow for 256 characters of identity data.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a><br />
+<a href="Category:Development">Category:Development</a></p>

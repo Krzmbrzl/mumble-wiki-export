@@ -1,0 +1,212 @@
+<p><u>TOC</u></p>
+
+<h1>Download and Install Mumble and Mumble-Server (aka Murmur)</h1>
+
+<h2>Windows</h2>
+<p>'''Mumble:'''&lt;br&gt;   <br />
+Download the latest stable version of Mumble from the [https://www.mumble.info/downloads/ Official Website].&lt;br&gt;   <br />
+The installer will guide you through the installation and configuration of Mumble.    </p>
+
+<p>Alternatively you can download and run the latest MSI installer (mumble-1.x.x.msi; "winx64" for the 64-bit version) from the [https://github.com/mumble-voip/mumble/releases GitHub releases page].&lt;br&gt;    <br />
+''Note:'' Releases that include the term "RC" are '''R'''elease''' C'''andidates and therefore Test Versions.</p>
+
+<p>'''Mumble-Server (aka Murmur):'''&lt;br&gt;   <br />
+The Mumble-Installer includes an option to install the Mumble-Server.</p>
+
+<h2>Mac OS X</h2>
+<p>'''Mumble:'''&lt;br&gt; <br />
+Download the latest stable version of Mumble from the [https://www.mumble.info/downloads/ Official Website].&lt;br&gt;</p>
+
+<p>Alternatively you can download the latest version from the: [https://github.com/mumble-voip/mumble/releases GitHub releases page]. &lt;br&gt;    <br />
+''Note:'' Releases that include the term "RC" are '''R'''elease''' C'''andidates and therefore Test Versions.</p>
+
+<p>In order to be able to use the '''<a href="Overlay">Overlay</a>''' it has to be installed separately. &lt;br&gt;<br />
+To install it: launch Mumble, go into ''Mumble's settings'' -&gt; Overlay section and you should see an ''option to install it''.&lt;br&gt;<br />
+The reason for the separate installation is that Mumble itself does not need administrative rights to install, but the overlay does.</p>
+
+<p>'''Mumble-Server (aka Murmur):'''&lt;br&gt; <br />
+You can download a static version of the Mumble-Server from the [https://www.mumble.info/downloads/ Official Website].&lt;br&gt;</p>
+
+<h2>Linux</h2>
+<p>On the most popular Linux distributions, Mumble should be available in the official repositories or third-party repositories. &lt;br&gt;<br />
+For Details, take a look at the distribution-sections below. &lt;br&gt;<br />
+If no package is available, take a look at the <a href="Installing Mumble#Snap_Package_.28for_various_Distributions.29">Snap</a>- and <a href="Installing_Mumble#Flatpak_Package_.28for_various_Distributions.29">Flatpak</a>-packages below (which will run on various distributions) or you can try to compile Mumble, see Section: <a href="Installing_Mumble#Building_Mumble">Building-Mumble</a>.</p>
+
+<h4>Debian</h4>
+
+<p>To install Mumble from the Debian Repository, run:</p>
+
+<p> apt-get install mumble</p>
+
+<p>For the Mumble-Server, run:<br />
+ apt-get install mumble-server</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=The ''mumble-server''-Package on Debian and Debian-based distributions (i.a. Ubuntu) will start automatically on system-start.&lt;br&gt;</td>
+</tr>
+</table>
+<p>You can disable the autostart with systemd.<br />
+You find details in the file "README.Debian".<br />
+}}</p>
+
+<h4>Ubuntu</h4>
+
+<p>The Ubuntu Repositories include a Mumble version from the time when the Ubuntu Version was released, thus it might be outdated. &lt;br&gt;<br />
+We also maintain a [https://launchpad.net/mumble/+archive/release PPA] ([https://launchpad.net/mumble/+archive/release stable]) with<br />
+the recent versions of Mumble.&lt;br&gt;<br />
+If you want to try the latest development version, you can use the: ([https://launchpad.net/mumble/+archive/snapshot dev snapshots])</p>
+
+<p>To add the PPA use:</p>
+
+<p> sudo add-apt-repository ppa:mumble/release<br />
+ sudo apt-get update</p>
+
+<p>To install the client you can use:</p>
+
+<p> sudo apt-get install mumble</p>
+
+<p>to install and configure the server use:</p>
+
+<p> sudo apt-get install mumble-server<br />
+ sudo dpkg-reconfigure mumble-server</p>
+
+<p>{{Notice</p>
+<table>
+<tr>
+	<td>message=The ''mumble-server''-Package in Ubuntu will start automatically on system-start.&lt;br&gt;</td>
+</tr>
+</table>
+<p>You can disable the autostart with systemd.<br />
+You find details in the file "README.Debian".<br />
+}}</p>
+
+<h3>RHEL (and its derivatives, such as CentOS)</h3>
+
+<p>Please see the <a href="Install CentOS5">Install CentOS5</a> page for both packaged and manual murmur installation instructions. Mumble is not easily built on this platform at this time, and there are no official packages (yet?).</p>
+
+<p>For CentOS 6 see the <a href="Install CentOS6">Install CentOS6</a> page.</p>
+
+<p>For CentOS 7 see the <a href="Install CentOS7">Install CentOS7</a> page.</p>
+
+<h3>Fedora</h3>
+
+<p>Install from Fedora Repositories:</p>
+
+<p>To install mumble, run:<br />
+  dnf install mumble</p>
+
+<p>For the Mumble-Server, run:<br />
+  dnf install murmur</p>
+
+<p>There are additional packages available for the <a href="Overlay">Overlay</a> and Plugins:</p>
+<ul>
+	<li>mumble-overlay</li>
+	<li>mumble-plugins</li>
+</ul>
+<h3>SUSE</h3>
+
+<p>Mumble packages are available from [http://software.opensuse.org/package/mumble software.opensuse.org].</p>
+
+<p>You can follow these steps while running openSUSE:</p>
+<ol>
+	<li>Open a web browser and go to [http://software.opensuse.org/package/mumble software.opensuse.org/package/mumble]</li>
+	<li>Assuming you're running 32bit, click on '''1-Click Install''' located at the first result</li>
+	<li>When asked to download a file, tell your browser you want to open the file</li>
+	<li>Once YaST is opened, click ''Next'' (leave defaults), then ''Next'' again, and again</li>
+	<li>Enter your root password if asked; Mumble will now download</li>
+	<li>Click '''Finish'''</li>
+	<li>To run Mumble:
+	<ol>
+		<li>Open the Kickoff application launcher and type '''mumble''', then --&gt; '''Run mumble'''</li>
+		<li>Or: open a terminal and type '''mumble''' and press enter</li>
+	</ol></li>
+</ol>
+
+<p>''Note: If you are asked to accept a certificate just press '''OK'''''</p>
+
+<p>''Note: Latest mumble version can usually be found at [http://software.opensuse.org/package/mumble opensuse.org] under "Show other versions" either at "openSUSE Factory" or under "Show unstable packages" of your openSUSE version.''</p>
+
+<p>Some packages can also be found in the [http://download.opensuse.org/repositories/home:/lnussel:/mumble:/unstable/ Build Service].</p>
+
+<h3>Arch Linux</h3>
+<p>To install Mumble from the Arch Repositories, run:<br />
+ pacman -S mumble</p>
+
+<p>For the Mumble Server (aka Murmur):<br />
+ pacman -S murmur</p>
+
+<p>There are also unstable packages available in the [https://wiki.archlinux.org/index.php/Arch_User_Repository AUR]:</p>
+<ul>
+	<li>Mumble Unstable (updated directly from Git): <a href="https://aur.archlinux.org/packages/mumble-git/">https://aur.archlinux.org/packages/mumble-git/</a></li>
+	<li>Mumble-Server Unstable (updated directly from Git): <a href="https://aur.archlinux.org/packages/murmur-git/">https://aur.archlinux.org/packages/murmur-git/</a></li>
+</ul>
+<h3>Mandriva/ROSA/Unity</h3>
+
+<p>Mumble is available since 2010.0.</p>
+
+<p> urpmi mumble</p>
+
+<p>It's best to install the package from Cooker - it has many fixes.</p>
+
+<h3>Snap Package (for various Distributions)</h3>
+
+<p>An Snap Package is available: <a href="https://snapcraft.io/mumble&lt;br&gt;">https://snapcraft.io/mumble&lt;br&gt;</a></p>
+
+<p>It is maintained by a third-party: the Snapcrafters.</p>
+
+<h3>Flatpak Package (for various Distributions)</h3>
+
+<p>A Flatpak Package is available: <a href="https://www.flathub.org/apps/details/info.mumble.Mumble">https://www.flathub.org/apps/details/info.mumble.Mumble</a></p>
+
+<h3>Building Mumble</h3>
+
+<p>If all of the above options fail to work, you can always try to <a href="BuildingLinux">compile Mumble from source</a>, however installing a package is considered "best practice".</p>
+
+<h2>BSD</h2>
+<h3>FreeBSD</h3>
+<p>To install Mumble:</p>
+
+<p> pkg install mumble</p>
+
+<p>To install Murmur:</p>
+
+<p> pkg install murmur</p>
+
+<p>To enable Murmur:</p>
+
+<p> sysrc murmur_enable="YES"</p>
+
+<h3>OpenBSD</h3>
+<p>To install Mumble:</p>
+
+<p> pkg_add mumble</p>
+
+<p>To install the Mumble-Server (Murmur):</p>
+
+<p> pkg_add murmur</p>
+
+<p>To enable Mumble-Server:</p>
+
+<p> rcctl enable murmurd</p>
+
+<p><img src="Notice" title="message=The murmur package became available with the release of OpenBSD 6.7 and doesn't exist in OpenBSD 6.6 and previous releases." alt="message=The murmur package became available with the release of OpenBSD 6.7 and doesn't exist in OpenBSD 6.6 and previous releases." /></p>
+
+<h2>Smartphones</h2>
+
+<h3>Android</h3>
+<p><a href="Mumla">Mumla</a> is an unofficial client (by Quite), it's the successor of deprecated Plumble.</p>
+
+<p>It has many features in addition to the Mumble's ones, such as: bluetooth headset support, proximity sensor utilizing "Voice Call" mode and hardware push-to-talk key support.</p>
+
+<p>You can download Mumla on [https://f-droid.org/packages/se.lublin.mumla/ F-Droid] and on the [https://play.google.com/store/apps/details?id=se.lublin.mumla Google Playstore].</p>
+
+<h3>iPhone</h3>
+<p><img src="Notice" title="message=The iOS client is outdated!" alt="message=The iOS client is outdated!" /></p>
+
+<p>The Mumble iOS client is available [https://itunes.apple.com/us/app/mumble/id443472808?mt=8 on the App Store].</p>
+
+<p>You can find more information about the iOS client from the [https://github.com/mumble-voip/mumble-iphoneos mumble-iphoneos GitHub repo]. Any help with the project is always appreciated.</p>
+
+<p><a href="Category:Documentation English">Category:Documentation English</a></p>

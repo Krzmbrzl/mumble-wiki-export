@@ -1,0 +1,192 @@
+{{Languages|Mumbleguide}}
+'''Please edit this page if you find a feature or step you think should be included; it's a wiki for a reason! Note you must register and wait about 3 days in order to be able to edit.'''
+=Mumble Features and Basic Configuration=
+Once you have Mumble installed you may be wondering what to do next. Here's a rundown of the basics of Mumble. 
+
+Mumbles default config has basic options, but by default it does not display all of them. If you want to tweak all the components of Mumble, go to Configure -> Settings and check “[[Advanced_client_configuration|Advanced]]” at the bottom left corner of the Configuration window. If you see a step below that has '''Advanced Config''', like that, then you need to have Advanced Config turned on.
+
+When we say '''Config''', in this guide, we mean the window at Mumble -> Configure -> Settings.
+
+If you have any questions, that you cannot find answers to on this page, check the [[FAQ|FAQ]].
+
+==Interface==
+Note that you '''must''' have '''Advanced Config''' checked at Configure -> Settings in order to see the ACL tab for a channel.
+
+===Wizards===
+When you first start Mumble, it will ask you if you want to go through the Audio Wizard and Certificate Wizard. ''You should''. And don't just rush through it. Carefully read each step, and find out what the Wizard is asking you. Especially pay attention to the voice activation pages; you don't want everyone complaining that they can't hear you or that they hear you ''too much''. '''
+
+Certificates allow you to register directly with a server, without having to use an external website or program. When you first start Mumble, after either closing or completing the Audio Wizard, the Certificate Wizard will pop up. Either import a certificate you have, or create a new one. When you come to the step to back up your certificate in the Certificate Wizard, save it to a flash drive or external storage medium; '''do NOT save it to your hard drive!''' In Mumble 1.2.1, the certificate is auto-generated for you, if you choose to not go through the Certificate Wizard. You will find this auto-generated certificate at ''[My] Documents/MumbleAutomaticCertificateBackup.p12''. '''If you choose to keep the auto-generated certificate, and not make your own, you will save yourself a lot of grief if you back this certificate up to a safe place.'''
+
+===Voice Activation Methods===
+'''Advanced Config'''
+
+There are several types of voice activation methods in Mumble: Continuous, Voice Activity, and Push To Talk. 
+
+Continuous mode is just like it sounds; if you use it, your mic will always stay open. This could be good for podcasts or meetings which require extremely low latency and extremely high audio quality.
+
+Voice activity detection is just like it sounds. When you talk loud enough, your mic will activate. You can adjust when and how long your mic activates at the Audio Input tab of the Config. '''If you cannot get a stable activation from the ''Signal to noise'' method for Voice Activation, use Amplitude, or vice-versa. Simply think about how it works for just a few minutes, and you ''will'' be able to understand it.
+
+Push to talk requires that you press a key on your keyboard to open your mic. You can set a audio que as well, if you want.  
+
+===GUI===
+You can permanently change the sub-sections of the Mumble window. Go to the User Interface tab in the config (Configure -> Settings -> User Interface), and select a GUI preset.
+
+However, if you want to change it to an even more specific configuration, hover your mouse at the top of the log window, just below its edge, and wait for about a half-second. A small edge will drop down. When that happens, click and hold, and then drag the window to the bottom of the main window. You can do the same with the chat window; it's recommended that you put it below the log. You can also move your cursor to the top of the section, click the bar, and drag it up and down to set how many horizontal pixels it occupies.
+
+===Connecting to a Server===
+Open up the Connect window (Server -> Connect). You can add a Favorite server by clicking "Add New...." or you can go to the Public serverlist, right click on it, and select "Favorite". You can use whatever name you choose when you connect to the server, but whatever name you are using when you register with the server will always be used for that server, unless an admin removes it. 
+
+===Registration===
+Once you are connected to a server, you should be able to register yourself by clicking your username, right clicking it, then selecting "Register." However, on some servers, you may have to get an administrator or someone with registration abilities to register you. By default, Mumble servers are set to allow anyone to register, but this capability can be disabled.
+
+A complete rundown of Mumble's Authentication process can be found on the [[Authentication]] page.
+
+'''As an administrator, you can manage the registered users by going to Server -> Registered Users.'''
+
+==Common Issues==
+
+===Audio===
+'''Advanced Config'''
+
+If the sound overdistorts or you hear high-pitched frequency pops, try getting whoever you hear having that problem to turn down their Amplification at Configure -> Settings -> Audio Input, turn off their Mic Boost, and/or turn off Automatic Gain Control (AGC), or a combination of all three.
+
+If you are experiencing audio anomalies or glitches (robotic noise, audio cutouts, etc), many times, setting your Default Jitter Buffer and/or Output Delay to a higher value will fix it. Try playing around with the two settings. You can find them at Configure -> Settings -> Audio Output. It has been reported that 30 ms for Jitter Buffer and 30 ms for Output Delay works well for many people who experience these types of problems.
+
+If the problems '''still''' persist, go to Configure -> Settings -> Audio Input and set everyone's Compression such that it shows "Speex" in the black text underneath the Compression box. Any setting that is <= 32.0kbit/s @ > 20ms audio per packet will be Speex.
+
+If the problems persist, try setting your bandwidth lower at Configure -> Settings -> Audio Input -> Compression box.
+
+Also remember that new snapshots have the possibility of fixing an audio-related problem. You can get them [http://mumble.info/snapshot/ here].
+
+==Configuration==
+'''Remember that, for reliability purposes, Mumble is made so that most Configuration settings are not applied until exit. Believe us, we have reasons for doing this. So, if you change a whole bunch of Configuration settings at one time, it is recommended that after doing so, you restart Mumble so the changes will remain permanent even if for some reason, your computer or Mumble crashes.'''
+
+===Messages===
+'''Advanced Config'''
+
+As previously discussed, messages can sometimes be annoying. If you want to disable other messages to the log (listed as "Console"; it's the window that shows text when something happens), or to "Notifications" (the little messages that Windows pops up at the bottom right corner of your screen), you can also select which ones to activate from Configure -> Settings -> Messages
+
+===Overlay===
+'''Advanced Config'''
+
+Mumble has an Overlay that will display in Games and also in DirectX rendered video, like VLC or YouTube. This overlay is displayed at the top right of your screen when you are playing a game. You can configure it by going to Configure -> Settings and clicking the ''Overlay'' section.
+
+If you wish to turn the overlay off, uncheck "Enable Overlay."
+
+If the overlay works well with your situation, you can use a 600x60 PNG image (preferably with an alpha blend for transparency reasons), in place of standard text. To use, modify, or delete a texture, go to Server -> Change Texture (use, change) or Server -> Remove Texture
+
+If the overlay is crashing your game, or causing a problem for it, you can disable it for that particular game by placing a blank file called "nooverlay" (without any file extension) in the same folder as the game executable.
+
+====Mac====
+
+If you are on Mac, then you need to start your game with the mumble-overlay command. For example:
+
+ /Applications/Mumble.app/Contents/Overlay/mumble-overlay /Applications/World\ of\ Warcraft/World\ of\ Warcraft.app
+
+===Positional Audio===
+'''Advanced Config''' 
+
+Mumble has positional auto for certain [[Games|games]]. This means that when enabled, the audio transmitted in Mumble will appear to emanate from your in-game avatar. This positional audio is obtained using plugin libraries in the form of DLLs. 
+
+If you have games on that list, and wish to use PA (positional audio), go to the Plugins section, check "Link to Game and Transmit Position," then go to the Audio Output section, check "Positional Audio," and then check "Headphones" (if you are using headphones). Most people like to hear each other clearly all the time, so it is recommended that you set "Minimum Volume" to at least 85%, but no higher than 95%.
+
+====Manual placement plugin====
+If you want to just try out positional audio to see how it works, use the Manual position plugin:
+
+Note that you obviously need another person who also links the Manual plugin in order to test it.
+
+Additional to the already mentioned Plugin there is a special Plugin that does not require a game. Instead you can configure the Plugin itself to set your own position from which other people in the same channel can hear you.
+
+[[File:POS-Audio-plugin.jpg]]
+
+'''1''' set yourself on the canvas from where others should hear you. Note that your audience is usually at the center of the canvas (X;Y;Z 0;0;0)
+
+'''2''' set your own orientation where you want your virtual avatar to look at on a 360° Scale
+
+'''3''' set your own azimuth (if you look up or down while you talk)
+
+'''4''' and '''5''' set the context and identity of your avatar only the people with the some context will hear you positionally.
+
+'''6''' Link or Unlink the plugin to Mumble so the settings are transfers to the server for processing
+
+'''7''' Activate or Deactivate the Plugin
+
+'''8''' Unhinge the settings window so it stays open even with the configuration settings Page closed therefore you can still change the positional audio settings without keeping the overall mumble settings open.
+
+'''9''' set standard values for all settings
+
+'''10''' close the page
+
+===Plugin Updates===
+Plugin updates are something that is required many times, because when a game is patched, the memory addresses used to fetch the positional data changes. This calls for a recompile of the plugin. In Mumble 1.2.0, the plugins are automatically downloaded when they are updated.
+
+===Skins===
+If you wish to make your Mumble look pretty, there are many available options. [[Skins|Here]] is a skins page that has links to many excellent skins; if you want to make a skin with ''any'' colors you want, use [http://zavaboy.com/phpbox/juicer/ Juicer]. '''Note that many skins are not fully 1.2.0 compatible, although most should work, if not without a few GUI problems. When 1.2.0 leaves the beta phase, expect many of these skins to become 1.2.0 compatible.'''
+
+'''To install a skin:'''
+
+# Go to C:\Program Files\Mumble and create a folder named ''skins''
+# Download and extract your skin. Make sure that the skin folder you have has all the image files and skin file inside of it. 
+# Place the skin folder inside of ''skins''
+# Go to Configure -> Settings -> User Interface, and beside the "Skin" box, select "...". A window should pop up and display the ''skins'' folder. Open that folder and then open the skin folder you place inside of it. Now select the QSS file; it should be named something similar to the skin name.
+
+'''To modify a skin'''
+
+If you want to make a skin look better on your Mumble config, or you want to change some of its colors, just open <skinname>.qss (it will be located inside of the skin folder that you extracted to ''Program Files\Mumble\skins'') with a text editor and edit away. If you have ever had any experience with CSS stylesheets, you should have no problem understanding QSS. QSS is basically CSS with its own classes.
+
+===Text-To-Speech===
+'''Advanced Config''' 
+
+This is another feature that many people complain about, for various reasons. Trust us, it is very useful. However, you may need to configure it a bit to suit your needs. If you ''do'' want to just turn the whole thing off, simply go to Audio -> uncheck Text-To-Speech.
+
+If you want it to not talk for a specific message, go to Configure -> Settings -> Messages. You can select which messages Text-To-Speech will output.
+
+===Volume===
+'''Advanced Config''' 
+
+Mumble automatically amplifies or deamplifies all voices so their volume is nearly identicial; however, you can also set the overall output volume. Go to Settings -> Configure -> Audio Output. 
+
+There is also a "Other Applications" volume that you can set. This volume controls what all the rest of the sounds on your system are set to. For example, if you are playing music and someone talks in Mumble, the volume of the music would be cut in half, if you have "Other Applications" volume set to 50%.
+
+===Whisper===
+Mumble 1.2.0 includes a really nice feature: the ability to whisper to a specific player or channel. You must make a shortcut to do this; go to Configure -> Settings -> Shortcuts and click "Add." A new entry will be displayed. Under the function field, double click your entry and scroll down to "Whisper." Now double click the "Data" field and then click "..." 
+
+A window will pop up where you can select what type of whisper you want: User or Channel. 
+
+If you want a user, then click the drop-down box and select a user, clicking "Add" after each one. If you check "Ignore positional audio," then whatever you transmit will be centered, regardless if you are linked to a game or not. Note that the users you want to add must currently be in the server.
+
+"Whisper to Channel" is self-explanatory.
+
+===Join Channel using shortcut===
+'''Advanced Config''' 
+
+Mumble 1.2.1 includes the possibility to combine join channel and whisper to move to a channel instantly using a one key shortcut. For instance, to join the root channel you can follow the [[#Whisper|above guide]] to '''add a whisper to the root channel'''. Then '''add a new shortcut to Join Channel''', using ''the same bind key as the whisper''. Now if you press that bind key you will be moved to the root channel immediately. Root channel is a global channel that is present on all servers, but all other channel whispers are stored per server in the mumble profile.
+
+===Soundfiles===
+'''Advanced Config''' 
+
+In Mumble 1.2.0, you can now use soundfiles using the OGG algorithm. 
+
+Configure -> Settings -> Messages -> Sound file
+
+Double click under the "File" column, and an explorer window will pop up. Navigate to where your soundfile is, and double click it. If you want to enable the soundfile, you need to check the box in the corresponding entry and column. '''Note that there are default sound files for use; simply check the boxes under the ''Soundfile'' column that list a filename (i.e ":/Critical.ogg").'''
+
+==Permissions==
+'''Advanced Config'''
+
+===ACLs/Groups===
+If you are a server admin, or you need to figure out how to set up channels for yourself or others, you need to read [[Murmurguide#Becoming_Administrator_and_Registering_a_User|this]]. Read both "Becoming Administrator and Registering a User," "ACLs" and "Access Tokens."
+
+===Access Tokens===
+Another nice feature of Mumble 1.2.0 is Access Tokens. These are what you could call passwords; basically, if you have a token that is the same name as the channel's ACL Access Token group, you can enter the channel. Think of Access Tokens as groups where you can add yourself to the group if you know the "password" (token).
+
+Once you find out the Access Token name, click Server -> Access Tokens, and add the token for the channel you want to enter. Note that Access Tokens operate off of a per-server basis, so your Access Token in one server will not carry over to another.
+
+===Suppressing Certificate and Password Storage===
+In some rare cases, you might need to test connecting to your server as an unregistered user. To do this, go to Configure -> Settings -> Network and check "Suppress certificate and password Storage". This will cause all servers to not recognize your certificate or passwords. However, if you have a Favorite server, you need to change the username to something else or it will ask you for a password.
+
+==Anything Else==
+
+If you have a problem that you just simply cannot figure out, come on the [irc://irc.freenode.org/mumble Mumble IRC channel] and we will try to help you out.
+
+[[Category:Documentation English]]

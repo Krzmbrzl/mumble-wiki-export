@@ -1,0 +1,14 @@
+== Importing a certificate from file into Mumble ==
+# Select Configure -> Certificate Wizard
+#; [[File:import_mumble_1.jpg|300px]]
+# Select import certificate. Click Next
+# Locate the certificate file. It should end in .p12 or .pfx depending on which browser exported the certificate.
+# Enter the password for the certificate
+# The certificate details should now be filled in. Make sure that it is the correct certificate. Click next.
+#; [[File:import_mumble_2.jpg|300px]]
+# Confirm that you want to change your certificate by pressing next.
+#; [[File:import_mumble_3.jpg|300px]]
+# Done! Press finish to close the guide.
+#; [[File:import_mumble_4.jpg|300px]]
+
+[[Category:Documentation English]]

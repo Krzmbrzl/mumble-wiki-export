@@ -1,0 +1,17 @@
+{{Notice|message=Mumble server packages usually contain working init scripts. Manually setting this up is only necessary if these are not available, or you decide to not use them.}}
+
+Download the Script from https://raw.github.com/mumble-voip/mumble/master/scripts/murmur.init
+
+Rename it to /etc/init.d/murmur
+
+Make the file executable :
+
+ chmod +x /etc/init.d/murmur
+
+Update init levels
+
+ update-rc.d murmur defaults 90
+
+
+[[Category:Documentation English]]
+[[Category:Mumble Server]]
