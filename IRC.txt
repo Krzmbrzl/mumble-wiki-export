@@ -1,8 +1,0 @@
-= Our IRC presences =
-If you want to chat in realtime with a large crowd of Mumble users or directly communicate with our developers the easiest way to do so ist to visit us on [http://en.wikipedia.org/wiki/IRC IRC]. You can find us in:
-* [http://webchat.freenode.net/?channels=%23mumble #mumble] on [http://freenode.net freenode.net] which is our primary channel (English only)
-* [http://webchat.freenode.net/?channels=%23mumble.de #mumble.de] on [http://freenode.net freenode.net] which is a channel for German speaking folks.
-
-For information on how to use IRC and get into the freenode network see [http://freenode.net/using_the_network.shtml this page]. You can also click the [http://webchat.freenode.net/?channels=%23mumble #mumble] and [http://webchat.freenode.net/?channels=%23mumble.de #mumble.de] links to directly enter the chat with your browser.
-
-[[Category:Documentation English]]
