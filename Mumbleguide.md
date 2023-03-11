@@ -1,1 +1,1 @@
-1.  redirect [Mumbleguide/English](Mumbleguide/English "wikilink")
+1.  redirect [Mumbleguide/English](Mumbleguide_English "wikilink")

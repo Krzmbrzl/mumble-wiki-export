@@ -272,7 +272,7 @@ Now create a shortcut to *C:\\Windows\\System32\\cmd.exe /K
 *C:\\dev\\mumble*.
 
 Alternatively, you can use the advanced script
-[BuildingWindows/mde.cmd](BuildingWindows/mde.cmd "wikilink")
+[BuildingWindows/mde.cmd](BuildingWindows_mde.cmd "wikilink")
 ([download](http://luki.net.pl/dl/mumble/mde.cmd)) which allows you to
 set it up in its head (vs-ver and paths of your environment), and
 additionally to preparing your environment provides some git and

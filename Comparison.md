@@ -1,1 +1,1 @@
-1.  REDIRECT [Comparison/English](Comparison/English "wikilink")
+1.  REDIRECT [Comparison/English](Comparison_English "wikilink")

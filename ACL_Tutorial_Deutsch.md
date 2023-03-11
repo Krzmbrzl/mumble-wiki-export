@@ -2,7 +2,7 @@
 
 In diesem Tutorial wird euch erklärt wie die Rechteverwaltung in Mumble
 funktioniert. Details hierüber findet ihr auch in der [ACL
-FAQ](ACL_FAQ/Deutsch "wikilink"), in welcher unter anderem einige
+FAQ](ACL_FAQ_Deutsch "wikilink"), in welcher unter anderem einige
 Beispiele und Erklärungen von speziellen Gruppen zu finden sind.
 
 ## Wie wir vorgehen

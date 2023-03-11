@@ -1,1 +1,1 @@
-1.  redirect [ACL Tutorial/English](ACL_Tutorial/English "wikilink")
+1.  redirect [ACL Tutorial/English](ACL_Tutorial_English "wikilink")

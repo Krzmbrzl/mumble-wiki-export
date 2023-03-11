@@ -1,1 +1,1 @@
-1.  redirect [ACL and Groups/English](ACL_and_Groups/English "wikilink")
+1.  redirect [ACL and Groups/English](ACL_and_Groups_English "wikilink")

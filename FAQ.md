@@ -1,1 +1,1 @@
-1.  redirect [FAQ/English](FAQ/English "wikilink")
+1.  redirect [FAQ/English](FAQ_English "wikilink")

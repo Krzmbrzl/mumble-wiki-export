@@ -51,6 +51,6 @@ in-game; eg, a new user needs to connect to VoIP as fast as possible.
 This person is not interested in complicated configurations, typically
 has people wait on them, and wants it to get working ASAP.
 
-Link to page: [Ideas/AudioWizard](Ideas/AudioWizard "wikilink")
+Link to page: [Ideas/AudioWizard](Ideas_AudioWizard "wikilink")
 
 [Category:Suggestions](Category:Suggestions "wikilink")

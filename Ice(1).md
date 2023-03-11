@@ -251,10 +251,10 @@ following two lines to the bottom of the file:
 Now save and exit php.ini.
 
 After you have done all that, download
-[Murmur.ice](mumblegithub:/mumble/raw/1.2.8/src/murmur/Murmur.ice "wikilink"),
-[icedemo.php](mumblegithub:/mumble/raw/1.2.8/scripts/icedemo.php "wikilink"),
+[Murmur.ice](mumblegithub:_mumble_raw_1.2.8_src_murmur_Murmur.ice "wikilink"),
+[icedemo.php](mumblegithub:_mumble_raw_1.2.8_scripts_icedemo.php "wikilink"),
 and
-[weblist.php](mumblegithub:/mumble/raw/1.2.8/scripts/weblist.php "wikilink")
+[weblist.php](mumblegithub:_mumble_raw_1.2.8_scripts_weblist.php "wikilink")
 (Click the links, and on the Sourceforge page right click on
 "(download)" and select "Save Link As...".) Put Murmur.ice in
 *C:\\PHP5*. Put icedemo.php and weblist.php in *C:\\apache\\htdocs*.
@@ -452,7 +452,7 @@ between the Ice versions 3.3 and prior and 3.4 and later.
 \=== Ice \<= 3.3 === There's an example script using the **Ice 3.3**
 approach (defining the ice.slice directive in the PHP settings) included
 in the source; have a look at
-[mumblegithub:/mumble/blob/1.2.4/scripts/icedemo.php](mumblegithub:/mumble/blob/1.2.4/scripts/icedemo.php "wikilink").
+[mumblegithub:/mumble/blob/1.2.4/scripts/icedemo.php](mumblegithub:_mumble_blob_1.2.4_scripts_icedemo.php "wikilink").
 
 The establishing, minimum code, is:
 

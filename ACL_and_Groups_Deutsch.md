@@ -88,7 +88,7 @@ Namen bei *Benutzer ID* ein und lässt das Feld *Gruppe* frei.
 
 Jeder Eintrag in der Liste trifft entweder auf einen Benutzer oder eine
 Gruppe zu. Ein Benutzer muss ein bestimmter
-<u>[registrierter](Mumbleguide/Deutsch#Registrieren "wikilink")</u>
+<u>[registrierter](Mumbleguide_Deutsch#Registrieren "wikilink")</u>
 Benutzer sein, während eine Gruppe irgendeine sein kann, die gültig ist,
 in dem Kanal für den die Berechtigungen definiert werden. Es ist zu
 beachten, dass die Gruppenzugehörigkeit in dem Kanal überprüft wird, in
@@ -427,7 +427,7 @@ AltSpeak** Die Squad Kanäle müssen nun Bearbeitet werden
 
 Die Alt-Speak Taste muss bei jeden Spieler festgelegt werden. [In 1.2.x
 heist es jetzt
-Flüstern](FAQ/Deutsch#Wo_ist_die_Alt-Speak_Funktion_in_1.2.x_hin.3F "wikilink").
+Flüstern](FAQ_Deutsch#Wo_ist_die_Alt-Speak_Funktion_in_1.2.x_hin.3F "wikilink").
 
 Nun kann die Team Leitung in die Team Kanäle und die Spieler sich in die
 Squad kanäle begeben. Die Team Leitung kann mit den Squads Sprechen,
@@ -567,7 +567,7 @@ Führer mit der **Alt-Speak** Taste hören.
 
 Die Alt-Speak Taste muss bei jeden Spieler festgelegt werden. [In 1.2.x
 heist es jetzt
-Flüstern](FAQ/Deutsch#Wo_ist_die_Alt-Speak_Funktion_in_1.2.x_hin.3F "wikilink").
+Flüstern](FAQ_Deutsch#Wo_ist_die_Alt-Speak_Funktion_in_1.2.x_hin.3F "wikilink").
 
 Damit lassen sich Gilden bis ca. 500 Benutzern gut auf einmal
 Befehligen, jenachdem wieviele Benutzer es sind sollten auch

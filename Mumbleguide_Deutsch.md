@@ -24,7 +24,7 @@ im Normalfall das Konfigurationsfenster unter: Konfiguration -\>
 Einstellungen.
 
 Wenn Du irgendwelche fragen hast schau bitte zuerst einmal in die
-[deutschen FAQ](FAQ/Deutsch "wikilink") oder in die aktuelleren
+[deutschen FAQ](FAQ_Deutsch "wikilink") oder in die aktuelleren
 [englischen FAQ](FAQ "wikilink"). Oder besuche den [offiziellen Mumble
 IRC-Channel](irc://irc.freenode.org/mumble) bzw. den [deutschen Mumble
 IRC-Channel](irc://irc.freenode.org/mumble.de).

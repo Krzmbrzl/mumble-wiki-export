@@ -29,7 +29,7 @@ To restore the default soundpack, click the "Reset" button in
 ## See Also
 
   - [How to create a
-    soundpack](Soundpacks/Create_a_Soundpack "wikilink")
+    soundpack](Soundpacks_Create_a_Soundpack "wikilink")
   - [Skins](Skins "wikilink")
 
 [Category:Documentation

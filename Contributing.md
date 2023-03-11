@@ -21,7 +21,7 @@ We are in search of someone motivated to create a skin for our MediaWiki
 but would like a better and more unique look.
 
 For more information, suggestions and work-in-progess things see
-[Contributing/WikiLayout](Contributing/WikiLayout "wikilink") (also
+[Contributing/WikiLayout](Contributing_WikiLayout "wikilink") (also
 includes refactoring of current codebase/html etc).
 
 ## Documentation

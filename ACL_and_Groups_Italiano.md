@@ -2,7 +2,7 @@
 
 **Sorry, not translated yet.**
 
-Please refer to the [English](ACL_and_Groups/English "wikilink") page.
+Please refer to the [English](ACL_and_Groups_English "wikilink") page.
 
 Please feel free to translate the english page and remove this notice
 after you did.
