@@ -1,2 +1,1 @@
-#REDIRECT [[1.2.0 Upgrade]]
-
+1.  REDIRECT [1.2.0 Upgrade](1.2.0_Upgrade "wikilink")

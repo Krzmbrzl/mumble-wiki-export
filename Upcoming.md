@@ -1,2 +1,1 @@
-#REDIRECT [[1.3.0]]
-
+1.  REDIRECT [1.3.0](1.3.0 "wikilink")

@@ -1,0 +1,1 @@
+1.  redirect [3rd Party Applications](3rd_Party_Applications "wikilink")

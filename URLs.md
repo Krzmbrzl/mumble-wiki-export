@@ -1,2 +1,1 @@
-#REDIRECT [[Mumble URL]]
-
+1.  REDIRECT [Mumble URL](Mumble_URL "wikilink")

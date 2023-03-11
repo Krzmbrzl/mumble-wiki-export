@@ -1,2 +1,1 @@
-#REDIRECT [[Ice]]
-
+1.  REDIRECT [Ice](Ice "wikilink")

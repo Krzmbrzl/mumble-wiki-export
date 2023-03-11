@@ -1,2 +1,1 @@
-#REDIRECT [[Mumla]]
-
+1.  REDIRECT [Mumla](Mumla "wikilink")

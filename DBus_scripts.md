@@ -1,0 +1,57 @@
+## Windows
+
+This script registers or changes a user for Murmur on Win32 operating
+systems; it can also find a user id. It does not need to be executed
+from a command line or in any specific location in order to function
+properly. Copy the text in the box below and put it into a file called
+regmum.bat. Note you must have Murmur running for this script to
+function, and you must have the line
+
+`dbus=session`
+
+in the file *C:\\Program Files\\Mumble\\murmur.ini*. On Windows x64
+change the path for dbus-send.exe in the script to
+*%PROGRAMFILES<X86>%*.
+
+`@ECHO OFF`
+`COLOR 0F`
+`ECHO Welcome to this registration script. If you are changing a registration and only wish to change a certain part of a registration only fill out the fields you wish to change and  leave the other fields blank. You must fill in the user id however. The int 32 value is the same as the user id.`
+`ECHO -----------------`
+`:COLLECTINFO `
+`SET /P A=Username: `
+`SET /P B=Email (leave blank if trying to find user id): `
+`SET /P C=Password (leave blank if trying to find user id): `
+`SET /P D=Server id (1 if you are only running one Murmur server): `
+`SET /P E=User id (leave blank unless changing a registration): `
+`SET /P F=1 to add a registration, 2 to change, 3 to find user id for Username: `
+`IF %F%==1 GOTO REGISTER`
+`IF %F%==2 GOTO CHANGEREGISTER`
+`IF %F%==3 GOTO FINDREGISTER`
+`:FINDREGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"`
+`SET /P G=Do you want to change this registration (y/n)?: `
+`IF %G%==y GOTO COLLECTINFO`
+`IF %G%==n GOTO REGFOUND`
+`:CHANGEREGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.setRegistration int32:%E% string:"%A%" string:"%B%" string:"%C%"`
+`:SHOWREGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"`
+`GOTO REGCHANGED `
+`:REGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.registerUser string:"%A%"`
+`SET /P H=Type the number to the right of int32 and press enter: `
+`:SETREGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.setRegistration int32:%H% string:"%A%" string:"%B%" string:"%C%"`
+`:SHOWREGISTER`
+`"%ProgramFiles%\Mumble\dbus-send.exe" --session --print-reply --dest=net.sourceforge.mumble.murmur --type=method_call /%D% net.sourceforge.mumble.Murmur.getRegisteredUsers string:"%A%"`
+`:COMPLETE`
+`:REGCOMPLETE`
+`IF %F%==1 ECHO --------------------------------------------------------------------------------  Registration Complete `
+`:REGCHANGED`
+`IF %F%==2 ECHO --------------------------------------------------------------------------------  Registration Changed`
+`:REGFOUND`
+`IF %F%==3 ECHO --------------------------------------------------------------------------------  Registration Found`
+`PAUSE`
+
+[Category:Documentation
+English](Category:Documentation_English "wikilink")

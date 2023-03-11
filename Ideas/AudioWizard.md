@@ -1,104 +1,159 @@
-## Intro 
+## Intro
+
 A page for possible improvements to the audio wizard.
 
-I feel like an overwhelming majority of users will click "next" through the wizard until they're "allowed" to connect to something.<br />
-A large portion of personal experience with VoIP setups are typically in-game; eg, a new user needs to connect to VoIP as fast as possible.<br />
-This person is not interested in complicated configurations, typically has people wait on them, and wants it to get working ASAP. 
+I feel like an overwhelming majority of users will click "next" through
+the wizard until they're "allowed" to connect to something.
+A large portion of personal experience with VoIP setups are typically
+in-game; eg, a new user needs to connect to VoIP as fast as possible.
+This person is not interested in complicated configurations, typically
+has people wait on them, and wants it to get working ASAP.
 
-Some of these changes may seem a little silly or strange; I am proposing them in the hopes of making it more human.<br />
-Try to consider the changes as a whole rather than individually, and they'll probably make more sense.<br />
-I feel that if the setup is more like a conversation, people will tend to actually care about it and use it correctly.
-For example, Skype does an excellent job at this.
+Some of these changes may seem a little silly or strange; I am proposing
+them in the hopes of making it more human.
+Try to consider the changes as a whole rather than individually, and
+they'll probably make more sense.
+I feel that if the setup is more like a conversation, people will tend
+to actually care about it and use it correctly. For example, Skype does
+an excellent job at this.
 
-## Current Wizard and Constructive Feedback 
+## Current Wizard and Constructive Feedback
 
-The high-level goal of this review would be to change the audio wizard from less of a "next" clicking spree to more of a conversation. I'll go into this per slide.
+The high-level goal of this review would be to change the audio wizard
+from less of a "next" clicking spree to more of a conversation. I'll go
+into this per slide.
 
-### Slide 1: Introduction 
-![Image](current-wizard-01.jpg)
+### Slide 1: Introduction
 
-Nothing really to comment here, but I would aid to make this more personal and less technical.
-"Hello, welcome to Mumble! Let's get started."
+![<File:Current-Wizard-01.jpg>](Current-Wizard-01.jpg
+"File:Current-Wizard-01.jpg")
 
-The next button, like all others to come, should be removed, and replaced with an different phrase that makes sense in context.
+Nothing really to comment here, but I would aid to make this more
+personal and less technical. "Hello, welcome to Mumble\! Let's get
+started."
+
+The next button, like all others to come, should be removed, and
+replaced with an different phrase that makes sense in context.
 Essentially, anything but "next."
 
-### Slide 2: Device selection 
-![Image](current-wizard-02.jpg)
+### Slide 2: Device selection
 
-First off, the audio loopback is, in my opinion, a poor decision and should be removed.<br />
-Using speakers as output is very common, and blaring feedback to the user within seconds of installing is not a great way to introduce mumble.
+![<File:Current-Wizard-02.jpg>](Current-Wizard-02.jpg
+"File:Current-Wizard-02.jpg")
 
-Selecting input and output on the same page isn't a good idea. Let's break this page up.<br />
-Selection of audio output should happen first, with a multi-stage selection process (pick a device -> test it) rather than all-in-one.<br />
-This is a good example of how I would want one decision to be made per page, instead of several at once.
+First off, the audio loopback is, in my opinion, a poor decision and
+should be removed.
+Using speakers as output is very common, and blaring feedback to the
+user within seconds of installing is not a great way to introduce
+mumble.
 
-### Slide 3: Device tuning 
-![Image](current-wizard-03.jpg)
+Selecting input and output on the same page isn't a good idea. Let's
+break this page up.
+Selection of audio output should happen first, with a multi-stage
+selection process (pick a device -\> test it) rather than all-in-one.
+This is a good example of how I would want one decision to be made per
+page, instead of several at once.
 
-My immediate question (lacking knowledge of the technical guts of mumble) is: why is this needed?<br />
-Ventrilo, Teamspeak, and Skype all manage without it.<br />
-I understand the idea here would probably be to bring latency to an absolute minimum, but is there no way to test for this internally?<br />
-For example, would it be possible to pump that sample audio through the card and record the result?
+### Slide 3: Device tuning
 
-If it is reasonably necessary, keep the page but change it to be more conversation-oriented:
-* We're going to test your sound card. (User presses test button)
-* (mumble plays sound sample at 10 ms)
-* Did that work? (user responds with yes or no buttons)
-* If no, mumble increases value and repeats
+![<File:Current-Wizard-03.jpg>](Current-Wizard-03.jpg
+"File:Current-Wizard-03.jpg")
 
-### Slide 4: Volume tuning 
-![Image](current-wizard-04.jpg)
+My immediate question (lacking knowledge of the technical guts of
+mumble) is: why is this needed?
+Ventrilo, Teamspeak, and Skype all manage without it.
+I understand the idea here would probably be to bring latency to an
+absolute minimum, but is there no way to test for this internally?
+For example, would it be possible to pump that sample audio through the
+card and record the result?
+
+If it is reasonably necessary, keep the page but change it to be more
+conversation-oriented:
+
+  - We're going to test your sound card. (User presses test button)
+  - (mumble plays sound sample at 10 ms)
+  - Did that work? (user responds with yes or no buttons)
+  - If no, mumble increases value and repeats
+
+### Slide 4: Volume tuning
+
+![<File:Current-Wizard-04.jpg>](Current-Wizard-04.jpg
+"File:Current-Wizard-04.jpg")
 
 Same problem with loopback as before, that should be removed.
 
-I think the way Skype handles this is far superior; specifically, the question-answer flow.<br />
-With Skype, you can call an automated voice who asks you to say something. Afterwards, it is played back to you.<br />
-Again, bringing it to more of a conversational tone would benefit the user experience.
+I think the way Skype handles this is far superior; specifically, the
+question-answer flow.
+With Skype, you can call an automated voice who asks you to say
+something. Afterwards, it is played back to you.
+Again, bringing it to more of a conversational tone would benefit the
+user experience.
 
-Other thought: give the user feedback compared to how we expect people to sound.<br />
-That is, play a sound clip at the expected volume of an average Mumble user, then their recorded clip.<br />
-A common problem is not understanding how you sound to others - this could alleviate that.
+Other thought: give the user feedback compared to how we expect people
+to sound.
+That is, play a sound clip at the expected volume of an average Mumble
+user, then their recorded clip.
+A common problem is not understanding how you sound to others - this
+could alleviate that.
 
-### Slide 5: Voice Detection 
-![Image](current-wizard-05.jpg)
+### Slide 5: Voice Detection
 
-This is better, but I would still like to split it up.<br />
-It also doesn't take into account people who don't want to transmit at all.
+![<File:Current-Wizard-05.jpg>](Current-Wizard-05.jpg
+"File:Current-Wizard-05.jpg")
 
-* Do you have a microphone?
-*  [question](Conditional on previous) How do you want to transmit?
-*  [question](Conditional on previous) Keybinds / thresholds / etc
+This is better, but I would still like to split it up.
+It also doesn't take into account people who don't want to transmit at
+all.
 
-### Slide 6: Quality & Notifications 
-![Image](current-wizard-06.jpg)
+  - Do you have a microphone?
+  - \[Conditional on previous question\] How do you want to transmit?
+  - \[Conditional on previous question\] Keybinds / thresholds / etc
 
-I like the highlighted "recommended default" option, but this has far too many words/terms/options on it to be useful.<br />
-To understand what this page is telling you, you have to understand or ignore:
-* the concept of bandwidth
-* latency and effective quality
-* what kbit/s means, and why you care
-* millisecond ratings per packet
-* the concept of codecs, Speex, and CELT
+### Slide 6: Quality & Notifications
 
-This all makes sense to me, but is far too complicated for an average user.<br />
-Firstly, separate out the sound quality from the text to speech.<br />
+![<File:Current-Wizard-06.jpg>](Current-Wizard-06.jpg
+"File:Current-Wizard-06.jpg")
+
+I like the highlighted "recommended default" option, but this has far
+too many words/terms/options on it to be useful.
+To understand what this page is telling you, you have to understand or
+ignore:
+
+  - the concept of bandwidth
+  - latency and effective quality
+  - what kbit/s means, and why you care
+  - millisecond ratings per packet
+  - the concept of codecs, Speex, and CELT
+
+This all makes sense to me, but is far too complicated for an average
+user.
+Firstly, separate out the sound quality from the text to speech.
 Then, simplify this down to low/medium/high with human descriptions.
 
-### Slide 7: Finished 
-![Image](current-wizard-07.jpg)
+### Slide 7: Finished
 
-Not as much to say here, but a shorter explanation of the reasoning would be nice.<br />
-The checkbox should also change to a yes/no set of buttons.<br />
+![<File:Current-Wizard-07.jpg>](Current-Wizard-07.jpg
+"File:Current-Wizard-07.jpg")
+
+Not as much to say here, but a shorter explanation of the reasoning
+would be nice.
+The checkbox should also change to a yes/no set of buttons.
 This will hopefully be clearer when I put up my proposed changes.
 
-## Example button change 
-This network wizard from Windows 7 is an example of how I'd like to change the "next" operation in mumble wizards. Notice how instead of an obvious "next" button for a confused or irritated user to click, it creates a simple, intuitive conversation with the user. A clearly stated purpose ("select a location") with clear options, each with a useful icon that makes the choices obvious to the non-technical.
+## Example button change
 
-![Image](example-wizard-button.jpg)
+This network wizard from Windows 7 is an example of how I'd like to
+change the "next" operation in mumble wizards. Notice how instead of an
+obvious "next" button for a confused or irritated user to click, it
+creates a simple, intuitive conversation with the user. A clearly stated
+purpose ("select a location") with clear options, each with a useful
+icon that makes the choices obvious to the non-technical.
 
-## Proposed, Alternate Wizard 
+![<File:Example-wizard-button.jpg>](Example-wizard-button.jpg
+"File:Example-wizard-button.jpg")
+
+## Proposed, Alternate Wizard
+
 This will be coming soon within the next few days.
 
-
-
+[Category:Suggestions](Category:Suggestions "wikilink")

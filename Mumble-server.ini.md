@@ -1,2 +1,1 @@
-#REDIRECT [[Murmur.ini]]
-
+1.  REDIRECT [Murmur.ini](Murmur.ini "wikilink")

@@ -1,2 +1,1 @@
-#REDIRECT [[Language Translation]]
-
+1.  REDIRECT [Language Translation](Language_Translation "wikilink")

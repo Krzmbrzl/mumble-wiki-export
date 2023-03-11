@@ -1,2 +1,1 @@
-#REDIRECT [[Murmurguide]]
-
+1.  REDIRECT [Murmurguide](Murmurguide "wikilink")

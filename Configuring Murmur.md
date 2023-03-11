@@ -1,2 +1,0 @@
-#redirect [[Running_Murmur]]
-

@@ -1,0 +1,51 @@
+MumPI is an open source PHP Web-Interface under LGPL, using Ice to talk
+to mumble. Thus you will need a webserver with PHP and the Ice extension
+set up.
+
+**Tested and compatible with** at least up to Mumble 1.2.4, with PHP \<
+v5.3 and PHP-Ice \< v3.4 **as well as** PHP \>= v5.3 & PHP-Ice \>= v3.4.
+
+The **Mumble PHP Interface** – **MumPI** for short – features
+
+  - Administration
+      - Create, start, stop and delete virtual servers
+      - edit configurations (of virtual servers)
+      - name virtual servers for the interface
+      - create and delete admin accounts
+      - view and kick online Users
+      - view, edit and remove registrations
+      - view channel tree
+      - Admin Accounts
+          - admin accounts
+          - admin groups
+              - with specific permissions
+              - associated to specific servers
+  - Server-Viewer
+      - PHP-includeable file and class
+      - embeddable html/js via <object> or
+        <embed>
+      - JavaScript/AJAX
+      - can provide Channel Viewer Protocol
+  - User Registration
+      - with or without captcha
+      - with or without email authentification
+      - on specific virtual servers
+  - User Profile
+      - Log in with your mumble account
+      - edit your details (email, password, username)
+      - upload a user texture (visible in the overlay)
+      - Retrieve lost data (login, new password) via E-Mail
+
+[github project page, wiki, issue-tracker,
+downloads](http://github.com/Kissaki/MumPI)
+
+[Downloads](https://sourceforge.net/projects/mumpi/files/) @SF
+
+[Installation
+Guide](https://github.com/Kissaki/MumPI/wiki/Installation),
+[FAQ](https://github.com/Kissaki/MumPI/wiki/FAQ)
+
+Hosted [on GitHub](http://github.com/Kissaki/MumPI) [and
+sourceforge](https://sourceforge.net/projects/mumpi/).
+
+[Category:3rd Party](Category:3rd_Party "wikilink")

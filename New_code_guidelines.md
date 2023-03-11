@@ -1,0 +1,1 @@
+1.  REDIRECT [Coding Guidelines](Coding_Guidelines "wikilink")

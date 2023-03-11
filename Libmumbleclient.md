@@ -1,2 +1,1 @@
-#REDIRECT [[Development]]
-
+1.  REDIRECT [Development](Development "wikilink")

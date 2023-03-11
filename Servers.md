@@ -1,12 +1,24 @@
-''This page is about server programs able to host Mumble servers. Maybe you were looking for [[Hosters]] instead? A list of public servers is available from within the client.''
+*This page is about server programs able to host Mumble servers. Maybe
+you were looking for [Hosters](Hosters "wikilink") instead? A list of
+public servers is available from within the client.*
 
-We provide our '''server program Murmur''' in source and binary form. For introductions on how '''to set your own server up, see [[Running Murmur]]'''. In short, on Windows Murmur is included in the installer. You just need to install it and run Murmur.exe. On many Linux distributions the server is provided through the official repositories as ''mumble-server''.
+We provide our **server program Murmur** in source and binary form. For
+introductions on how **to set your own server up, see [Running
+Murmur](Running_Murmur "wikilink")**. In short, on Windows Murmur is
+included in the installer. You just need to install it and run
+Murmur.exe. On many Linux distributions the server is provided through
+the official repositories as *mumble-server*.
 
-If you want to explore '''server implementations by the community''', the following list is for you:
+If you want to explore **server implementations by the community**, the
+following list is for you:
 
-= Grumble =
- [Grumble](https://github.com/mkrautz/grumble) is a mumble server implementation written in  [Go](http://golang.org/).
+# Grumble
 
-''Grumbles features should be documented here. If you want to help out, check them and describe them here. Thank you!''
+[Grumble](https://github.com/mkrautz/grumble) is a mumble server
+implementation written in [Go](http://golang.org/).
 
+*Grumbles features should be documented here. If you want to help out,
+check them and describe them here. Thank you\!*
 
+[Category:Documentation
+English](Category:Documentation_English "wikilink")

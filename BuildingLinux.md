@@ -1,245 +1,312 @@
+**Please edit this page if you find a feature or step you think should
+be included; it's a wiki for a reason\! Note you must register and wait
+about 3 days in order to be able to edit.**
 
-{{Warning
-|message=The build instructions listed here only apply to Mumble v1.3.x or older. If you want to build Mumble starting from v1.4.0, checkout https://github.com/mumble-voip/mumble/tree/master/docs/dev/build-instructions
-}}
-
-# Building
-
-'''Please edit this page if you find a feature or step you think should be included; it's a wiki for a reason! Note you must register and wait about 3 days in order to be able to edit.'''
-
-= Install the dependencies =
+# Install the dependencies
 
 Mumble 1.2.3 or newer requires at least Qt 4.6.
 
-## Debian or Ubuntu 
-We do not recommend building Mumble on Debian 5 ("Lenny") or older. Please update to Debian 6 ("Squeeze") or newer. You may still be able to build it by playing with package sources to include only required packages from Squeeze, but that is not a supported solution.
+## Debian or Ubuntu
 
-You need to make sure you have the needed libraries and dependencies installed to build Mumble and Murmur from source. This can be done in one of those ways:
+We do not recommend building Mumble on Debian 5 ("Lenny") or older.
+Please update to Debian 6 ("Squeeze") or newer. You may still be able to
+build it by playing with package sources to include only required
+packages from Squeeze, but that is not a supported solution.
 
-{{Warning
-|message=Note that since Debian 10 the ''libg15daemon-client-dev'' package has been removed from their repository. You'll have to use the ''no-g15'' config option or follow [G15 support](#G15 Support.md)
-}}
+You need to make sure you have the needed libraries and dependencies
+installed to build Mumble and Murmur from source. This can be done in
+one of those ways:
 
-### 1.2.x 
+### 1.2.x
 
-If your distribution provides packages of the 1.2.x versions, it is sufficient to just run:
- apt-get build-dep mumble
+If your distribution provides packages of the 1.2.x versions, it is
+sufficient to just run:
+
+`apt-get build-dep mumble`
 
 Otherwise, you need to install some development packages manually:
- apt-get install build-essential pkg-config qt4-dev-tools libqt4-dev libspeex1 \
-                 libspeex-dev libboost-dev libasound2-dev libssl-dev g++ \
-                 libspeechd-dev libzeroc-ice-dev ice-slice libpulse-dev slice2cpp \
-                 libcap-dev libspeexdsp-dev libprotobuf-dev protobuf-compiler \
-                 libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
-                 libg15daemon-client-dev libxi-dev 
 
-It is recommended to remove the package qt3-dev-tools if installed.<br>
+`apt-get install build-essential pkg-config qt4-dev-tools libqt4-dev libspeex1 \`
+`                libspeex-dev libboost-dev libasound2-dev libssl-dev g++ \`
+`                libspeechd-dev libzeroc-ice-dev ice-slice libpulse-dev slice2cpp \`
+`                libcap-dev libspeexdsp-dev libprotobuf-dev protobuf-compiler \`
+`                libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \`
+`                libg15daemon-client-dev libxi-dev `
 
-{{Warning
-|message=For ''Ice-3.4.1'' you will need ''libexpat1-dev'' and ''libdb4.6++-dev'', which conflicts with newer packages.
-}}
-### 1.3.x 
+It is recommended to remove the package qt3-dev-tools if installed.
 
-Since Mumble Snapshots aren't available in the repository, you need to install development packages manually:
- apt-get install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \
-                 libboost-dev libasound2-dev libssl-dev \
-                 libspeechd-dev libzeroc-ice-dev libpulse-dev \
-                 libcap-dev libprotobuf-dev protobuf-compiler \
-                 libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \
-                 libg15daemon-client-dev libxi-dev 
+### 1.3.x
 
-Now go on to the section [Getting the source](#Getting_the_source.md).
+Since Mumble Snapshots aren't available in the repository, you need to
+install development packages manually:
 
-## Fedora 
+`apt-get install build-essential pkg-config qt5-default qttools5-dev-tools libqt5svg5-dev \`
+`                libboost-dev libasound2-dev libssl-dev \`
+`                libspeechd-dev libzeroc-ice-dev libpulse-dev \`
+`                libcap-dev libprotobuf-dev protobuf-compiler \`
+`                libogg-dev libavahi-compat-libdnssd-dev libsndfile1-dev \`
+`                libg15daemon-client-dev libxi-dev `
 
-### 1.2.x 
+Now go on to the section [Getting the
+source](#Getting_the_source "wikilink").
 
- dnf builddep mumble
+## Fedora
 
-### 1.3.x 
+### 1.2.x
 
-{{Warning
-|message=The build has been tested on a Docker builder using the official Fedora image. You may need to [install more dependencies](BuildingLinux#Finding_missing_dependencies.md) on a standard installation.
-}}
- dnf install make gcc gcc-c++ which qt5* protobuf-compiler protobuf-devel openssl-devel \
-             libsndfile-devel alsa-lib-devel avahi-compat-libdns_sd-devel libXi-devel \
-             speech-dispatcher-devel flac-devel libogg-devel libvorbis-devel libcap-devel
+`dnf builddep mumble`
 
-### Finding missing dependencies 
+### 1.3.x
 
-If the build fails even after installing the dependencies listed above, you'll need to find out that package name on your own. I use <tt>dnf provides</tt> to hunt these things down. This command is best learned through a demonstration, so here's an example Mumble build that's missing a dependency:
+`dnf install make gcc gcc-c++ which qt5* protobuf-compiler protobuf-devel openssl-devel \`
+`            libsndfile-devel alsa-lib-devel avahi-compat-libdns_sd-devel libXi-devel \`
+`            speech-dispatcher-devel flac-devel libogg-devel libvorbis-devel libcap-devel`
 
-  $ cd $YOUR_MUMBLE_REPO
-  $ qmake CONFIG+="no-g15 no-ice" -recursive
-  $ make
-  ... omitted lots of build info ....
-  mumble_pch.hpp:117:20: fatal error: dns_sd.h: No such file or directory
-  compilation terminated.
-  make [[release/mumble.gch/c++](2]: ***) Error 1
-  make[2]: Leaving directory `/home/dafrito/src/mumble/src/mumble'
-  make [[release](1]: ***) Error 2
-  make[1]: Leaving directory `/home/dafrito/src/mumble/src/mumble'
-  make: *** [sub-src-mumble-make_default-ordered] Error 2
-  $
+### Finding missing dependencies
 
-The key line in the above is the "fatal error: dns_sd.h: No such file or directory" This will always be very close to the bottom of make's output. We'll need to install that header file somehow, so we'll try looking in Fedora's repos first. <tt>yum provides</tt> lets us search for packages that provide a specified file. In this case, we'll look for packages that give us <tt>dns_sd.h</tt>
+If the build fails even after installing the dependencies listed above,
+you'll need to find out that package name on your own. I use `dnf
+provides` to hunt these things down. This command is best learned
+through a demonstration, so here's an example Mumble build that's
+missing a dependency:
 
-  $ dnf provides '*/dns_sd.h' # be careful not to forget the quotes or the wildcard here
-  avahi-compat-libdns_sd-devel-0.6.30-4.fc16.i686 : Header files for the Apple Bonjour mDNSResponder compatibility libraries
-  Repo        : fedora
-  Matched from:
-  Filename    : /usr/include/avahi-compat-libdns_sd/dns_sd.h
-  Filename    : /usr/include/dns_sd.h
+` $ cd $YOUR_MUMBLE_REPO`
+` $ qmake CONFIG+="no-g15 no-ice" -recursive`
+` $ make`
+` ... omitted lots of build info ....`
+` mumble_pch.hpp:117:20: fatal error: dns_sd.h: No such file or directory`
+` compilation terminated.`
+` make[2]: *** [release/mumble.gch/c++] Error 1`
+`` make[2]: Leaving directory `/home/dafrito/src/mumble/src/mumble'``
+` make[1]: *** [release] Error 2`
+`` make[1]: Leaving directory `/home/dafrito/src/mumble/src/mumble'``
+` make: *** [sub-src-mumble-make_default-ordered] Error 2`
+` $`
 
-This lets us know that <tt>avahi-compat-libdns_sd-devel</tt> provides the needed header, so now we can install that package
+The key line in the above is the "fatal error: dns_sd.h: No such file
+or directory" This will always be very close to the bottom of make's
+output. We'll need to install that header file somehow, so we'll try
+looking in Fedora's repos first. `yum provides` lets us search for
+packages that provide a specified file. In this case, we'll look for
+packages that give us `dns_sd.h`
 
-  $ dnf install avahi-compat-libdns_sd-devel
-  .. lots of installation ..
+` $ dnf provides '*/dns_sd.h' # be careful not to forget the quotes or the wildcard here`
+` avahi-compat-libdns_sd-devel-0.6.30-4.fc16.i686 : Header files for the Apple Bonjour mDNSResponder compatibility libraries`
+` Repo        : fedora`
+` Matched from:`
+` Filename    : /usr/include/avahi-compat-libdns_sd/dns_sd.h`
+` Filename    : /usr/include/dns_sd.h`
 
-And now we can try building Mumble again using <tt>make</tt>. If you're missing multiple packages, then you'll probably need to repeat the above process to satisfy any missing dependencies. If Mumble still doesn't build, you may be able to discern which feature is causing problems and avoid building it entirely using a <tt>CONFIG+=no-*</tt> option. You can look at INSTALL for details on what features can be toggled off. For example. <tt>qmake CONFIG+=no-server -recursive</tt> will omit the server component of Mumble.
+This lets us know that `avahi-compat-libdns_sd-devel` provides the
+needed header, so now we can install that package
 
-### ICE Support 
+` $ dnf install avahi-compat-libdns_sd-devel`
+` .. lots of installation ..`
 
-The package libICE-devel isn't available in the Fedora repositories anymore.
-You need to compile Ice from source or build Mumble without Ice support using "CONFIG+=no-ice".
+And now we can try building Mumble again using `make`. If you're missing
+multiple packages, then you'll probably need to repeat the above process
+to satisfy any missing dependencies. If Mumble still doesn't build, you
+may be able to discern which feature is causing problems and avoid
+building it entirely using a `CONFIG+=no-*` option. You can look at
+INSTALL for details on what features can be toggled off. For example.
+`qmake CONFIG+=no-server -recursive` will omit the server component of
+Mumble.
 
+### ICE Support
 
-## Arch Linux 
+The package libICE-devel isn't available in the Fedora repositories
+anymore. You need to compile Ice from source or build Mumble without Ice
+support using "CONFIG+=no-ice".
 
-At the time of writing, Murmur is in pacman's repositories, but doesn't support Ice because the zeroc-ice component isn't in the repositories. To build an Ice-capable Murmur, you'll need to setup and be familiar with the  [System](http://wiki.archlinux.org/index.php/Arch_Build_System#Walkthrough Arch Build), which is outside the scope of this document. 
+## Arch Linux
 
-Next, I grabbed the  [tarball](http://aur.archlinux.org/packages.php?ID=13951 zeroc-ice), and extracted it into my ABS directory. I edited the PKGCONFIG to remove all the Java bindings for Ice - because I won't be needing them and didn't want to wait for the Java stuff to install as a dependency, if you feel you might want/need Java/Ice later on, then leave it in - then built and installed the package as per the instructions in the ABS walkthrough.
+At the time of writing, Murmur is in pacman's repositories, but doesn't
+support Ice because the zeroc-ice component isn't in the repositories.
+To build an Ice-capable Murmur, you'll need to setup and be familiar
+with the [Arch Build
+System](http://wiki.archlinux.org/index.php/Arch_Build_System#Walkthrough),
+which is outside the scope of this document.
 
-Grab the  [tarball](http://aur.archlinux.org/packages.php?ID=19980 Murmur-ice) and extract it in your ABS directory. Build, and if you want the stable release, install the resulting package with pacman. 
+Next, I grabbed the [zeroc-ice
+tarball](http://aur.archlinux.org/packages.php?ID=13951), and extracted
+it into my ABS directory. I edited the PKGCONFIG to remove all the Java
+bindings for Ice - because I won't be needing them and didn't want to
+wait for the Java stuff to install as a dependency, if you feel you
+might want/need Java/Ice later on, then leave it in - then built and
+installed the package as per the instructions in the ABS walkthrough.
 
-If you want to build from git, you should have most of the required runtime dependencies, but you'll also want these for building:
+Grab the [Murmur-ice
+tarball](http://aur.archlinux.org/packages.php?ID=19980) and extract it
+in your ABS directory. Build, and if you want the stable release,
+install the resulting package with pacman.
 
- pacman -S base-devel git
+If you want to build from git, you should have most of the required
+runtime dependencies, but you'll also want these for building:
 
-At this point you should be able to continue on to [Installing from Source](#Installing_from_source.md).
+`pacman -S base-devel git`
 
-## G15 Support 
-Some distributions don't package G15 support. In that case the build will fail with a missing "g15daemon_client.h" header file.
+At this point you should be able to continue on to [Installing from
+Source](#Installing_from_source "wikilink").
 
-You can avoid building G15 support using a <tt>qmake CONFIG+=no-g15</tt>. However, if you'd like to build this, it is possible to install it manually by building the G15 stuff from source. Be warned that this process can be a little tricky since you'll be building and installing RPMs manually, as well as building another component from source.
+## G15 Support
 
+Some distributions don't package G15 support. In that case the build
+will fail with a missing "g15daemon_client.h" header file.
+
+You can avoid building G15 support using a `qmake CONFIG+=no-g15`.
+However, if you'd like to build this, it is possible to install it
+manually by building the G15 stuff from source. Be warned that this
+process can be a little tricky since you'll be building and installing
+RPMs manually, as well as building another component from source.
 
 Finally, the G15 daemon will need to be built from scratch:
 
-  $ svn co https://svn.code.sf.net/p/g15daemon/code/trunk g15daemon-code
-  $ cd g15daemon-code/g15daemon
-  $ autoreconf -i
-  $ ./configure
-  $ make
-  $ make install
+` $ svn co `<https://svn.code.sf.net/p/g15daemon/code/trunk>` g15daemon-code`
+` $ cd g15daemon-code/g15daemon`
+` $ autoreconf -i`
+` $ ./configure`
+` $ make`
+` $ make install`
 
-At this point, if all other dependencies are met, you should be able to build Mumble with G15 support.
+At this point, if all other dependencies are met, you should be able to
+build Mumble with G15 support.
 
-### Fedora 
-These instructions are meant to guide you on how to build the G15 library itself on Fedora. On other distributions you'll have to adapt accordingly.
+### Fedora
+
+These instructions are meant to guide you on how to build the G15
+library itself on Fedora. On other distributions you'll have to adapt
+accordingly.
 
 First, install some dependencies that you'll need later:
 
-  $ dnf install libdaemon-devel libusb-devel libtool svn rpm-build autoconf automake libtool
+` $ dnf install libdaemon-devel libusb-devel libtool svn rpm-build autoconf automake libtool`
 
-Then pick up the G15 library that's already been packaged (this was linked to in the Bugzilla ticket):
+Then pick up the G15 library that's already been packaged (this was
+linked to in the Bugzilla ticket):
 
-  $ wget http://zero456.fedorapeople.org/libg15-1.2.7-1.fc16.src.rpm
-  $ rpmbuild --rebuild libg15-1.2.7-1.fc16.src.rpm
+` $ wget `<http://zero456.fedorapeople.org/libg15-1.2.7-1.fc16.src.rpm>
+` $ rpmbuild --rebuild libg15-1.2.7-1.fc16.src.rpm`
 
-It's possible you'll run into missing dependencies at this point. Follow the <tt>yum provides</tt> process outlined above to find out what you'll need to install.
+It's possible you'll run into missing dependencies at this point. Follow
+the `yum provides` process outlined above to find out what you'll need
+to install.
 
-  $ cd ~/rpmbuild/RPMS
-  $ ls
-  noarch  x86_64 i686
-  $ cd `uname -p` # equates to x86_64 on my system, may be i686 on yours
-  $ dnf localinstall libg15*
+` $ cd ~/rpmbuild/RPMS`
+` $ ls`
+` noarch  x86_64 i686`
+`` $ cd `uname -p` # equates to x86_64 on my system, may be i686 on yours``
+` $ dnf localinstall libg15*`
 
+# Getting the source
 
+The best way to get Mumble's source is using Git. You can also download
+the latest ZIP package from GitHub.
 
-= Getting the source =
+## Git
 
-The best way to get Mumble's source is using Git.
-You can also download the latest ZIP package from GitHub.
-
-## Git 
 For compiling from Git make sure you've installed Git:
 
- apt-get install git
+`apt-get install git`
 
-Next, download the Mumble source (this may take a minute. At this time of writing, 2016, November 4th, the size is 43.39 MiB):
- git clone git://github.com/mumble-voip/mumble.git mumble
- cd mumble
- git submodule init
- git submodule update
+Next, download the Mumble source (this may take a minute. At this time
+of writing, 2016, November 4th, the size is 43.39 MiB):
+
+`git clone `<git://github.com/mumble-voip/mumble.git>` mumble`
+`cd mumble`
+`git submodule init`
+`git submodule update`
 
 To use the current (development) branch, which you most likely do:
- git checkout --track -b master origin/master
+
+`git checkout --track -b master origin/master`
 
 To use the 1.3.x (stable) branch:
- git checkout --track -b 1.3.x origin/v1.3.x
 
-If you want to update your local branch, make sure you're still in the main git directory ('mumble' in the above example) and use this command:
- git pull
+`git checkout --track -b 1.3.x origin/v1.3.x`
 
-## Zip package 
-Download the latest zip archive from  [GitHub](https://github.com/mumble-voip/mumble/archive/master.zip), extract it and fetch the submodules:
+If you want to update your local branch, make sure you're still in the
+main git directory ('mumble' in the above example) and use this command:
 
- unzip mumble-master.zip -d mumble
- cd mumble
- git submodule init
- git submodule update
+`git pull`
 
-= Compiling Mumble and Murmur =
+## Zip package
 
-## From Qt Creator 
+Download the latest zip archive from
+[GitHub](https://github.com/mumble-voip/mumble/archive/master.zip),
+extract it and fetch the submodules:
 
-### Installing Qt Creator 
+`unzip mumble-master.zip -d mumble`
+`cd mumble`
+`git submodule init`
+`git submodule update`
+
+# Compiling Mumble and Murmur
+
+## From Qt Creator
+
+### Installing Qt Creator
+
 On Debian or Ubuntu:
- apt-get install qtcreator
+
+`apt-get install qtcreator`
+
 On Fedora:
- dnf install qt-creator
+
+`dnf install qt-creator`
+
 On Arch Linux:
- pacman -S qtcreator
 
-### Building and running Mumble 
-Open the project file '''main.pro''' located in the main directory, choose the build preset you want to use and press on the green arrow that seems like a play button.
-Mumble will start automatically once it's ready.
+`pacman -S qtcreator`
 
-## From the terminal 
+### Building and running Mumble
 
-For more configuration options on the qmake command read the supplied INSTALL file.
+Open the project file **main.pro** located in the main directory, choose
+the build preset you want to use and press on the green arrow that seems
+like a play button. Mumble will start automatically once it's ready.
 
-Be sure to have the pre-requisites installed and in place for your linux distribution (see the sections above) before you begin compiling it.
+## From the terminal
 
-### Building Mumble 
+For more configuration options on the qmake command read the supplied
+INSTALL file.
 
- qmake -recursive main.pro
- make
+Be sure to have the pre-requisites installed and in place for your linux
+distribution (see the sections above) before you begin compiling it.
+
+### Building Mumble
+
+`qmake -recursive main.pro`
+`make`
 
 If you want to compile only the Mumble server (aka Murmur), then type:
 
- qmake -recursive main.pro CONFIG+=no-client
- make
+`qmake -recursive main.pro CONFIG+=no-client`
+`make`
 
-# Iconbox begin|type=infoThe available CONFIG options are explained in  [INSTALL](https://github.com/mumble-voip/mumble/blob/master/INSTALL).# Iconbox end
+The available CONFIG options are explained in
+[INSTALL](https://github.com/mumble-voip/mumble/blob/master/INSTALL).
 
-### Running Mumble 
+### Running Mumble
 
- cd release
- ./mumble
+`cd release`
+`./mumble`
 
-## Build errors 
+## Build errors
 
-### one or more PCH files were found, but they were invalid 
-This error means that you have attempted to compile before and now you probably changed some configuration. This lead to the PCH (pre-compiled header file) to be invalid. In order to solve this issue, run <code>make clean</code> before trying to compile again.
+### one or more PCH files were found, but they were invalid
 
-= Running Murmur =
+This error means that you have attempted to compile before and now you
+probably changed some configuration. This lead to the PCH (pre-compiled
+header file) to be invalid. In order to solve this issue, run `make
+clean` before trying to compile again.
 
-See the dedicated page: [[Running Murmur]]
+# Running Murmur
 
+See the dedicated page: [Running Murmur](Running_Murmur "wikilink")
 
-= Text to Speech =
+# Text to Speech
 
-For text-to-speech voices you will need to install speech dispatcher and at least a voice. Most distros ship packages for that in their repositories.
+For text-to-speech voices you will need to install speech dispatcher and
+at least a voice. Most distros ship packages for that in their
+repositories.
 
+[Category:Development](Category:Development "wikilink")

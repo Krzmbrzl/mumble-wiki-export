@@ -1,2 +1,1 @@
-#REDIRECT [[Comparison/English]]
-
+1.  REDIRECT [Comparison/English](Comparison/English "wikilink")

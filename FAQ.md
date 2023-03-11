@@ -1,2 +1,1 @@
-#redirect [[FAQ/English]]
-
+1.  redirect [FAQ/English](FAQ/English "wikilink")

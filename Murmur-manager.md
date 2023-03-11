@@ -1,88 +1,92 @@
-= murmur-manager =
+# murmur-manager
 
-murmur-manager is a set of Ruby classes for managing Murmur servers. It comes packaged with a handy dandy command-line script, so you can easily manage your servers.
+murmur-manager is a set of Ruby classes for managing Murmur servers. It
+comes packaged with a handy dandy command-line script, so you can easily
+manage your servers.
 
-## Getting It 
+## Getting It
 
-1. Clone the Github repo
+1\. Clone the Github repo
 
-  git clone http://github.com/cheald/murmur-manager/
+` git clone `<http://github.com/cheald/murmur-manager/>
 
-2. Make sure you have Ice set up for your Ruby install
-  $ irb
-  irb(main):001:0> require 'Ice'
-  => true
+2\. Make sure you have Ice set up for your Ruby install
 
-If this doesn't succeed, you need to [set up Ice and/or Ice Ruby bindings](Ice.md).  
+` $ irb`
+` irb(main):001:0> require 'Ice'`
+` => true`
 
-## Commands 
+If this doesn't succeed, you need to [set up Ice and/or Ice Ruby
+bindings](Ice "wikilink").
 
-You can get help at any time by just running the script with no arguments.
+## Commands
 
-  Usage: manager.rb [opts]
-  Args                                    Effect
-  ----                                    ------
-  [server-id] config                      List a server's config
-   [[key](server-id] set) [val]             Set a server's config value
-  [server-id] start                       Start a server
-  [server-id] stop                        Stop a server
-  [server-id] destroy                     Permanently destroy a server
-   [[password](server-id] supw)             Set superuser password for this server
-  new                                     Create a new server
-  list                                    List existing servers
+You can get help at any time by just running the script with no
+arguments.
 
-## List all your current servers 
+` Usage: manager.rb [opts]`
+` Args                                    Effect`
+` ----                                    ------`
+` [server-id] config                      List a server's config`
+` [server-id] set [key] [val]             Set a server's config value`
+` [server-id] start                       Start a server`
+` [server-id] stop                        Stop a server`
+` [server-id] destroy                     Permanently destroy a server`
+` [server-id] supw [password]             Set superuser password for this server`
+` new                                     Create a new server`
+` list                                    List existing servers`
 
-   [manager](chris@polaris)$ ./manage-ice.rb list
-  Server ID       Running
-  ---------       ------
-  1               true
-  2               true
-  3               true
-  4               true
-  5               true
-  8               false
-  12              false
-  13              true
-  14              true
+## List all your current servers
 
-## Get a server's configuration 
+` [chris@polaris manager]$ ./manage-ice.rb list`
+` Server ID       Running`
+` ---------       ------`
+` 1               true`
+` 2               true`
+` 3               true`
+` 4               true`
+` 5               true`
+` 8               false`
+` 12              false`
+` 13              true`
+` 14              true`
 
-   [manager](chris@polaris)$ ./manage-ice.rb 1
-  allowhtml                               true
-  obfuscate                               false
-  registerhostname
-  certificate                             -----BEGIN CERTIFICATE-----
-  port                                    50001
-  registerurl
-  timeout                                 30
-  defaultchannel                          0
-  textmessagelength                       5000
-  username                                [-=\w\[\]\{\}\(\)\@\|\.]+
-  welcometext                             Welcome to my Mumble server
-  bonjour                                 true
-  certrequired                            false
-  channelname                             [ \-=\w\#\[\]\{\}\(\)\@\|]+
-  registername
-  bandwidth                               72000
-  host                                    0:0:0:0:0:0:0:0
-  registerpassword
-  users                                   150
-  key                                     -----BEGIN RSA PRIVATE KEY-----
-  password
+## Get a server's configuration
 
-## Update a configuration option 
+` [chris@polaris manager]$ ./manage-ice.rb 1`
+` allowhtml                               true`
+` obfuscate                               false`
+` registerhostname`
+` certificate                             -----BEGIN CERTIFICATE-----`
+` port                                    50001`
+` registerurl`
+` timeout                                 30`
+` defaultchannel                          0`
+` textmessagelength                       5000`
+` username                                [-=\w`\[\]`\{\}`\(\)`\@\|\.]+`
+` welcometext                             Welcome to my Mumble server`
+` bonjour                                 true`
+` certrequired                            false`
+` channelname                             [ \-=\w\#`\[\]`\{\}`\(\)`\@\|]+`
+` registername`
+` bandwidth                               72000`
+` host                                    0:0:0:0:0:0:0:0`
+` registerpassword`
+` users                                   150`
+` key                                     -----BEGIN RSA PRIVATE KEY-----`
+` password`
 
-  ./manage-ice.rb 1 set port users 175
+## Update a configuration option
 
-## Spawning a new virtual server 
+` ./manage-ice.rb 1 set port users 175`
 
-   [manager](chris@polaris)$ ./manage-ice.rb new
-  New server: ID 17 added
-   [manager](chris@polaris)$ ./manage-ice.rb 17 set port 64049
-   [manager](chris@polaris)$ ./manage-ice.rb 17 restart
+## Spawning a new virtual server
 
-You get the idea. Not too hard!
+` [chris@polaris manager]$ ./manage-ice.rb new`
+` New server: ID 17 added`
+` [chris@polaris manager]$ ./manage-ice.rb 17 set port 64049`
+` [chris@polaris manager]$ ./manage-ice.rb 17 restart`
 
+You get the idea. Not too hard\!
 
-
+[Category:3rd Party](Category:3rd_Party "wikilink")

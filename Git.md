@@ -1,2 +1,1 @@
-#REDIRECT [[BuildingLinux#GIT]]
-
+1.  REDIRECT [BuildingLinux\#GIT](BuildingLinux#GIT "wikilink")

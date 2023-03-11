@@ -1,0 +1,421 @@
+Note: This guide is written for the current git HEAD (Mumble version
+1.2.X). If you want instructions for 1.1.X, please check the history for
+this page.
+
+## Introduction
+
+This guide describes the method to get a fully working and
+redistributable version of Mumble and Murmur that uses the Cocoa version
+of Qt 4. This build will work only on x86_64-capable machines.
+
+## The Easy Way
+
+The easiest way to get going is to grab the pre-built build environment
+for Mac OS X:
+<http://www.scorpius-project.org/mumble-osx-dev/MumbleDeveloper.tar.bz2>
+
+Unarchive it to your / filesystem.
+
+To set up your environment for a build, execute
+
+`/MumbleDeveloper/bin/mumble-x86-64-build-env`
+
+The rest of this guide can be skipped, down to the 'Building Mumble'
+part.
+
+## Building the Development Environment Yourself
+
+To build Mumble you will need:
+
+  - Mac OS X 10.5 (Leopard)
+  - XCode (http://developer.apple.com/tools/xcode/, or from your Mac OS
+    X install disks)
+  - Git (http://www.git-scm.org/)
+  - pkg-config (http://pkg-config.freedesktop.org/)
+  - DBus (http://dbus.freedesktop.org/)
+  - Qt 4.7
+    (http://qt.gitorious.org/+mumble-developers/qt/mumble-developers-qt)
+  - Boost (http://www.boost.org/)
+  - PortAudio (http://www.portaudio.com/)
+  - libogg (http://www.xiph.org)
+  - libvorbis (http://www.xiph.org/)
+  - libFLAC (http://www.xiph.org/)
+  - libsoundfile (http://www.mega-nerd.com/libsndfile/)
+  - Protocol Buffers (http://code.google.com/p/protobuf/)
+  - Berkeley DB
+    (http://www.oracle.com/technology/products/berkeley-db/index.html)
+    (Murmur only)
+  - mcpp (http://www.sourceforge.net/projects/mcpp/) (Murmur only)
+  - ZeroC Ice (http://www.zeroc.com) (Murmur only)
+
+### Setting up the build environment
+
+`#!/bin/bash`
+
+`# C compiler`
+`export CC="$(xcode-select -print-path)/usr/bin/gcc-4.2"`
+`export CXX="$(xcode-select -print-path)/usr/bin/g++-4.2"`
+
+`# Mac OS X SDK stuff`
+`export MACOSX_DEPLOYMENT_TARGET="10.5"`
+`export OSX_SDK="/Developer/SDKs/MacOSX10.5.sdk"`
+
+`# Autotools, etc. setup`
+`export OSX_CFLAGS="-isysroot $OSX_SDK -arch x86_64 -mmacosx-version-min=10.5"`
+`export OSX_LDFLAGS="-isysroot $OSX_SDK -Wl,-syslibroot,$OSX_SDK -arch x86_64 -mmacosx-version-min=10.5"`
+
+`export CFLAGS=$OSX_CFLAGS`
+`export CXXFLAGS=$OSX_CFLAGS`
+`export LDFLAGS=$OSX_LDFLAGS`
+
+`# Mumble stuff`
+`export MUMBLE_PREFIX=/MumbleDeveloper/x86-64/`
+
+`# pkgconfig, PATH, etc.`
+`export PKG_CONFIG_PATH=/usr/lib/pkgconfig/:$MUMBLE_PREFIX/lib/pkgconfig/:$PKG_CONFIG_PATH`
+`export PATH=$MUMBLE_PREFIX/qt-4.7/bin/:$PATH`
+`export PATH=$MUMBLE_PREFIX/bin:$PATH`
+
+`# Ice path`
+`export ICE_PREFIX=$MUMBLE_PREFIX/ice-3.4.1/`
+`export PATH=$ICE_PREFIX/bin/:$PATH`
+
+`echo Now in Mumble 1.2 x86-64 build environment`
+
+Remember to source the above script before doing any of the steps listed
+below.
+
+### Installing or building pkg-config
+
+This is just a build tool, so you do not have to build it as universal
+binary.
+
+If you have MacPorts installed, you probably already have pkg-config as
+well. If not, you can install it by doing
+
+`sudo port install pkgconfig`
+
+In case you want to compile it yourself, you'll have to download and
+unpack pkg-config.
+
+`sudo mkdir /usr/lib/pkgconfig (choose a path you like)`
+`export PKG_CONFIG_PATH=/usr/lib/pkgconfig`
+`./configure && make && sudo make install `
+
+To make the path permanent add the following line to your *\~/.profile*
+file:
+
+`export PKG_CONFIG_PATH=/usr/lib/pkgconfig`
+
+Also add a path entry to the pkg-config binary to this file:
+
+`export PATH=$PATH:/usr/local/bin`
+
+### Installing or getting Git
+
+To grab a copy of Mumble, you need Git.
+
+You have three options:
+
+  - Build it yourself.
+  - Install it via MacPorts: port install git-core
+  - Fetch the git-osx-installer package from Google Code:
+    <http://code.google.com/p/git-osx-installer/downloads/list?can=3>
+
+### Building DBus
+
+Grab the latest release of DBus from <http://dbus.freedesktop.org/>. As
+of this writing that is version 1.2.24.
+
+Unpack it, and build it:
+
+`./configure --prefix=$MUMBLE_PREFIX --without-x --with-xml=expat --disable-dependency-tracking`
+`make`
+`sudo make install`
+
+### Building OpenSSL
+
+Grab it from <http://www.openssl.org/>. The latest version we use is
+1.0.0d.
+
+Unpack and build:
+
+`./Configure darwin64-x86_64-cc -shared --prefix=$MUMBLE_PREFIX --openssldir=$MUMBLE_PREFIX/openssl`
+`make`
+`sudo make install`
+
+For universal:
+
+`mkdir -p openssl-1.0.0d-{i386,ppc}`
+`tar -zxvf openssl-1.0.0d.tar.gz -C openssl-1.0.0d-i386 --strip-components 1`
+`tar -zxvf openssl-1.0.0d.tar.gz -C openssl-1.0.0d-ppc --strip-components 1`
+`cd openssl-1.0.0d-ppc`
+`./Configure darwin-ppc-cc -shared --prefix=$MUMBLE_PREFIX --openssldir=$MUMBLE_PREFIX/openssl`
+`make`
+`cd ../openssl-1.0.0d-i386`
+`./Configure darwin-i386-cc -shared --prefix=$MUMBLE_PREFIX --openssldir=$MUMBLE_PREFIX/openssl`
+`make`
+`sudo make install`
+`sudo lipo -create libcrypto.1.0.0.dylib ../openssl-1.0.0d-ppc/libcrypto.1.0.0.dylib -output $MUMBLE_PREFIX/lib/libcrypto.1.0.0.dylib`
+`sudo lipo -create libssl.1.0.0.dylib ../openssl-1.0.0d-ppc/libssl.1.0.0.dylib -output $MUMBLE_PREFIX/lib/libssl.1.0.0.dylib`
+
+### Building libxar
+
+Fetch it via Git:
+
+`git clone `<git://github.com/mkrautz/xar.git>` xar.git`
+
+And build it. LibXAR seems not to want to read the 10.5 SDK version of
+libxml2's headers. Instead, it uses the system headers. Therefore we
+must override the include path.
+
+We also want libxar to link against our own OpenSSL dylibs, which is why
+we also add the include path and lib dir for our $MUMBLE_PREFIX.
+
+`cd xar.git/xar`
+`export CFLAGS="-I$OSX_SDK/usr/include/libxml2 ${CFLAGS} -I${MUMBLE_PREFIX}/include/"`
+`export LDFLAGS="${LDFLAGS} -L${MUMBLE_PREFIX}/lib/"`
+`./autogen.sh --prefix=${MUMBLE_PREFIX}`
+`make`
+
+After the build, it's a good thing to make sure things went as they
+should. We want the built libxar to be able to run on both Snow Leopard
+and Leopard. Check that it's linking against our own libcrypto, and that
+it's linking against the 9.0.0 compatibility version of libxml2 (that's
+the Leopard version).
+
+`$ otool -L lib/libxar.1.dylib`
+`    [...]`
+`    /MumbleDeveloper/x86-64/lib/libcrypto.0.9.8.dylib (compatibility version 0.9.8, current version 0.9.8)`
+`    /usr/lib/libxml2.2.dylib (compatibility version 9.0.0, current version 9.16.0)`
+`    [...]`
+
+When all is well, install it:
+
+`sudo make install`
+
+### Building Qt
+
+Download and unpack Qt:
+
+`git clone `<git://gitorious.org/+mumble-developers/qt/mumble-developers-qt.git>
+`cd mumble-developers-qt`
+`git branch -t 4.7-mumble origin/4.7-mumble`
+`git checkout 4.7-mumble`
+
+Then build it:
+
+`unset CFLAGS`
+`unset CXXFLAGS`
+`unset LDFLAGS`
+`export CFLAGS="-I$MUMBLE_PREFIX/include"`
+`export CXXFLAGS="-I$MUMBLE_PREFIX/include"`
+`OPENSSL_LIBS="-L$MUMBLE_PREFIX/lib -lssl -lcrypto" ./configure -pch -debug-and-release -arch x86_64 -cocoa -qt-sql-sqlite -system-zlib -qt-gif -qt-libpng -qt-libjpeg -qdbus -webkit -no-phonon -no-phonon-backend -no-qt3support -openssl-linked -mysql_config no -sdk $OSX_SDK -prefix $MUMBLE_PREFIX/qt-4.7 -opensource -confirm-license`
+`make`
+`sudo make install`
+`export CFLAGS=$OSX_CFLAGS`
+`export CXXFLAGS=$OSX_CFLAGS`
+`export LDFLAGS=$OSX_LDFLAGS`
+
+For universal, use the following configure line instead:
+
+`OPENSSL_LIBS="-L$MUMBLE_PREFIX/lib -lssl -lcrypto" ./configure -pch -debug-and-release -universal -carbon -qt-sql-sqlite -system-zlib -qt-gif -qt-libpng -qt-libjpeg -qdbus -webkit -no-phonon -no-phonon-backend -no-qt3support -openssl-linked -mysql_config no -sdk $OSX_SDK -prefix $MUMBLE_PREFIX/qt-4.7 -opensource -confirm-license`
+
+### Installing Qt icns icon engine
+
+Grab it:
+
+`git clone `<git://github.com/mkrautz/qt-icns-iconengine.git>
+
+Build and install it
+
+`cd qt-icns-iconengine`
+`qmake CONFIG+='release'`
+`make`
+`sudo cp libqicnsicon.dylib $MUMBLE_PREFIX/qt-4.7/plugins/iconengines/libqicnsicon.dylib`
+`make distclean`
+`qmake CONFIG+='debug'`
+`make`
+`sudo cp libqicnsicon.dylib $MUMBLE_PREFIX/qt-4.7/plugins/iconengines/libqicnsicon_debug.dylib`
+
+For universal, use
+
+`qmake CONFIG+='release universal'`
+
+or
+
+`qmake CONFIG+='debug universal'`
+
+when configuring, to get a universal build.
+
+### Installing Boost
+
+Grab the latest version of Boost from <http://www.boost.org/>, as of
+current writing, that is 1.45.0.
+
+It is advisible to unpack Boost to $MUMBLE_PREFIX/include/, so the
+Boost headers will be available in
+$MUMBLE_PREFIX/include/boost-1_45_0/, since Mumble will look for the
+headers in this place by default.
+
+### Building libogg
+
+Grab the latest version (current 1.2.0). Build:
+
+`./configure --disable-dependency-tracking --prefix=$MUMBLE_PREFIX`
+`make`
+`sudo make install`
+
+### Building libvorbis
+
+Grab the latest version (current 1.3.1). Build:
+
+`./configure --disable-dependency-tracking --prefix=$MUMBLE_PREFIX`
+`make`
+`sudo make install`
+
+### Building libFLAC
+
+Grab the latest version (currently 1.2.1). Build (x86-64):
+
+`./configure --build=x86_64-apple-darwin10.2.0 --prefix=/MumbleDeveloper/x86-64/`
+`make`
+`sudo make install`
+
+Universal:
+
+`mkdir -p flac-1.2.1-{i386,ppc}`
+`tar -zxf flac-1.2.1.tar.gz -C flac-1.2.1-ppc --strip-components 1`
+`tar -zxf flac-1.2.1.tar.gz -C flac-1.2.1-i386 --strip-components 1`
+`cd flac-1.2.1-ppc`
+`source /MumbleDeveloper/bin/mumble-universal-build-env`
+`export CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch ppc"`
+`export LDFLAGS="-Wl,-syslibroot,/Developer/SDKs/MacOSX10.5.sdk -arch ppc"`
+`export CC="$CC $CFLAGS"`
+`./configure --build=powerpc-apple-darwin10 --disable-cpplibs --disable-asm-optimizations --prefix=$MUMBLE_PREFIX`
+`make`
+`cd ../flac-1.2.1-i386`
+`source /MumbleDeveloper/bin/mumble-universal-build-env`
+`export CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch i386"`
+`export LDFLAGS="-Wl,-syslibroot,/Developer/SDKs/MacOSX10.5.sdk -arch i386"`
+`export CC="$CC $CFLAGS"`
+`./configure --build=i386-apple-darwin10 --disable-cpplibs --disable-asm-optimizations --prefix=$MUMBLE_PREFIX`
+`sudo make install`
+`sudo lipo -create src/libFLAC/.libs/libFLAC.8.2.0.dylib ../flac-1.2.1-ppc/src/libFLAC/.libs/libFLAC.8.2.0.dylib -output $MUMBLE_PREFIX/lib/libFLAC.8.2.0.dylib`
+
+### Building libsndfile
+
+Grab the latest version (currently 1.0.21). Build:
+
+`./configure --prefix=$MUMBLE_PREFIX --disable-sqlite`
+`make`
+`sudo make install`
+
+For universal:
+
+`mkdir -p libsndfile-1.0.21-{i386,ppc}`
+`tar -zxvf libsndfile-1.0.21.tar.gz -C libsndfile-1.0.21-i386 --strip-components 1`
+`tar -zxvf libsndfile-1.0.21.tar.gz -C libsndfile-1.0.21-ppc --strip-components 1`
+`cd libsndfile-1.0.21-ppc`
+`export CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch ppc"`
+`export CXXFLAGS=$CFLAGS`
+`export LDFLAGS="-Wl,-syslibroot,/Developer/SDKs/MacOSX10.5.sdk -arch ppc"`
+`./configure --prefix=$MUMBLE_PREFIX`
+`make`
+`cd ../libsndfile-1.0.21-i386`
+`export CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch i386"`
+`export CXXFLAGS=$CFLAGS`
+`export LDFLAGS="-Wl,-syslibroot,/Developer/SDKs/MacOSX10.5.sdk -arch i386"`
+`./configure --prefix=$MUMBLE_PREFIX`
+`make`
+`sudo make install`
+`sudo lipo -create ./src/.libs/libsndfile.1.dylib ../libsndfile-1.0.21-ppc/src/.libs/libsndfile.1.dylib -output $MUMBLE_PREFIX/lib/libsndfile.1.dylib`
+
+And after the build, make sure you reload the environment variables:
+
+`source /MumbleDeveloper/bin/mumble-universal-build-env`
+
+### Building Protocol Buffers
+
+Grab the latest version of Protocol Buffers from its Google Code
+project: <http://code.google.com/p/protobuf/>. As of this writing, that
+is version 2.3.0. Direct link:
+<http://protobuf.googlecode.com/files/protobuf-2.3.0.tar.bz2>
+
+Build and install it:
+
+`./configure --disable-dependency-tracking --prefix=$MUMBLE_PREFIX`
+`make`
+`sudo make install`
+
+### Logitech LCD SDK (optional)
+
+Grab it, install it. Build it:
+
+`sudo mkdir -p $MUMBLE_PREFIX/lglcd-sdk/`
+`sudo tar -zxvf /Applications/Logitech/GamePanel\ Software/LCD\ Manager/LCDSDK/LCDSDK.tgz -C $MUMBLE_PREFIX/lglcd-sdk/`
+`sudo chmod -vR +r $MUMBLE_PREFIX/lglcd-sdk/`
+
+### libmcpp
+
+Grab it (current version is 2.7.2). Build it:
+
+`./configure --disable-dependency-tracking --prefix=$MUMBLE_PREFIX --enable-mcpplib`
+`make`
+`sudo make install`
+
+### Berkeley DB
+
+Grab it (current version is 5.0.21). Build it:
+
+`cd build_unix`
+`../dist/configure --disable-dependency-tracking --prefix=$MUMBLE_PREFIX --enable-cxx`
+`sudo make install`
+
+### ZeroC Ice
+
+Grab it (current version is 3.4.1). Apply patch:
+<http://gist.github.com/459204>
+
+`patch -p1 < Ice-3.4.1-db5.patch`
+
+Build it:
+
+`cd cpp`
+`make prefix=$ICE_PREFIX embedded_runpath_prefix=$ICE_PREFIX OPTIMIZE=yes CXX="$CXX $OSX_CFLAGS" CC="$CC $OSX_CFLAGS" DB_HOME=$MUMBLE_PREFIX MCPP_HOME=$MUMBLE_PREFIX`
+`sudo make prefix=$ICE_PREFIX embedded_runpath_prefix=$ICE_PREFIX OPTIMIZE=yes CXX="$CXX $OSX_CFLAGS" CC="$CC $OSX_CFLAGS" DB_HOME=$MUMBLE_PREFIX MCPP_HOME=$MUMBLE_PREFIX install`
+
+## Building Mumble
+
+Fetch the Mumble source from Git:
+
+`git clone `<git://mumble.git.sourceforge.net/gitroot/mumble>` mumble.git`
+`cd mumble.git`
+`git submodule init`
+`git submodule update`
+
+To build the client, execute:
+
+`qmake main.pro CONFIG+='release'`
+`make`
+
+If everything went well, you should now have a Mumble.app application
+bundle in the release directory of the root of the source tree.
+
+## Distributing Mumble
+
+If you wish to create a proper redistributable Mumble application
+bundle, please refer to the osxdist.py script in the macx/scripts
+directory. This will help you clean up your application bundle, include
+the needed dependencies, resources etc., and create a compressed disk
+image - ready to redistribute\!
+
+The script expects you to be in the root of the source tree. After
+executing, it will spit out a .dmg of your Mumble build in the release
+folder.
+
+Please note that the script currently is tuned for creating real
+redistributable versions of Mumble, and as such only works on universal
+(x86, ppc) release builds\!
+
+[Category:Development](Category:Development "wikilink")

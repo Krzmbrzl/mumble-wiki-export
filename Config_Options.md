@@ -1,0 +1,1 @@
+1.  redirect [Murmur.ini](Murmur.ini "wikilink")

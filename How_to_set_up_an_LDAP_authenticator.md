@@ -1,0 +1,181 @@
+In this guide we explain how to setup LDAP authentication for murmurd
+(aka mumble-server).
+
+### Prerequisites
+
+  - A mumble server with a DNS record (mumble.example.com)
+  - Enable ICE with password protection in */etc/mumble-server.ini*:
+
+<!-- end list -->
+
+    ice="tcp -h 127.0.0.1 -p 6502"
+    icesecretread=MySecretIcePass
+    icesecretwrite=MySecretIcePass
+
+  - An LDAP service account (cn=mumble,ou=dsa,dc=example,dc=com):
+
+<!-- end list -->
+
+    $ ldapsearch -ZZ -x -H ldap://ldap.example.com -D "cn=mumble,ou=dsa,dc=example,dc=com" -b ou=people,dc=example,dc=com -W -s sub '(uid=myldapusername)' -LLL
+    Enter LDAP Password:
+    dn: uid=myldapusername,ou=people,dc=example,dc=com
+    cn: User Name
+    sn: Name
+    givenName: User
+    uid: myldapusername
+    displayName: User Name
+    objectClass: inetOrgPerson
+    objectClass: organizationalPerson
+    objectClass: person
+    mail: myldapusername@example.com
+    roomNumber: 111
+    userPassword:: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX=
+
+NOTE: Setting up a unique roomNumber in LDAP is important since this is
+the field we are using for uniqueness in Mumble.
+
+### Get the LDAP Authenticator
+
+  - Download the LDAP authenticator and sample configuration:
+
+<!-- end list -->
+
+    # curl -s -OL https://raw.githubusercontent.com/mumble-voip/mumble-scripts/master/Authenticators/LDAP/LDAPauth.py
+    # curl -s -OL https://raw.githubusercontent.com/mumble-voip/mumble-scripts/master/Authenticators/LDAP/LDAPauth.ini
+
+### Setup the LDAP Authenticator
+
+  - Install the authenticator script:
+
+<!-- end list -->
+
+    # cp LDAPauth.py /usr/local/sbin/
+    # chmod +x /usr/local/sbin/LDAPauth.py
+
+  - Install the config file:
+
+<!-- end list -->
+
+    # mkdir /etc/mumble-scripts
+    # cp LDAPauth.ini /etc/mumble-scripts
+
+  - Edit the configuration (*/etc/mumble-scripts/LDAPauth.ini*)
+    appropriately:
+
+<!-- end list -->
+
+    [user]
+    id_offset       = 1000000000
+    reject_on_error = True
+    reject_on_miss  = True
+
+    [ice]
+    host            = 127.0.0.1
+    port            = 6502
+    slice           = /usr/share/slice/Murmur.ice
+    secret          = MySecretIcePass
+    watchdog        = 30
+
+    [ldap]
+    bind_dn = cn=mumble,ou=dsa,dc=example,dc=com
+    bind_pass = MySecretLDAPPass
+    ldap_uri = ldaps://ldap.example.com
+    users_dn = ou=people,dc=example,dc=com
+    discover_dn = false
+    username_attr = uid
+    number_attr = roomNumber
+    display_attr = cn
+    group_cn = cn=all,ou=groups,dc=example,dc=com
+    group_attr = member
+    provide_info = True
+    mail_attr = mail
+    provide_users = True
+
+    [murmur]
+    servers      =
+
+    [log]
+    level   =
+    file    = /var/log/mumble-server/LDAPauth.log
+
+    [iceraw]
+    Ice.ThreadPool.Server.Size = 5
+
+NOTE: If you don't use ldap**s**:// all the LDAP communication will be
+in the clear\!
+
+### Start LDAPAuth.py as a systemd service
+
+  - Create a systemd service file under
+    */etc/systemd/system/mumble-ldapauth.service*:
+
+<!-- end list -->
+
+    [Unit]
+    Description=LDAP Authentication Service for Mumble Server
+    Documentation=https://github.com/mumble-voip/mumble-scripts/issues/19
+    After=network.target mumble-server.service
+
+    [Service]
+    Type=simple
+    User=mumble-server
+    Group=mumble-server
+    WorkingDirectory=/etc/mumble-scripts
+    ExecStart=/usr/local/sbin/LDAPauth.py
+    StandardOutput=syslog
+    StandardError=syslog
+
+    [Install]
+    WantedBy=multi-user.target
+
+  - Start and enable the service:
+
+<!-- end list -->
+
+    # systemctl daemon-reload
+    # systemctl enable mumble-ldapauth.service
+    # systemctl start mumble-ldapauth.service
+
+  - Verify:
+
+<!-- end list -->
+
+    # systemctl status mumble-ldapauth.service
+    * mumble-ldapauth.service - LDAP Authentication Service for Mumble Server
+       Loaded: loaded (/etc/systemd/system/mumble-ldapauth.service; enabled; vendor preset: enabled)
+       Active: active (running) since Sun 2019-09-01 00:29:50 PDT; 3s ago
+         Docs: https://github.com/mumble-voip/mumble-scripts/issues/19
+     Main PID: 2544 (python)
+        Tasks: 12 (limit: 4915)
+       Memory: 44.4M
+       CGroup: /system.slice/mumble-ldapauth.service
+               `-2544 python /usr/local/sbin/LDAPauth.py
+
+    Sep 01 00:29:50 chat systemd[1]: Started LDAP Authentication Service for Mumble Server.
+
+  - Restart both services:
+
+<!-- end list -->
+
+    # systemctl restart mumble-{server,ldapauth}.service
+
+### Connect to mumble
+
+Use these client settings:
+
+  - Address: **mumble.example.com**
+  - Port: **64738**
+  - Username: **myldapusername**
+  - Label: **My Mumble Server**
+
+### References:
+
+-----
+
+  - <https://github.com/mumble-voip/mumble-scripts/tree/master/Authenticators/LDAP>
+  - <https://www.skelleton.net/2014/10/16/setting-up-an-active-directory-authenticated-mumble-server/>
+  - <https://github.com/mumble-voip/mumble-scripts/issues/19>
+  - <https://stackoverflow.com/questions/13069634/python-daemon-and-systemd-service>
+
+[Category:Documentation
+English](Category:Documentation_English "wikilink")
