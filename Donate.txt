@@ -1,9 +1,0 @@
-If you want to donate to the Mumble project you can do so via:
-<big>'''[https://salt.bountysource.com/teams/mumble-voip Bountysource SALT]'''</big>
-
-or via <big>'''[[wikien:Bitcoin|Bitcoin]]'''</big>:
-[[File:154LqCSUBB4V8gUEaRRNveBZxSNGFbnZtQ.png|framed|left|Bitcoin donation address QR code]]
- '''Bitcoin donation address:'''
- 154LqCSUBB4V8gUEaRRNveBZxSNGFbnZtQ
-
-[[Category:Mumble project]]
